@@ -3,6 +3,32 @@
 * **Nadhira Rachma Salsabila Anandra** - *2006484974* - *C*
 
 ---
+## Tutorial 2
+
+### What I have learned today
+
+1. Cobalah untuk menambahkan sebuah Course dengan mengakses link berikut:
+http://localhost:8080/course/add?code=APAP&nameCourse=APAP%20Tutorial2&description=2020%20Fasilkom&jumlahSks=3 
+Apa yang terjadi? Jelaskan mengapa hal tersebut dapat terjadi
+note : Apabila Mahasiswa merubah port pada application.properties, silahkan atur localhost sesuai port yang kalian gunakan
+- Ketika mengakses link tersebut, ditampilkan Whitelabel Error Page yang diakibatkan oleh view template yang dicantumkan pada Controller (“add-course”) belum dibuat.
+
+2. Menurut kamu anotasi @Autowired pada class Controller tersebut merupakan implementasi dari konsep apa? Dan jelaskan secara singkat cara kerja @Autowired tersebut dalam konteks service dan controller yang telah kamu buat
+- Anotasi @Autowired pada class Controller merupakan implementasi dari konsep dependency injection. Dengan menambahkan @Autowired pada class Controller, secara otomatis CourseService akan terinjeksi atau tidak diperlukannya untuk menulis ulang atau membuat objek baru. 
+
+3. Cobalah untuk menambahkan sebuah Course dengan mengakses link berikut: http://localhost:8080/course/add?code=APAP&nameCourse=APAP%20Tutorial2&jumlahSks=3   Apa yang terjadi? Jelaskan mengapa hal tersebut dapat terjadi.
+- Ketika mengakses link tersebut, ditampilkan Whitelabel Error Page yang diakibatkan oleh tidak adanya request parameter 'description' yang didefinisikan pada link.
+
+4. Jika Papa APAP ingin melihat Course dengan kode APAP, link apa yang harus diakses?
+http://localhost:8080/course/view?code=APAP
+
+5. Tambahkan 1 contoh Course lainnya sesukamu. Lalu cobalah untuk mengakses http://localhost:8080/course/viewAll, apa yang akan ditampilkan? Sertakan juga bukti screenshotmu. 
+- Daftar course beserta informasi lengkap dari course akan ditampilkan. ![bukti](bukti-viewAll-tutorial2.png)
+
+Referensi: 
+- https://www.baeldung.com/spring-autowire
+
+---
 ## Tutorial 1
 
 ### What I have learned today
@@ -44,6 +70,7 @@ Referensi:
 sudah mengerti dikemudian hari, dan tambahkan tulisan yang membuat Anda mengerti)
 - [ ] Kenapa saya harus belajar APAP?
 - [ ] Apa saja konsep-konsep dasar yang harus dipahami dalam Spring?
+
 Karena ...
 (Anda dapat membuat tampilan code dalam README.md menjadi lebih baik. Cari tahu
 lebih dalam tentang penulisan README.md di GitLab pada link
