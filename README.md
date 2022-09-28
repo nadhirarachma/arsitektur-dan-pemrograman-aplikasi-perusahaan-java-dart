@@ -3,6 +3,47 @@
 * **Nadhira Rachma Salsabila Anandra** - *2006484974* - *C*
 
 ---
+## Tutorial 3
+
+### What I have learned today
+1. Tolong jelaskan secara singkat apa kegunaan dari anotasi-anotasi yang ada pada model (@AllArgsConstructor, @NoArgsConstructor, @Setter, @Getter, @Entity, @Table)
+- @AllArgsConstructor : membuat sebuah constructor dengan 1 parameter untuk setiap field pada class.
+- @NoArgsConstructor : membuat sebuah constructor tanpa parameter untuk setiap field pada class.
+- @Setter : membuat setter.
+- @Getter : membuat getter.
+- @Entity : mendefinisikan bahwa sebuah class merupakan JPA entity yang telah dipetakan ke tabel pada database.
+- @Table : mendefinisikan nama tabel pada database yang digunakan untuk mapping.
+
+2. Pada class CourseDb, terdapat method findByCodeUsingQuery dan findByCode, apakah perbedaan kedua method tersebut? Jelaskan juga kegunaan @Query pada method findByCodeUsingQuery!
+- findByCodeUsingQuery maupun findByCode sama-sama akan mengembalikan sebuah objek bertipe Optional berdasarkan code course. Perbedaan terletak pada penggunaan anotasi @Query pada method findByCodeUsingQuery dimana pencarian code akan dilakukan menggunakan query sedangkan findByCode tidak.
+- @Query : mendefinisikan query yang akan dieksekusi pada model untuk sebuah method.
+
+3. Jelaskan perbedaan kegunaan dari anotasi @JoinTable dan @JoinColumn
+- @JoinTable : digunakan ketika entitas pada tabel yang berbeda memiliki hubungan. Anotasi menyimpan ID dari kedua entitas pada tabel yang berbeda.
+- @JoinColumn : digunakan ketika entitas memiliki hubungan langsung seperti adanya foreign key antar kedua entitas. Anotasi menyimpan ID dari entitas lain pada kolom baru pada tabel yang sama.
+
+4. Pada class Pengajar, digunakan anotasi @JoinColumn pada atribut Course, apa kegunaan dari name, referencedColumnName, dan nullable dalam anotasi tersebut? dan apa perbedaan nullable dan penggunaan anotasi @NotNull
+- name : mendefinisikan column yang akan menjadi foreign key.
+- referencedColumnName : mendefinisikan column yang dijadikan referensi oleh foreign key.
+- nullable : mendefinisikan bahwa return value dapat berupa null pada situasi tertentu.
+- @NotNull : mendefinisikan bahwa method tidak dapat mengembalikan nilai null atau field yang memiliki anotasi tidak boleh bernilai null.
+- Perbedaan nullable dan @NotNull terletak pada kemungkinan pengembalian nilai null.
+
+5. Jelaskan kegunaan FetchType.LAZY, CascadeType.ALL, dan FetchType.EAGER
+- FetchType.LAZY : mengambil entitas yang berhubungan saja pada suatu relationship dimamna atribut yang diload berupa atribut yang dibutuhkan saja.
+- CascadeType.ALL : mendefiniskan seluruh operasi cascade seperti persist, merge, refresh, remove, serta detach dimana operasi pada salah satu entitas akan berdampak pada seluruh entitas lain yang berhubungan.
+- FetchType.EAGER : mengambil seluruh elemen pada relationship ketika mengambil root entity dimana seluruh atribut akan diload dalam waktu yang bersamaan.
+
+Referensi: 
+- https://projectlombok.org/features/constructor
+- https://projectlombok.org/features/GetterSetter
+- https://www.baeldung.com/spring-data-jpa-query
+- https://javakeypoint.wordpress.com/2020/04/21/difference-between-joincolumn-and-jointable-in-hibernate/
+- https://www.objectdb.com/api/java/jpa/JoinColumn
+- https://thorben-janssen.com/entity-mappings-introduction-jpa-fetchtypes/#FetchTypeEAGER_8211_Fetch_it_so_you8217ll_have_it_when_you_need_it
+- https://howtodoinjava.com/hibernate/hibernate-jpa-cascade-types/
+
+---
 ## Tutorial 2
 
 ### What I have learned today

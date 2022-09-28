@@ -12,6 +12,10 @@ public interface CourseService {
     //Method untuk mendapatkan data course berdasarkan code course
     CourseModel getCourseByCodeCourse(String code);
 
+    CourseModel getCourseByCodeCourseQuery(String code);
+
+    CourseModel updateCourse(CourseModel course);
+
     //Method untuk menghapus course
-    void deleteCourse(CourseModel course);
+    CourseModel deleteCourse(CourseModel course);
 }

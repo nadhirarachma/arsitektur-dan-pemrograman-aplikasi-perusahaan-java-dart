@@ -1,42 +1,62 @@
 package apap.tutorial.belajarbelajar.service;
 
-import java.util.ArrayList;
-import java.util.List;
+import apap.tutorial.belajarbelajar.model.CourseModel;
+import apap.tutorial.belajarbelajar.repository.CourseDb;
+import apap.tutorial.belajarbelajar.repository.PengajarDb;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import apap.tutorial.belajarbelajar.model.CourseModel;
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
 
 @Service
+@Transactional
 public class CourseServiceImpl implements CourseService {
-    private List<CourseModel> listCourse;
+    @Autowired
+    CourseDb courseDb;
 
-    public CourseServiceImpl() {
-        listCourse = new ArrayList<>();
-    }
+    @Autowired
+    PengajarDb pengajarDb;
 
     @Override
     public void addCourse(CourseModel course) {
-        listCourse.add(course);
+        courseDb.save(course);
     }
 
     @Override
     public List<CourseModel> getListCourse() {
-        return listCourse;
+        return courseDb.findByNameCourseUsingQuery();
     }
 
     @Override
     public CourseModel getCourseByCodeCourse(String code) {
-        for (int i = 0; i < listCourse.size(); i++) {
-            if (listCourse.get(i).getCode().equals(code)) {
-                return listCourse.get(i);
-            }
+        Optional<CourseModel> course = courseDb.findByCode(code);
+        if (course.isPresent()) {
+            return course.get();
         }
-        return null;
+        else return null;
+    }
+
+    @Override 
+    public CourseModel getCourseByCodeCourseQuery(String code) {
+        Optional<CourseModel> course = courseDb.findByCodeUsingQuery(code);
+        if (course.isPresent()) {
+            return course.get();
+        }
+        else return null;
     }
 
     @Override
-    public void deleteCourse(CourseModel course) {
-        listCourse.remove(course);
+    public CourseModel updateCourse(CourseModel course) {
+        courseDb.save(course);
+        return course;
+    }
+
+    @Override
+    public CourseModel deleteCourse(CourseModel course) {
+        courseDb.delete(course);
+        return course;
     }
 }
