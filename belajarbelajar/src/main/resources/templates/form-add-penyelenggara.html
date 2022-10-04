@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
+ 
     <head>
-        <meta charset="UTF-8">
         <title>BelajarBelajar</title>
         <object th:include="fragments/fragment :: css" th:remove="tag"></object>
         <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     </head>
+ 
     <body>
-        <nav th:replace="fragments/fragment :: navbar('Course')"></nav>
+        <nav th:replace="fragments/fragment :: navbar('Penyelenggara')"></nav>
         <div class="container">
             <div class="card m-4 p-4">
                 <div class="card-body">
                     <div class="justify-content-center">
-                        <h2>Update Pengajar</h2>
+                        <h2>Tambah Penyelenggara</h2>
                         <br>
-                        <form th:action="@{/pengajar/update}" th:object="${pengajar}" method="POST">
-                            <input type="hidden" th:field="*{course}" />
-                            <input type="hidden" th:field="*{noPengajar}" />
+                        <form th:action="@{/penyelenggara/add}" th:object="${penyelenggara}" method="POST">
         
+                            Nama Penyelenggara : <br>
+                            <input required class="form-control" type="text" th:field="*{namaPenyelenggara}" />
+                            <br><br>
         
-                            Nama Pengajar : <br>
-                            <input class="form-control" type="text" name="namaPengajar" th:value="*{namaPengajar}"/>
-                            <br>
-        
-                            Tipe Pengajar : <br>
-                            <select name="isPengajarUniversitas">
-                                <option value="0">Bukan Pengajar Universitas</option>
-                                <option value="1">Pengajar Universitas</option>
+                            Bebas Visa : <br>
+                            <select th:field="*{jenisLembaga}"
+                                    class="form-control">
+                                <option th:value="0" th:text="Non-Pendidikan"></option>
+                                <option th:value="1" th:text="Pendidikan"></option>
                             </select>
                             <br><br>
         

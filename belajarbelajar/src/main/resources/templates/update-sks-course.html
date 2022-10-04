@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://thymeleaf.org">
     <head>
-        <meta charset="UTF-8"/>
+        <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Update Jumlah Sks Course</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
     </head>
     <body>
+        <nav th:replace="fragments/fragment :: navbar('Course')"></nav>
         <h2
             th:text="'Jumlah Sks untuk Course dengan code Course ' + ${code} + ' berhasil diubah.'"
         ></h2>
