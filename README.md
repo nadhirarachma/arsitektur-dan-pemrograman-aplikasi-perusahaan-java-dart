@@ -3,6 +3,26 @@
 * **Nadhira Rachma Salsabila Anandra** - *2006484974* - *C*
 
 ---
+## Tutorial 4
+
+### What I have learned today
+1. Jelaskan perbedaan th:include dan th:replace!
+- th:include : memasukkan konten fragmen spesifik pada host tag tanpa tag dari fragmen. 
+- th:replace : mengganti host tag dengan konten fragmen spesifik yang diikuti oleh tag dari fragmen.
+
+2. Jelaskan apa fungsi dari th:object! 
+- th:object : merupakan sebuah bean object yang menyimpan atribut-atribut beserta nilai-nilai yang didapatkan dari input pada form.
+
+3. Jelaskan perbedaan dari * dan $ pada saat penggunaan th:object! Kapan harus dipakai?
+- * = mendefinisikan atribut-atribut mana yang akan dievaluasi dari suatu objek/variabel.
+- $ = mendefinisikan objek/variabel mana yang akan dievaluasi.
+
+Referensi: 
+- https://attacomsian.com/blog/thymeleaf-fragments
+- https://frontbackend.com/thymeleaf/working-with-forms-in-thymeleaf
+- https://www.thymeleaf.org/doc/articles/standarddialect5minutes.html
+
+---
 ## Tutorial 3
 
 ### What I have learned today

@@ -1,6 +1,7 @@
 package apap.tutorial.belajarbelajar.service;
 import apap.tutorial.belajarbelajar.model.CourseModel;
 import java.util.List;
+import java.time.LocalDateTime;
 
 public interface CourseService {
     //Method untuk menambahkan course
@@ -18,4 +19,6 @@ public interface CourseService {
 
     //Method untuk menghapus course
     CourseModel deleteCourse(CourseModel course);
+
+    boolean isClosed(LocalDateTime tanggalDimulai, LocalDateTime tanggalBerakhir);
 }

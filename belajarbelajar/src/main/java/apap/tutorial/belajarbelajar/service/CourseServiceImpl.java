@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.time.LocalDateTime;
 
 @Service
 @Transactional
@@ -58,5 +59,14 @@ public class CourseServiceImpl implements CourseService {
     public CourseModel deleteCourse(CourseModel course) {
         courseDb.delete(course);
         return course;
+    }
+
+    @Override 
+    public boolean isClosed(LocalDateTime tanggalDimulai, LocalDateTime tanggalBerakhir) {
+        LocalDateTime now = LocalDateTime.now();
+        if (now.isBefore(tanggalDimulai) || now.isAfter(tanggalBerakhir)) {
+            return true;
+        }
+        return false;
     }
 }

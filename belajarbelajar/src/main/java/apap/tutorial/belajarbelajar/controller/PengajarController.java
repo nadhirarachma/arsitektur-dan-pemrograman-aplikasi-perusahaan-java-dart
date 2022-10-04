@@ -68,20 +68,32 @@ public class PengajarController {
         }
     }
 
-    @GetMapping("/pengajar/delete/{noPengajar}")
-    public String deletePengajar(@PathVariable Long noPengajar, Model model) {
+    // @GetMapping("/pengajar/delete/{noPengajar}")
+    // public String deletePengajar(@PathVariable Long noPengajar, Model model) {
         
-        LocalDateTime currentTime = LocalDateTime.now();
-        PengajarModel pengajar = pengajarService.getPengajarByNoPengajarQuery(noPengajar);
-        CourseModel course = pengajar.getCourse();
+    //     LocalDateTime currentTime = LocalDateTime.now();
+    //     PengajarModel pengajar = pengajarService.getPengajarByNoPengajarQuery(noPengajar);
+    //     CourseModel course = pengajar.getCourse();
     
-        if (currentTime.isAfter(course.getTanggalBerakhir())) {
-            PengajarModel deletedPengajar = pengajarService.deletePengajar(pengajar);
-            model.addAttribute("noPengajar", deletedPengajar.getNoPengajar());
+    //     if (currentTime.isAfter(course.getTanggalBerakhir())) {
+    //         PengajarModel deletedPengajar = pengajarService.deletePengajar(pengajar);
+    //         model.addAttribute("noPengajar", deletedPengajar.getNoPengajar());
+    //         return "delete-pengajar";
+    //     }
+    //     else {
+    //         return "error-course-buka";
+    //     }
+    // }
+
+    @PostMapping("/pengajar/delete")
+    public String deletePengajarSubmit(@ModelAttribute CourseModel course, Model model) {
+        if (courseService.isClosed(course.getTanggalDimulai(), course.getTanggalBerakhir())) {
+            for (PengajarModel pengajar : course.getListPengajar()) {
+                pengajarService.deletePengajar(pengajar);
+            }
+            model.addAttribute("code", course.getCode());
             return "delete-pengajar";
         }
-        else {
-            return "error-course-buka";
-        }
+        return "error-course-buka";
     }
 }
