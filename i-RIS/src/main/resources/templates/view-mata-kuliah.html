@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>i-RIS</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar('Mata Kuliah')"></nav>
+        <br>
+        <div class="container">
+            <div class="justify-content-center">
+                <br>
+                <a href="/mata-kuliah" class="text-left text-info font-weight-bold mt-5">&larr; <u>List Mata Kuliah</u></a>
+                <h2 class="text-center font-weight-bold mt-3">Detail Mata Kuliah</h2>
+                <br>
+                <div class="card mx-auto shadow p-3 mb-5 bg-white rounded" style="max-width: 50rem;">
+                    <div class="card-body">
+                        <div class = "row ml-4">
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Code</p>
+                                <p th:text="${mataKuliah.code}"></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-info font-weight-bold">SKS</p>
+                                <p th:text="${mataKuliah.sks} + ' SKS'"></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Kapasitas</p>
+                                <p th:text="${mataKuliah.kapasitasKelas}"></p>
+                            </div>
+                        </div>
+
+                        <div class = "row ml-4">
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Nama Mata Kuliah</p>
+                                <p th:text="${mataKuliah.namaMatkul}"></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Hari</p>
+                                <p th:text="${mataKuliah.hari}"></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Total Mahasiswa</p>
+                                <p th:text="${mataKuliah.totalMahasiswa}"></p>
+                            </div>
+                        </div>
+
+                        <div class = "row ml-4">
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Semester</p>
+                                <p th:if = "${mataKuliah.semester == 'Ganjil'}">Ganjil</p>
+                                <p th:unless = "${mataKuliah.semester == 'Ganjil'}">Genap</p>
+                            </div>
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Waktu</p>
+                                <p th:text="${mataKuliah.waktuMulai} + ' - ' + ${mataKuliah.waktuSelesai}"></p>
+                            </div>
+                            <div class="col">
+                                <p></p>
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <table class = "table table-striped mb-5">
+                    <thead class="bg-info">
+                        <tr class="text-center">
+                            <th>No</th>
+                            <th>Dosen Pengajar</th>
+                            <th>Ruang Kelas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each = "dosenMatkul, iterationStatus : ${mataKuliah.dosenMataKuliah}"
+                            class="text-center">
+                            <td th:text = "${iterationStatus.count}"></td>
+                            <td th:text = "${dosenMatkul.dosen.namaDepan} + ' ' + ${dosenMatkul.dosen.namaBelakang}"></td>
+                            <td th:text = "${dosenMatkul.ruangKelas}"></td>
+                        </tr>
+                    </tbody>
+                </table>     
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>i-RIS</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar('Mahasiswa')"></nav>
+        <div class="container">
+            <div class="justify-content-center mt-5">
+                <div th:switch = "${status}">
+                    <div th:case = "success">
+                        <div class="d-inline h2 text-dark">IRS dengan semester</div>
+                        <div class="d-inline h2 font-weight-bold text-info" th:text="${semester}"></div>
+                        <div class="d-inline h2 text-dark">telah berhasil diubah.</div>
+                    </div>
+                    <h2 th:case = "24" th:text="'Gagal mengubah IRS, SKS lebih dari 24.'"></h2>
+                </div>
+                <br>
+                <a class="btn btn-outline-dark text-center font-weight-bold" th:href="@{/mahasiswa/} + ${npm}">Kembali</a>
+            </div>
+        </div>
+    </body>
+</html>

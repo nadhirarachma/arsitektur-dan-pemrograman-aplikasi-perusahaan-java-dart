@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>i-RIS</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar('Mahasiswa')"></nav>
+        <div class="container my-5">
+            <div class="justify-content-center mt-5">
+                <div th:switch = "${status}">
+                    <div th:case = "success">
+                        <div class="d-inline h2 text-dark">Mahasiswa dengan NPM</div>
+                        <div class="d-inline h2 font-weight-bold text-info" th:text="${npm}"></div>
+                        <div class="d-inline h2 text-dark">telah berhasil ditambahkan.</div>
+                    </div>
+                    <div th:case = "npmExist">
+                        <div class="d-inline h2 text-dark">Gagal menambah Mahasiswa, Mahasiswa dengan NPM</div>
+                        <div class="d-inline h2 font-weight-bold text-info" th:text="${npm}"></div>
+                        <div class="d-inline h2 text-dark">telah terdapat pada sistem.</div>
+                    </div>
+                    <div th:case = "emailExist">
+                        <div class="d-inline h2 text-dark">Gagal menambah Mahasiswa, Mahasiswa dengan Email</div>
+                        <div class="d-inline h2 font-weight-bold text-info" th:text="${email}"></div>
+                        <div class="d-inline h2 text-dark">telah terdapat pada sistem.</div>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div class="text-center mt-5">
+                <a class="btn btn-outline-dark text-center font-weight-bold" href="/mahasiswa">Kembali</a>
+            </div>
+        </div>
+    </body>
+</html>

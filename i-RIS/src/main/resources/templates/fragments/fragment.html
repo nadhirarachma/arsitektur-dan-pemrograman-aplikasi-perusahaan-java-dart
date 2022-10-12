@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <head th:fragment="css">
+            <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+        </head>
+        <head th:fragment="js">
+            <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZCTkaix6Yvo6HppcZGetbYMGWSFIBw8HfCJo="
+            crossorigin="anonymous"
+            ></script>
+            <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+            <script th:src="@{/js/bootstrap.min.js}"></script>
+        </head>
+    </head>
+    <body>
+        <nav th:fragment="navbar(page)" class="navbar navbar-expand-lg navbar-light bg-info">
+            <a class="navbar-brand font-weight-bold text-white" href="/">i-RIS</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li th:classappend="${page == 'Beranda'} ? font-weight-bold : ''" class="nav-item">
+                        <a class="nav-link text-white px-2 mx-3" href="/">Beranda</a>
+                    </li>
+                    <li th:classappend="${page == 'Mahasiswa'} ? font-weight-bold: ''"class="nav-item">
+                        <a class="nav-link text-white px-2 mx-3" href="/mahasiswa">Mahasiswa</a>
+                    </li>
+                    <li th:classappend="${page == 'Mata Kuliah'} ? font-weight-bold : ''"class="nav-item">
+                        <a class="nav-link text-white px-2 mx-3" href="/mata-kuliah">Mata Kuliah</a>
+                    </li>
+                    <li th:classappend="${page == 'Filter'} ? font-weight-bold : ''"class="nav-item">
+                        <a class="nav-link text-white px-2 mx-3 mr-4" href="/filter">Filter</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </body>
+</html>
