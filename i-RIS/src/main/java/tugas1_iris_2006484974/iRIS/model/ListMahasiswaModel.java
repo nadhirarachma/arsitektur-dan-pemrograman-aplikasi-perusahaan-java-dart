@@ -14,12 +14,9 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "list_mahasiswa")
 public class ListMahasiswaModel implements Serializable {
     @Id
     private String id;
 
-    @OneToMany(mappedBy = "uuid")
     List<MahasiswaModel> listMahasiswa;
 }
