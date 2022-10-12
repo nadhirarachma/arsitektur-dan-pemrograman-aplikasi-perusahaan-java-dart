@@ -3,6 +3,31 @@
 * **Nadhira Rachma Salsabila Anandra** - *2006484974* - *C*
 
 ---
+## Tutorial 5
+
+### What I have learned today
+1. Apa itu Postman? Apa kegunaannya?
+- Postman merupakan sebuah tools berupa aplikasi yang dapat digunakan untuk membangun, menguji, mengubah, dan mendokumentasikan API (Application Programming Interface). Postman dapat memfasilitasi pengiriman dan penerimaan HTTP request maupun response, membuat environment, mengubah API menjadi kode untuk berbagai bahasa pemrograman, membuat collections untuk testing sehingga tidak diperlukannya kode HTTP client network, dan masih banyak lagi.
+
+2. Jelaskan fungsi dari anotasi @JsonIgnoreProperties dan @JsonProperty.
+- @JsonIgnoreProperties : mendefinisikan property atau atribut yang dapat diabaikan dalam suatu class khususnya ketika mengembalikan respon berupa JSON.
+- @JsonProperty : mendefiniskan nama property atau atribut yang akan digunakan ketika mengembalikan respon berupa JSON.
+
+3. Apa kegunaan atribut WebClient?
+- WebClient merupakan sebuah non-blocking reactive web client yang berfungsi untuk melakukan HTTP request dan mengembalikan data dari sebuah URI tertentu.
+
+4. Apa itu ResponseEntity dan BindingResult? Apa kegunaannya?
+- ResponseEntity : merepresentasikan keselurahan HTTP response berupa status code, header, dan body.
+- BindingResult : menyimpan hasil dari proses validasi dan binding yang mengandung error yang mungkin terjadi. BindingResult haruslah muncul setelah proses validasi dari objek terjadi dikarenakan jika tidak Spring tidak berhasil untuk memvalidasi objek dan akan melempar exception. 
+
+Referensi: 
+- https://www.javatpoint.com/postman
+- https://github.com/FasterXML/jackson-annotations/wiki/Jackson-Annotations
+- https://howtodoinjava.com/spring-webflux/webclient-get-post-example/
+- https://www.baeldung.com/spring-response-entity
+- https://zetcode.com/spring/bindingresult/
+
+---
 ## Tutorial 4
 
 ### What I have learned today
@@ -14,7 +39,7 @@
 - th:object : merupakan sebuah bean object yang menyimpan atribut-atribut beserta nilai-nilai yang didapatkan dari input pada form.
 
 3. Jelaskan perbedaan dari * dan $ pada saat penggunaan th:object! Kapan harus dipakai?
-- * = mendefinisikan atribut-atribut mana yang akan dievaluasi dari suatu objek/variabel.
+- '*' = mendefinisikan atribut-atribut mana yang akan dievaluasi dari suatu objek/variabel.
 - $ = mendefinisikan objek/variabel mana yang akan dievaluasi.
 
 Referensi: 

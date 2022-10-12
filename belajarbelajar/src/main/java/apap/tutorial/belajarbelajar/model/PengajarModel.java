@@ -12,11 +12,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@JsonIgnoreProperties(value={"course"}, allowSetters = true)
 @Table(name = "pengajar")
 public class PengajarModel implements Serializable {
     @Id 
@@ -37,4 +40,7 @@ public class PengajarModel implements Serializable {
     @JoinColumn(name = "code", referencedColumnName = "code", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private CourseModel course;
+
+    @Column(name = "jenis_kelamin") 
+    private Boolean jenisKelamin;
 }
