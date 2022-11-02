@@ -3,6 +3,50 @@
 * **Nadhira Rachma Salsabila Anandra** - *2006484974* - *C*
 
 ---
+## Tutorial 6
+
+### What I have learned today
+1. Perhatikan apa yang terjadi pada file index.html pada branch feat/tutorial-6-advancedgit-1. Apa yang terjadi setelah git cherry-pick dilakukan? Apakah kita bisa melakukan cherrypick tanpa harus melakukan commit?
+- Setelah dilakukan cherry-pick, file index.html pada branch feat/tutorial-6-advancedgit-1 yang semula kosong menjadi terisi dengan kode pada file index.html yang telah dicommit pertama pada branch tut6-for-cherrypick yang berisi head dari html yang merupakan target commit dari cherry-pick. Kita dapat melakukan cherrypick tanpa melakukan commit dengan menambahkan -n atau --no-commit pada command git cherry-pick.
+
+2. Mengapa terjadi conflict ketika dilakukan git merge?
+- Conflict ketika dilakukan git merge terjadi dikarenakan isi dari body pada line yang sama pada kedua file index.html pada kedua branch berbeda, dimana command git merge sendiri berfungsi untuk menggabungkan isi dari kedua file. Perbedaan tersebut menimbulkan kebingungan pada sistem terkait isi dari file mana yang perlu dipertahankan. Conflict dapat diselesaikan dengan menggunakan kedua perubahan, memilih salah satu, ataupun membatalkan proses merge. 
+
+3. Apa yang terjadi pada log history setelah melakukan rebase (branch rebase-1 dan rebase-2)? Sertakan screenshot log history anda pada kedua branch tersebut!
+- Setelah dilakukan rebase, log history pada branch rebase-1 akan menampilkan riwayat commit yang dilakukan pada branch tersebut. Di sisi lain, log history pada branch rebase-2 akan menampilkan riwayat commit dari rebase-2 dan juga rebase-1 berupa 'add rebase file on rebase-1' dan 'add a.txt file'. Selain itu, commit pertama pada branch rebase-2 berupa 'add rebase file on rebase-1' telah digantikan dengan 'solve rebase.txt conflict' akibat dilakukannya perbaikan dimana command rebase menunjukkan adanya konflik pada file rebase.txt pada kedua branch. Branch rebase-2 menampilkan riwayat commit dari kedua branch dikarenakan git rebase hanya dilakukan pada branch rebase-2.
+- Screenshot log history pada kedua branch:
+
+[Rebase-1] 
+
+![log-history-rebase-1](log-history-rebase-1.png)
+
+[Rebase-2] 
+
+![log-history-rebase-2](log-history-rebase-2.png)
+
+4. Jelaskan perbedaan dari "rebase –continue", "rebase –skip", dan "rebase –abort"!
+- Rebase -continue : digunakan untuk melanjutkan proses rebase setelah dilakukan penyelesaian konflik.
+- Rebase -skip : digunakan untuk mengulang proses rebase dengan melewati patch saat ini. 
+- Rebase -abort : digunakan untuk membatalkan terjadinya git rebase dan mereset HEAD pada branch original dimana terjadinya operasi rebase pertama kali.
+
+5. Jelaskan perbedaan git rebase dan git merge!
+- Git rebase : memfasilitasi integrasi perubahan antar branch-branch yang ada dimana seluruh commit yang dilakukan akan direbase dan jumlah commit yang sama akan ditambahkan pada master branch. Selain itu, log akan bersifat linear dikarenakan seluruh commit telah direbase. Git rebase digunakan ketika target branch berupa private branch. 
+- Git merge : memfasilitasi penggabungan branch-branch yang ada dimana seluruh commit yang dilakukan pada branch akan digabungkan menjadi sebuah commit pada master branch. Selain itu, log akan menampilkan riwayat lengkap dari penggabungan commit. Git merge digunakan ketika target branch berupa shared branch. 
+
+6. Pada tahap ini apakah yang terjadi pada direktori git-stash?
+- Pada tahap tersebut, direktori git-stash akan menghilang dari branch feat/tutorial-6-advancedgit-1 dikarenakan direktori git-stash telah dipindahkan pada branch feature-stash-1 melalui command git stash yang dapat memindahkan file/direktori dari satu branch pada branch lainnya. 
+
+7. Apa yang terjadi pada file abc.txt setelah melakukan git reset --hard? Bagaimana kondisi lognya? Apa perbedaan git reset dengan git revert?
+- Setelah dilakukan git reset --hard, file abc.txt akan berubah dimana isi dari file abc.txt akan kembali pada kondisi dimana commit "update abc file" dilakukan yaitu ketika file abc.txt hanya berisi satu baris saja. Kondisi dari log akan berubah dimana commit "update abc file 2" akan menghilang akibat dilakukannya git reset pada commit "update abc file".
+- Git reset dan git revert sama-sama digunakan untuk melakukan undo terhadap perubahan yang dilakukan. Perbedaannya terletak pada git reset yang akan mengubah riwayat dari commit dengan mengganti suatu commit dengan commit yang dituju ketika dilakukan git reset sedangkan git revert akan membuat sebuah commit baru yang mendefinisikan proses undo dari commit sebelumnya. 
+
+Referensi: 
+- https://git-scm.com/docs/git-cherry-pick
+- https://git-scm.com/docs/git-rebase
+- https://www.edureka.co/blog/git-rebase-vs-merge/
+- https://www.freecodecamp.org/news/the-ultimate-guide-to-git-reset-and-git-revert/
+
+---
 ## Tutorial 5
 
 ### What I have learned today
