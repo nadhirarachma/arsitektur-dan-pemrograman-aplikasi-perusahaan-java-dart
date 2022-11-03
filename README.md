@@ -3,6 +3,34 @@
 * **Nadhira Rachma Salsabila Anandra** - *2006484974* - *C*
 
 ---
+## Tutorial 7
+
+### What I have learned today
+1. Jelaskan secara singkat perbedaan Otentikasi dan Otorisasi! Di bagian mana (dalam kode yang telah anda buat) konsep tersebut diimplementasi? 
+- Otentikasi : Proses untuk memverifikasi identitas atau kebenaran dari user sebagaimana yang user katakan tentang diri mereka.
+- Otorisasi : Proses untuk memastikan bahwa user memiliki akses terhadap fitur atau sumberdaya tertentu.
+- Pada kode yang telah saya buat, konsep otentikasi diimplementasi pada bagian Log In untuk memverifikasi username dan password sedangkan konsep otorisasi diimplementasi pada bagian lihat semua user, tambah user baru, serta tambah penyelenggara dimana fitur lihat semua user dan tambah user hanya dapat dilakukan oleh user dengan role Admin dan fitur tambah penyelenggara hanya dapat dilakukan oleh user dengan role Manajer.
+
+2. Apa itu BCryptPasswordEncoder? Jelaskan secara singkat cara kerja dan tujuannya.
+-  BCryptPasswordEncoder merupakan sebuah fungsi untuk melakukan encoding password yang bertujuan untuk melakukan enkripsi terhadap suatu String yang biasanya berupa password untuk diubah dalam bentuk hashed.
+
+3. Apakah penyimpanan password sebaiknya menggunakan encryption atau hashing? Mengapa demikian?
+- Penyimpanan password sebaiknya menggunakan hashing dikarenakan hasil dari proses hashing bersifat tidak reversible atau hasil dari proses hashing adalah sebuah String yang tidak dapat dikembalikan pada input yang semula. Di sisi lain, proses encryption bersifat reversible dimana terdapat secret key yang digunakan untuk mendekripsi output dan membaca input semula. Siapapun yang memiliki secret key dapat melihat input semula sehingga penyimpanan password lebih baik menggunakan hashing.
+
+akan bertipe data plaintext dimana attacker tidak bisa mendapat akses terhadap data plaintext. Data plaintext sendiri sangat sulit untuk dibaca dan cukup panjang untuk dapat diartikan secara manual.
+
+4. Jelaskan secara singkat apa itu UUID beserta penggunaannya! 
+- UUID atau universally unique identifier merupakan 128 bit label atau 36 karakter alphanumeric string yang dibuat secara acak yang biasanya digunakan untuk mengidentifikasi informasi yang perlu bersifat unik pada suatu sistem. 
+
+5. Apa kegunaan class UserDetailsServiceImpl.java? Mengapa harus ada class tersebut?
+- UserDetailsServiceImpl.java berfungsi untuk membuat sebuah user baru melalui username dari user tersebut. Dalam pembuatan user, akan didefinisikan password beserta role dari user tersebut yang selanjutnya akan berguna untuk proses otentikasi melalui fungsi passwordEncoder.
+
+Referensi: 
+- https://www.csoonline.com/article/3602698/hashing-explained-why-its-your-best-bet-to-protect-stored-passwords.html
+- https://www.cockroachlabs.com/blog/what-is-a-uuid/
+- https://howtodoinjava.com/spring-security/inmemory-jdbc-userdetails-service/#1-userdetailsservice-in-spring-security-architecture
+
+---
 ## Tutorial 6
 
 ### What I have learned today

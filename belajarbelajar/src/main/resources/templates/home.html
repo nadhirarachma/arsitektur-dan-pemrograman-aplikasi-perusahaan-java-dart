@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Beranda</title>
@@ -8,17 +8,31 @@
 </head>
 <body>
     <nav th:replace="fragments/fragment :: navbar('Beranda')"></nav>
-
+    
+    <br>
+    <div class="d-flex justify-content-center">
+        <h2 th:text="'Hello '+${#httpServletRequest.remoteUser}+'!'">Login as</h2>
+    </div>
     <div class="d-flex justify-content-center">
         <div class="m-4">
             <h2>Selamat datang di BelajarBelajar</h2>
+            <br>
             <div class="d-flex justify-content-center">
                 <a th:href="@{/course/viewall}" class="mx-2 btn btn-primary">Lihat semua course</a>
                 <a th:href="@{/course/add}" class="mx-2 btn btn-outline-primary">Tambah course</a>
             </div>
             <div class="my-3 d-flex justify-content-center">
                 <a th:href="@{/penyelenggara/viewall}" class="mx-2 btn btn-primary">Lihat semua penyelenggara</a>
-                <a th:href="@{/penyelenggara/add}" class="mx-2 btn btn-outline-primary">Tambah penyelenggara</a>
+                <div sec:authorize="hasAuthority('Manajer')">
+                    <a th:href="@{/penyelenggara/add}" class="mx-2 btn btn-outline-primary">Tambah penyelenggara</a>
+                </div>
+            </div>
+            <div class="my-3 d-flex justify-content-center">
+                <a th:href="@{/user/updatepassword/} + ${#httpServletRequest.remoteUser}" class="mx-2 btn btn-primary">Update password</a>
+                <div sec:authorize="hasAuthority('Admin')">
+                    <a th:href="@{/user/viewall}" class="mx-2 btn btn-primary">Lihat semua user</a>
+                    <a th:href="@{/user/add}" class="mx-2 btn btn-outline-primary">Tambah User Baru</a>
+                </div>
             </div>
         </div>
     </div>

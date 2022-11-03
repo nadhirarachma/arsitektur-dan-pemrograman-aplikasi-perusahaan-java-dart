@@ -2,6 +2,7 @@ package apap.tutorial.belajarbelajar.controller;
  
 import apap.tutorial.belajarbelajar.model.PenyelenggaraModel;
 import apap.tutorial.belajarbelajar.service.PenyelenggaraService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ public class PenyelenggaraController {
     @Qualifier("penyelenggaraServiceImpl")
     @Autowired
     PenyelenggaraService penyelenggaraService;
- 
+    
     @GetMapping("/penyelenggara/add")
     public String addPenyelenggaraForm(Model model){
         model.addAttribute("penyelenggara", new PenyelenggaraModel());
@@ -38,6 +39,7 @@ public class PenyelenggaraController {
     public String viewAllPenyelenggara(
             Model model
     ){
+
         model.addAttribute("listPenyelenggara", penyelenggaraService.getListPenyelenggara());
         return "viewall-penyelenggara";
     }
