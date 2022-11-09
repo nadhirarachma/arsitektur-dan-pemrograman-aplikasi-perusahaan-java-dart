@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>BelajarBelajar</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar('User')"></nav>
+        <div class="container">
+            <div class="card m-4 p-4">
+                <div class="card-body">
+                    <div class="justify-content-center">
+                        <h2>Daftar User</h2>
+                        <br>
+                        <div>
+                            <a th:href="@{/user/add}" class="mx-2 btn btn-primary">Tambah User</a>
+                            <a th:href="@{/}" class="mx-2 btn btn-primary">Beranda</a>
+                        </div>
+                        <br>
+                        <div th:if="*{listUser.size() != 0}">
+                            <table class = "table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Role</th>
+                                        <th>Username</th>
+                                        <th>Nama</th>
+                                        <th>Email</th>
+                                        <th>SSO</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each = "user, iterationStatus : ${listUser}"
+                                        th:style = "${iterationStatus.even} ? 'font-weight:bold;'">
+                                        <td th:text = "${iterationStatus.count}"></td>
+                                        <td th:if = "${user.role.id == 1}">Admin</td>
+                                        <td th:if = "${user.role.id == 2}">User</td>
+                                        <td th:if = "${user.role.id == 3}">Manajer</td>
+                                        <td th:text = "${user.username}"></td>
+                                        <td th:text = "${user.nama}"></td>
+                                        <td th:text = "${user.email}"></td>
+                                        <td th:if = "${user.isSso == False}">Tidak</td>
+                                        <td th:if = "${user.isSso == True}">Ya</td>
+                                        <td>
+                                            <a class="btn btn-danger" th:if= "${#httpServletRequest.remoteUser} != ${user.username}" th:href="@{/user/delete/} + ${user.username}">Delete User</a>
+                                            <a th:if= "${#httpServletRequest.remoteUser} == ${user.username}">Yourself</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>     
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

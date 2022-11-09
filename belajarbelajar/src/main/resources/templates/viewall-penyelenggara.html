@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-springsecurity5">
  
     <head>
         <title>BelajarBelajar</title>
@@ -17,10 +17,15 @@
                     <div class="justify-content-center">
                         <h2>Daftar Penyelenggara</h2>
                         <br>
-                        <div>
-                            <a th:href="@{/penyelenggara/add}" class="mx-2 btn btn-primary">Tambah penyelenggara</a>
-                            <a th:href="@{/}" class="mx-2 btn btn-primary">Beranda</a>
+                        <div class="btn-group">
+                            <div sec:authorize="hasAuthority('Manajer')">
+                                <a th:href="@{/penyelenggara/add}" class="mx-2 btn btn-primary">Tambah penyelenggara</a>
+                            </div>
+                            <div>
+                                <a th:href="@{/}" class="mx-2 btn btn-primary">Beranda</a>
+                            </div>
                         </div>
+                        <br>
                         <br>
                         <div th:if="*{listPenyelenggara.size() != 0}">
                             <table class = "table">

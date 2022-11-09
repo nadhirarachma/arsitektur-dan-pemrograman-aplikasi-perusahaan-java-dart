@@ -41,12 +41,16 @@
                     <li th:classappend="${page == 'Penyelenggara'} ? active : ''"class="nav-item">
                         <a class="nav-link" href="/penyelenggara/viewall">Penyelenggara</a>
                     </li>
+                    <li th:classappend="${page == 'User'} ? active : ''"class="nav-item"></li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0" th:action="@{/course/view}" method="GET">
                     <input class="form-control mr-sm-2" type="search"
                             name="code" placeholder="Code Course" aria-label="Search">
                     <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
                 </form>
+                <ul class="navbar-nav pull-right">
+                    <a class="nav-item nav-link text-text-secondary" th:href="@{/logout-sso}">Logout</a>
+                </ul>
             </div>
         </nav>
     </body>
