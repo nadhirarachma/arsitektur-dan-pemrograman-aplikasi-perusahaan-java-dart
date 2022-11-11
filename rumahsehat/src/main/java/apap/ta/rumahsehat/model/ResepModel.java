@@ -9,11 +9,13 @@ import org.hibernate.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Setter
@@ -35,4 +37,8 @@ public class ResepModel {
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
+
+    //Relasi dengan ObatModel
+    @OneToMany(mappedBy = "obat", cascade = CascadeType.ALL)
+    private List<ObatResepModel> obatResep;
 }
