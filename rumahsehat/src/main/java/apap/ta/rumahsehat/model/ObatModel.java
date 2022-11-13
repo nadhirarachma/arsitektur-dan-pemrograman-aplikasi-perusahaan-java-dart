@@ -16,7 +16,7 @@ import java.util.List;
 public class ObatModel {
     @Id
     @Size (max=20)
-    private String id;
+    private String id_obat;
 
     @NotNull
     @Size(max = 50)
@@ -24,7 +24,7 @@ public class ObatModel {
     private String nama_obat;
 
     @NotNull
-    @Column(name = "stok", columnDefinition = "integer default 0")
+    @Column(name = "stok", columnDefinition = "integer default 100")
     private Integer stok;
 
     @NotNull

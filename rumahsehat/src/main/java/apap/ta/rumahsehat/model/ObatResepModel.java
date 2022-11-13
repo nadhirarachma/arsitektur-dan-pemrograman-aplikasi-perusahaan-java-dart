@@ -25,11 +25,11 @@ public class ObatResepModel {
 
     // Relation dengan ObatModel
     @ManyToOne
-    @JoinColumn(name = "id_obat", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "obat", referencedColumnName = "id_obat", nullable = false)
     private ObatModel obat;
 
     // Relation dengan ResepModel
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_resep", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "resep", referencedColumnName = "id", nullable = false)
     private ResepModel resep;
 }
