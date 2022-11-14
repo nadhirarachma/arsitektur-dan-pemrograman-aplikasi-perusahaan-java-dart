@@ -41,7 +41,7 @@ public class ResepModel {
     private AppointmentModel appointment;
 
     //Relasi dengan ObatModel
-    @OneToMany(mappedBy = "obat", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "resep", cascade = CascadeType.ALL)
     private List<JumlahModel> jumlah;
 
     @ManyToOne(fetch= FetchType.EAGER, optional = false)

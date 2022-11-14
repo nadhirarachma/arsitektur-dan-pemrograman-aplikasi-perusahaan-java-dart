@@ -33,6 +33,6 @@ public class ObatModel {
     private Integer harga;
 
     //Relasi dengan ResepModel
-    @OneToMany(mappedBy = "resep", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "obat", cascade = CascadeType.ALL)
     private List<JumlahModel> jumlah;
 }
