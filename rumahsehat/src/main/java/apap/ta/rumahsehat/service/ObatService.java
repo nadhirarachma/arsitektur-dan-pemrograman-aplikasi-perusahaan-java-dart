@@ -7,7 +7,8 @@ import java.util.List;
 
 @Service
 public interface ObatService {
+    ObatModel updateStokObat(ObatModel obat);
     List<ObatModel> getSortedListObat();
-
+    ObatModel getObatbyId(String id);
 
 }

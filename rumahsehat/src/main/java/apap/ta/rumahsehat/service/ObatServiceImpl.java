@@ -17,8 +17,21 @@ public class ObatServiceImpl implements ObatService{
     ObatDb obatDb;
 
     @Override
+    public ObatModel updateStokObat(ObatModel obat) {
+        obatDb.save(obat);
+        return obat;
+    }
+
+    @Override
     public List<ObatModel> getSortedListObat() {
         return obatDb.findAll(Sort.by(Sort.Direction.ASC, "namaObat"));
     }
 
+    @Override
+    public ObatModel getObatbyId(String id) {
+        Optional<ObatModel> obat = obatDb.findById(id);
+        if (obat.isPresent()) {
+            return obat.get();
+        } else return null;
+    }
 }
