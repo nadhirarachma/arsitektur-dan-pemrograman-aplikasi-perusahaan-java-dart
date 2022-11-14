@@ -16,12 +16,13 @@ import java.util.List;
 public class ObatModel {
     @Id
     @Size (max=20)
-    private String id_obat;
+    @Column(name = "id_obat", nullable = false)
+    private String idObat;
 
     @NotNull
     @Size(max = 50)
     @Column(name = "nama_obat", nullable = false)
-    private String nama_obat;
+    private String namaObat;
 
     @NotNull
     @Column(name = "stok", columnDefinition = "integer default 100")
