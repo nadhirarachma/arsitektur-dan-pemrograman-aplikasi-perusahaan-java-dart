@@ -42,7 +42,7 @@ public class ResepModel {
 
     //Relasi dengan ObatModel
     @OneToMany(mappedBy = "obat", cascade = CascadeType.ALL)
-    private List<ObatResepModel> obatResep;
+    private List<JumlahModel> jumlah;
 
     @ManyToOne(fetch= FetchType.EAGER, optional = false)
     @JoinColumn(name = "confirmer_uuid", referencedColumnName= "uuid", nullable = false)

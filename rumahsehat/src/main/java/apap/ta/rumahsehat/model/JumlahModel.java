@@ -13,11 +13,11 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "obat_resep")
-public class ObatResepModel {
+@Table(name = "jumlah")
+public class JumlahModel {
     @NotNull
-    @Column(name = "jumlah", nullable = false)
-    private Integer jumlah;
+    @Column(name = "kuantitas", nullable = false)
+    private Integer kuantitas;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +30,6 @@ public class ObatResepModel {
 
     // Relation dengan ResepModel
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "resep", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "resep", referencedColumnName = "id")
     private ResepModel resep;
 }

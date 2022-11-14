@@ -34,5 +34,5 @@ public class ObatModel {
 
     //Relasi dengan ResepModel
     @OneToMany(mappedBy = "resep", cascade = CascadeType.ALL)
-    private List<ObatResepModel> obatResep;
+    private List<JumlahModel> jumlah;
 }
