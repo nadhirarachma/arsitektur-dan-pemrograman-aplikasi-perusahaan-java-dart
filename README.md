@@ -3,6 +3,68 @@
 * **Nadhira Rachma Salsabila Anandra** - *2006484974* - *C*
 
 ---
+## Tutorial 8
+
+### What I have learned today
+1. Apa itu Dockerfile dan docker-compose.yaml? Apa fungsinya?
+- Dockerfile merupakan sebuah dokumen yang berisi seluruh perintah yang dapat dilakukan oleh user pada command line untuk membangun dan memasang sebuah image yang merupakan dokumen penunjang aplikasi.
+- Docker-compose.yaml merupakan sebuah dokumen yang berisi konfigurasi dari layanan aplikasi yang berfungsi untuk menjalankan image. 
+
+2. Screenshot hasil perubahan anda. Setelah anda menyelesaikan tutorial ini, menurut anda, mengapa kita perlu mengganti port?
+
+![port](port.png)
+- Port dari masing-masing pengguna bersifat unik dan hanya digunakan oleh satu orang pengguna. Oleh karena itu, setiap mahasiswa perlu mengganti port sesuai dengan nomor urutnya masing-masing. 
+
+3. Mengapa terdapat versi dev dan prod? File apa yang menentukan konfigurasi mana yang dipakai? Apa yang harus dilakukan untuk menjalankan versi prod? (hint: baca file pada langkah 3 dengan teliti)
+- Versi dev merupakan versi development yang mencakup keseluruhan proses pengembangan seperti penulisan maupun update program. Konfigurasi dituliskan pada file application-dev.yml.
+- Versi prod merupakan versi production yang mencakup produksi dari output program yang telah dibangun. Konfigurasi dituliskan pada file application-prod.yml.
+- Untuk menjalankan versi prod, SPRING_PROFILES_ACTIVE pada file app.dev perlu didefinisikan dengan value prod menjadi SPRING_PROFILES_ACTIVE=prod. 
+
+4. Apa saja yang terjadi di langkah ini?
+- Perintah docker-compose up berfungsi untuk membuat container pada Docker. Ketika perintah dijalankan, container akan terbuat beserta front end dan back end network dan volumenya.
+
+5. Sertakan screenshot container yang sedang berjalan (versi gui atau cli, pilih salah satu). Apa itu docker container, images, dan volume?
+![container-5](container-5.png)
+- Container = sebuah environment dimana aplikasi dijalankan yang mencakup kode, runtime, system tools, dan pengaturan
+- Images = dokumen-dokumen penunjang aplikasi yang mencakup resource untuk membangun container
+- Volume = penyimpanan data dari container yang dapat digunakan untuk berbagi file pada container yang diinginkan
+
+6. Apa perbedaan docker-compose down dan stop?
+- Docker-compose down akan menghentikan container namun tidak menghapusnya.
+- Docker-compose stop akan menghentikan container sekaligus menghapusnya beserta jaringan yang terbuat.
+
+7. Sertakan screenshot mengakses laman kirti milik anda melalui browser (seperti screenshot di atas)
+![kirti](kirti.png)
+
+8. Ceritakan pengalaman anda melakukan deployment ke Kirti. Kendala apa yang anda alami?
+- Saat melakukan deployment ke Kirti, saya mengalami kendala berupa ERROR could not find an available, non-overlapping IPv4 address pool among the defaults to assign to the network ketika mengeksekusi docker-compose up -d. Setelahnya, saya mencoba secara terus menerus untuk  mengeksekusi docker-compose up -d hingga berhasil dilakukan. 
+
+9. Buka container docker Anda, lalu screenshot. Apa perbedaan tampilan container sekarang dengan tampilan container pada langkah tutorial docker di awal tadi?
+![container-9](container-9.png)
+- Container sekarang menjalankan db-1, web-1, dan web2-1 sebagai tambahan dari konfigurasi file docker-compose.yml, app2.env, serta application-prod2.yml.
+
+10. Sertakan screenshot tampilan web ketika pertama kali menjalankan localhost:9090 dan tampilan web ketika halaman di-refresh.
+
+[Tampilan web pertama kali] 
+
+![localhost9090-1](localhost9090-1.png)
+
+[Tampilan web ketika halaman di-refresh] 
+
+![localhost9090-2](localhost9090-2.png)
+
+11. Kendala apa yang anda hadapi ketika melakukan tutorial bagian nginx?
+- Ketika melakukan tutorial bagian nginx, saya mengalami kendala berupa tulisan port yang tidak muncul pada halaman login. Setelah ditinjau kembali, hal tersebut terjadi karena saya belum membuat jar dan tulisan port berhasil muncul setelah jar dibuat. 
+
+Referensi: 
+- https://docs.docker.com/engine/reference/builder/
+- https://docs.docker.com/compose/
+- https://dev.to/flippedcoding/difference-between-development-stage-and-production-d0p
+- https://www.niagahoster.co.id/blog/docker-tutorial/#:~:text=Docker%20image%20%E2%80%94%20Kumpulan%20file%20yang,telah%20ditentukan%20dalam%20Docker%20image
+- https://ryanrizky.com/cara-menggunakan-docker-volume/#:~:text=Docker%20Volume%20digunakan%20untuk%20menyimpan,file%20kepada%20Container%20yang%20diinginkan
+- https://nickjanetakis.com/blog/docker-tip-45-docker-compose-stop-vs-down
+
+---
 ## Tutorial 7
 
 ### What I have learned today
