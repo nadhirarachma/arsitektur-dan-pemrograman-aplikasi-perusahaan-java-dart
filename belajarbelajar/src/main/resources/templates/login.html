@@ -17,6 +17,9 @@
                     <div class="card-header">
                         Log In
                     </div>
+                    <div class="card-header">
+                        <p th:text="'Port: ' + ${port}"></p>
+                    </div>
                     <div class="card-body">
                         <div th:if="${param.error}">
                             <span style="color: red">Invalid username and password.</span>

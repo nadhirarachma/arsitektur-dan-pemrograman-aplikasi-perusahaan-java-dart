@@ -6,12 +6,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,17 +36,21 @@ public class PageController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    ServerProperties serverProperties;
+
+    private WebClient webClient = WebClient.builder().build();
+
     @RequestMapping("/")
-    private String home() {
+    public String home() {
         return "home";
     }
 
     @RequestMapping("/login")
-    private String login() {
+    public String login(Model model) {
+        model.addAttribute("port", serverProperties.getPort());
         return "login";
     }
-
-    private WebClient webClient = WebClient.builder().build();
 
     @GetMapping("/validate-ticket")
     public ModelAndView adminLoginSSO(
