@@ -52,5 +52,4 @@ public class AppointmentModel implements Serializable{
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private DokterModel dokter;
-
 }
