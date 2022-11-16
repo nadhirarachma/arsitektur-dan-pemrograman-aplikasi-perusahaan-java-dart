@@ -1,13 +1,11 @@
 package apap.ta.rumahsehat.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import java.util.List;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,8 +19,6 @@ import lombok.Setter;
 @Table(name = "apoteker")
 public class ApotekerModel extends UserModel{
 
-	@ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "idResep", referencedColumnName = "id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private ResepModel resep;
+    @OneToMany(mappedBy = "apotek", cascade = CascadeType.ALL)
+    private List<ResepModel> resep;
 }
