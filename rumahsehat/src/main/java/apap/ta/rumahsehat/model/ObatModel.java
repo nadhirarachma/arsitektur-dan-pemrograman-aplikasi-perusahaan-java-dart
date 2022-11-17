@@ -1,14 +1,10 @@
 package apap.ta.rumahsehat.model;
 
 import lombok.*;
-import org.springframework.boot.context.properties.bind.DefaultValue;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Setter
@@ -20,15 +16,16 @@ import java.util.List;
 public class ObatModel {
     @Id
     @Size (max=20)
-    private String id;
+    @Column(name = "id_obat", nullable = false)
+    private String idObat;
 
     @NotNull
     @Size(max = 50)
     @Column(name = "nama_obat", nullable = false)
-    private String nama_obat;
+    private String namaObat;
 
     @NotNull
-    @Column(name = "stok", columnDefinition = "integer default 0")
+    @Column(name = "stok", columnDefinition = "integer default 100")
     private Integer stok;
 
     @NotNull
@@ -36,6 +33,6 @@ public class ObatModel {
     private Integer harga;
 
     //Relasi dengan ResepModel
-    @OneToMany(mappedBy = "resep", cascade = CascadeType.ALL)
-    private List<ObatResepModel> obatResep;
+    @OneToMany(mappedBy = "obat", cascade = CascadeType.ALL)
+    private List<JumlahModel> jumlah;
 }

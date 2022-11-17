@@ -1,6 +1,5 @@
 package apap.ta.rumahsehat.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,6 +23,7 @@ import java.util.List;
 @Entity
 @Table(name="resep")
 public class ResepModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,7 +37,15 @@ public class ResepModel {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
 
+    @OneToOne(cascade=CascadeType.ALL)
+    private AppointmentModel appointment;
+
     //Relasi dengan ObatModel
-    @OneToMany(mappedBy = "obat", cascade = CascadeType.ALL)
-    private List<ObatResepModel> obatResep;
+    @OneToMany(mappedBy = "resep", cascade = CascadeType.ALL)
+    private List<JumlahModel> jumlah;
+
+    @ManyToOne(fetch= FetchType.EAGER, optional = false)
+    @JoinColumn(name = "confirmer_uuid", referencedColumnName= "uuid", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ApotekerModel apotek;
 }

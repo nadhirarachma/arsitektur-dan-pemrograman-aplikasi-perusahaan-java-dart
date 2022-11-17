@@ -7,18 +7,17 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "obat_resep")
-public class ObatResepModel {
+@Table(name = "jumlah")
+public class JumlahModel {
     @NotNull
-    @Column(name = "jumlah", nullable = false)
-    private Integer jumlah;
+    @Column(name = "kuantitas", nullable = false)
+    private Integer kuantitas;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +25,11 @@ public class ObatResepModel {
 
     // Relation dengan ObatModel
     @ManyToOne
-    @JoinColumn(name = "id_obat", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "obat", referencedColumnName = "id_obat", nullable = false)
     private ObatModel obat;
 
     // Relation dengan ResepModel
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_resep", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "resep", referencedColumnName = "id")
     private ResepModel resep;
 }
