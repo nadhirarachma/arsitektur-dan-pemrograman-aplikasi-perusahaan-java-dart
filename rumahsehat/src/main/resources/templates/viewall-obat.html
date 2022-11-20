@@ -27,7 +27,7 @@
           <th>Nama Obat</th>
           <th>Stok</th>
           <th>Harga</th>
-          <th>Aksi</th>
+          <th th:if="${#authorization.expression('hasAnyAuthority(''Apoteker'')')}" >Aksi</th>
         </tr>
         </thead>
         <tbody>
@@ -39,7 +39,7 @@
           <td th:text="${obat.stok}"></td>
           <td th:text="${obat.harga}"></td>
           <td>
-            <a class="btn btn-warning" style="color: white; background:#ffb855" th:href="@{/obat/} + ${obat.idObat} + @{/update_stok}">Update Stok</a>
+            <a class="btn btn-warning" style="color: white; background:#ffb855" th:href="@{/obat/} + ${obat.idObat} + @{/update_stok} " th:if="${#authorization.expression('hasAnyAuthority(''Apoteker'')')}" >Update Stok</a>
           </td>
         </tr>
         </tbody>
