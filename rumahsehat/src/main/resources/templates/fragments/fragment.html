@@ -38,6 +38,9 @@
       <li class="nav-item" th:classappend="${onevar == 'Obat'} ? active">
         <a class="nav-link" th:href="@{/obat}" th:if="${#authorization.expression('hasAnyAuthority(''Apoteker'',''Admin'')')}" >Obat</a>
       </li>
+      <li class="nav-item" th:classappend="${onevar == 'Resep'} ? active">
+        <a class="nav-link" th:href="@{/resep}" th:if="${#authorization.expression('hasAnyAuthority(''Dokter'',''Admin'')')}" >Resep</a>
+      </li>
     </ul>
     <ul class="navbar-nav pull-right">
       <a class="nav-item nav-link text-text-secondary" th:href="@{/logout-sso}">Logout</a>

@@ -30,6 +30,6 @@ public class JumlahModel {
 
     // Relation dengan ResepModel
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "resep", referencedColumnName = "id")
+    @JoinColumn(name = "resep", referencedColumnName = "id", nullable = false)
     private ResepModel resep;
 }
