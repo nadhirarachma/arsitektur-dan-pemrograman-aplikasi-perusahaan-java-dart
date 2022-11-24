@@ -6,6 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 @Setter
 @Getter
@@ -32,7 +34,13 @@ public class ObatModel {
     @Column(name = "harga", nullable = false)
     private Integer harga;
 
-    //Relasi dengan ResepModel
+    // Relasi dengan ResepModel
     @OneToMany(mappedBy = "obat", cascade = CascadeType.ALL)
     private List<JumlahModel> jumlah;
+
+    // // Relasi dengan ResepModel
+    // @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    // @JoinColumn(name = "id", referencedColumnName = "id", nullable = false)
+    // @OnDelete(action = OnDeleteAction.CASCADE)
+    // private ResepModel resep;
 }
