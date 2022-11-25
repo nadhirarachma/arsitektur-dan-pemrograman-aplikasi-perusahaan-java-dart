@@ -17,10 +17,12 @@ public class WebSecurityConfig {
     
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+        http.cors().and().csrf().disable()
             .authorizeRequests()
             .antMatchers("/css/**").permitAll()
             .antMatchers("/js/**").permitAll()
+            .antMatchers("/api/v1/get-dokter/**").permitAll()
+            .antMatchers("/api/v1/post-appointment").permitAll()
             .antMatchers("/login-sso", "/validate-ticket").permitAll()
             .antMatchers("/dokter/viewall").hasAuthority("Admin")
             .antMatchers("/dokter/add").hasAuthority("Admin")
