@@ -12,13 +12,9 @@
             <div class="card m-4 p-4">
                 <div class="card-body">
                     <div class="justify-content-center">
-                        <h2>Daftar Dokter</h2>
+                        <h2>Daftar Pasien</h2>
                         <br>
-                        <div>
-                            <a th:href="@{/dokter/add}" class="mx-2 btn" style="background:#62c1f0;color:white">Tambah Dokter</a>
-                        </div>
-                        <br>
-                        <div th:if="*{listDokter.size() != 0}">
+                        <div th:if="*{listPasien.size() != 0}">
                             <table class = "table" style="background: #eff8fd">
                                 <thead>
                                     <tr style="background: #81cdf3;color: black">
@@ -26,16 +22,18 @@
                                         <th>Username</th>
                                         <th>Nama</th>
                                         <th>Email</th>
-                                        <th>Tarif</th>
+                                        <th>Umur</th>
+                                        <th>Saldo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each = "dokter, iterationStatus : ${listDokter}">
+                                    <tr th:each = "pasien, iterationStatus : ${listPasien}">
                                         <td th:text = "${iterationStatus.count}"></td>
-                                        <td th:text = "${dokter.username}"></td>
-                                        <td th:text = "${dokter.nama}"></td>
-                                        <td th:text = "${dokter.email}"></td>
-                                        <td th:text = "${dokter.tarif}"></td>
+                                        <td th:text = "${pasien.username}"></td>
+                                        <td th:text = "${pasien.nama}"></td>
+                                        <td th:text = "${pasien.email}"></td>
+                                        <td th:text = "${pasien.umur}"></td>
+                                        <td th:text = "${pasien.saldo}"></td>
                                     </tr>
                                 </tbody>
                             </table>     
