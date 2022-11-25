@@ -56,7 +56,7 @@ public class AppointmentController {
         return "berhasil-add-appointment";
     }
 
-    @GetMapping("/appointment/all")
+    @GetMapping("/appointment")
     public String listAppointment(Model model, Authentication authentication){
         List<AppointmentModel> listAppointment = new ArrayList<>();
 
