@@ -29,6 +29,7 @@ public class ObatController {
         model.addAttribute("listObat", listObat);
         return "viewall-obat";
     }
+    
     @GetMapping("/obat/{idObat}/update_stok")
     public String updateObatFormPage(@PathVariable String idObat, Model model) {
         ObatModel obat = obatService.getObatbyId(idObat);

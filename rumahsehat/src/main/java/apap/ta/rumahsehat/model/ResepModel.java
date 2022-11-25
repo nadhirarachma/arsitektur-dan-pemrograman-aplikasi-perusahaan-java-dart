@@ -40,12 +40,16 @@ public class ResepModel {
     @OneToOne(cascade=CascadeType.ALL)
     private AppointmentModel appointment;
 
-    //Relasi dengan ObatModel
+    // Relasi dengan ObatModel
     @OneToMany(mappedBy = "resep", cascade = CascadeType.ALL)
-    private List<JumlahModel> jumlah;
+    List<JumlahModel> jumlah;
 
-    @ManyToOne(fetch= FetchType.EAGER, optional = false)
-    @JoinColumn(name = "confirmer_uuid", referencedColumnName= "uuid", nullable = false)
+    // // Relasi dengan ObatModel
+    // @OneToMany(mappedBy = "resep", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    // private List<ObatModel> listObat;
+
+    @ManyToOne(fetch= FetchType.EAGER)
+    @JoinColumn(name = "confirmer_uuid", referencedColumnName= "uuid", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ApotekerModel apotek;
 }
