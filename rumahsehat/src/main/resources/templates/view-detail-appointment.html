@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Rumah Sehat</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Appointment')"></nav>
+<div class="container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2>Detail Appointment</h2>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Kode</th>
+                        <th>Waktu Awal</th>
+                        <th>Status</th>
+                        <th>Nama Dokter</th>
+                        <th>Nama Pasien</th>
+                        <th>Detail Resep</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <td th:text="${appointment.kode}"></td>
+                        <td th:text="${#temporals.format(appointment.waktuAwal, 'dd-MM-yyyy HH:mm')}"></td>
+                        <td th:text="${appointment.isDone}"></td>
+                        <td th:text="${appointment.dokter.getNama()}"></td>
+                        <td th:text="${appointment.pasien.getNama()}"></td>
+                        <td>
+                            <a class="btn btn-primary" th:href="@{/resep/detail/}">Detail</a>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Rumah Sehat</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Appointment')"></nav>
+<div class = "container">
+    <div class="card m-4 p-4">
+        <div class="card-body">
+            <div class="justify-content-center">
+                <h2>Buat Appointment</h2>
+                <br>
+                <form th:action="@{/appointment/add}" th:object="${appointment}" method="POST">
+                    <label class="labels">Nama Dokter</label>
+                    <select class="form-control" name="nama">
+                        <option th:each=" dokter, key : ${listDokterExisting}" th:value="${dokter.uuid}" th:text="${dokter.nama} + ' - ' + ${dokter.tarif}"></option>
+                    </select>
+
+                    <label>Tanggal dan Waktu Mulai</label>
+                    <input class="form-control" type="datetime-local" th:field="*{waktuAwal}"/>
+
+                    <br>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a class="btn btn-link" href="/">Home</a>
+                    <br>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
