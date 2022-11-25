@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
+import reactor.util.annotation.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -40,6 +41,7 @@ public class AppointmentModel implements Serializable{
     private Boolean isDone;
 
     //relasi dengan pasien
+    @Nullable
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "uuidPasien", referencedColumnName = "uuid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
