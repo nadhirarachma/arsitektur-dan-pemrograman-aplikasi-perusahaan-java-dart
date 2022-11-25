@@ -14,33 +14,34 @@
 
         <div class="row justify-content-center">
             <div class="col-md-4">
-                <div class="card" style="color: white;background:#73caf6; border-radius: 10px;">
-                    <div class="card-header" style="color:black;background:white;border-radius: 10px;">
-                        Log In
+                <div class="card shadow" style="border-radius: 15%;">
+                    <div class="mt-4">
+                        <h4>Log In</h4>
                     </div>
                     <div class="card-body">
-                        <div th:if="${param.error}">
-                            <span style="color: red">Invalid username and password.</span>
+                        <div th:if ="${param.error}">
+                            <span class="text-danger">Password Anda salah, mohon input kembali.</span>
+                        </div>
+                        <div>
+                            <span th:text=${error} class="text-danger"></span>
                         </div>
                         <br>
                         <form th:action="@{/login}" method="POST">
                             <div class="row form-group">
                                 <label class="col-sm-4 font-weight-bold">Username:</label>
-                                <input type="text" class="col-sm-7 form-control input-sm" name="username">
+                                <input type="text" class="col-sm-7 form-control input-sm" style="background:#eff8fd;border-radius: 20px;" name="username">
                             </div>
                             <div class="row form-group">
                                 <label class="col-sm-4 font-weight-bold">Password:</label>
-                                <input type="password" class="col-sm-7 form-control input-sm" name="password">
+                                <input type="password" class="col-sm-7 form-control input-sm" style="background:#eff8fd;border-radius: 20px;" name="password">
                             </div>
-                            <div class="row form-group justify-content-center">
-                                <button type="submit" class="btn btn-primary">Sign In</button>
+                            <div class="row form-group justify-content-center mt-4">
+                                <button type="submit" class="btn" style="background:#81cdf3;border-radius: 20px;padding-inline:10%;">Sign In</button>
                             </div>
                             <div>
-                                atau <a th:href="@{/login-sso}" style="color:rebeccapurple">Masuk sebagai Admin (SSO UI)</a>
+                                atau <a th:href="@{/login-sso}" style="color:indigo">Masuk sebagai Admin (SSO UI)</a>
                             </div>
-                            <br>
-                            <br>
-                            <h5 th:text=${validasi} class="text-danger"></h5>
+                            <br><br>
                         </form>
                     </div>
                 </div>
