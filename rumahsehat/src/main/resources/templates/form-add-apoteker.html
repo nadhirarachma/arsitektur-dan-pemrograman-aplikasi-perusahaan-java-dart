@@ -1,35 +1,40 @@
 <!DOCTYPE html>
 <html xlmns:th="http://www.thymeleaf.org">
 <head>
-    <title>Tambah User</title>
+    <title>Tambah Apoteker</title>
     <object th:include="fragments/fragment :: css" th:remove="tag"></object>
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
-<body>
+<body style="background: #eff8fd">
     <nav th:replace="fragments/fragment :: navbar('User')"></nav>
     <div class = "container">
         <div class="card m-4 p-4">
             <div class="card-body">
                 <div class="justify-content-center">
-                    <h2>Tambah User Baru</h2>
+                    <h2>Tambah Apoteker Baru</h2>
                     <br>
                     <form th:action="@{/apoteker/add}" th:object="${apoteker}" method="POST">
-                        <label>Username</label>
-                        <input type="text" name="username" class="form-control"/>
-
-                        <label>Nama</label>
-                        <input type="text" name="nama" class="form-control"/>
-
-                        <label>E-mail</label>
-                        <input type="text" name="email" class="form-control"/>
-
-                        <label>Password</label>
-                        <input type="password" name="password" class="form-control">
-
-                        <br>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <a class="btn btn-link" href="/">Home</a>
-                        <br>
+                        <div class="row form-group">
+                            <label class="col-sm-4 font-weight-bold">Username:</label>
+                            <input type="text" class="col-sm-7 form-control input-sm" style="background:#eff8fd;border-radius: 20px;" name="username">
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-4 font-weight-bold">Nama:</label>
+                            <input type="text" class="col-sm-7 form-control input-sm" style="background:#eff8fd;border-radius: 20px;" name="nama">
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-4 font-weight-bold">Email:</label>
+                            <input type="text" class="col-sm-7 form-control input-sm" style="background:#eff8fd;border-radius: 20px;" name="email">
+                        </div>
+                        <div class="row form-group">
+                            <label class="col-sm-4 font-weight-bold">Password:</label>
+                            <input type="password" class="col-sm-7 form-control input-sm" style="background:#eff8fd;border-radius: 20px;" name="password">
+                        </div>
+                        <br><br>
+                        <div class="row form-group justify-content-center mt-6">
+                            <button type="submit" class="btn" style="background:#2fabe8;color:white;border-radius: 20px;padding-inline:10%;">Submit</button>
+                            <a class="btn ml-3" style="background:#5177e8;color:white;border-radius: 20px;padding-inline:10%;" href="/apoteker/viewall">Kembali</a>
+                        </div>
                         <br>
                         <h5 th:text=${validasi} class="text-danger"></h5>
                     </form>
