@@ -30,13 +30,11 @@ public class ApotekerController {
     @PostMapping(value = "/add") 
     private String addApotekerSubmit(@ModelAttribute ApotekerModel apoteker, Model model) {
        
-        apoteker.setIsSso(false);
+        ApotekerModel newApoteker = apotekerService.addApoteker(apoteker);
 
-        ApotekerModel newapoteker = apotekerService.addApoteker(apoteker);
-
-        if (newapoteker.equals(apoteker)) {
-            model.addAttribute("apoteker", apoteker);
-            return "redirect:/";
+        if (newApoteker.equals(apoteker)) {
+            model.addAttribute("username", apoteker.getUsername());
+            return "add-apoteker";
         }
         else {
             model.addAttribute("validasi", "Password harus mengandung angka, huruf besar, huruf kecil, dan simbol, serta minimal memiliki 8 karakter. Mohon input kembali.");
