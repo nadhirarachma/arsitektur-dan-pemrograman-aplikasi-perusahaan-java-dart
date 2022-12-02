@@ -79,6 +79,7 @@ public class PageController {
                 user.setNama(attributes.getNama());
                 user.setPassword("rumahsehat");
                 user.setUsername(username);
+                user.setIsSso(true);
                 user.setRole("Admin");
                 userService.addUser(user);
             }
@@ -107,7 +108,7 @@ public class PageController {
     @GetMapping(value = "/logout-sso")
     public ModelAndView logoutSSO(Principal principal) {
         UserModel user = userService.getUserByUsername(principal.getName());
-        if (!user.getRole().equals("Admin")) {
+        if (user.getIsSso() == false) {
             return new ModelAndView("redirect:/logout");
         }
         return new ModelAndView("redirect:" + Setting.SERVER_LOGOUT + Setting.CLIENT_LOGOUT);

@@ -9,8 +9,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +18,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter @Getter
 @Entity
-@JsonIgnoreProperties(value={"uuid", "appointment"}, allowSetters = true)
 @Table(name = "pasien")
 public class PasienModel extends UserModel{
 

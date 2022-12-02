@@ -18,15 +18,12 @@ public class ApotekerServiceImpl implements ApotekerService {
     @Override
     public ApotekerModel addApoteker(ApotekerModel apoteker) {
 
-        if (apoteker.getPassword().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
-            String pass = encrypt(apoteker.getPassword());
+        String pass = encrypt(apoteker.getPassword());
 
-            apoteker.setPassword(pass);
-            apoteker.setRole("Apoteker");
-            return apotekerDb.save(apoteker);
-        }
+        apoteker.setPassword(pass);
+        apoteker.setRole("Apoteker");
 
-        return new ApotekerModel();
+        return apotekerDb.save(apoteker);
     }
 
     @Override

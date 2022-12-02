@@ -15,8 +15,6 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +25,6 @@ import lombok.Setter;
 @Setter @Getter
 @Entity
 @Table(name = "user")
-@JsonIgnoreProperties(value={"nama", "role", "email"}, allowSetters = true)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class UserModel implements Serializable{
 	@Id
@@ -59,4 +56,8 @@ public class UserModel implements Serializable{
     @Size(max = 50)
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @NotNull
+    @Column(name = "is_Sso", nullable = false)
+    private Boolean isSso;
 }

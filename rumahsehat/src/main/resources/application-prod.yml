@@ -24,9 +24,3 @@ spring:
     hibernate.ddl-auto: create-drop
 
     show-sql: true
-
-jwttoken:
-  secret: apap-87
-
-  # in milliseconds (5 mins)
-  expiration: 300000
