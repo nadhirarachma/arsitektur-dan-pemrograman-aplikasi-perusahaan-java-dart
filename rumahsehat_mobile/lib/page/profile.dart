@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rumahsehat_mobile/page/topup.dart';
 import 'package:rumahsehat_mobile/widget/drawer.dart';
 
 import 'dart:async';
@@ -6,8 +7,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<PasienProfile> fetchPasien(String username) async {
-  String url = 'http://apap-087.cs.ui.ac.id/api/v1/pasien/profile/';
-  // String url = 'http://localhost:10087/api/v1/pasien/profile/';
+  // String url = 'http://apap-087.cs.ui.ac.id/api/v1/pasien/profile/';
+  String url = 'http://localhost:10087/api/v1/pasien/profile/';
   final response = await http.get(Uri.parse(url + username));
   if (response.statusCode == 200) {
     return PasienProfile.fromJson(jsonDecode(response.body));
@@ -65,7 +66,7 @@ class _Profile extends State<Profile> {
           future: futurePasien,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return userCard(snapshot.data!);
+              return pasienDisplay(context, snapshot.data!);
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
@@ -75,16 +76,40 @@ class _Profile extends State<Profile> {
   }
 }
 
-Widget userCard(PasienProfile pasien) {
-  Widget card = Card(
-    child: Column(
-      children: [
-        Text('username : ' + pasien.username),
-        Text('nama : ' + pasien.nama),
-        Text('email : ' + pasien.email),
-        Text('saldo : ' + pasien.saldo.toString())
-      ],
-    ),
+Widget pasienDisplay(BuildContext context, PasienProfile pasien) {
+  Widget display = Column(
+    children: [
+      Card(
+        child: Column(
+          children: [
+            Text('username : ' + pasien.username),
+            Text('nama : ' + pasien.nama),
+            Text('email : ' + pasien.email),
+            Text('saldo : ' + pasien.saldo.toString())
+          ],
+        ),
+      ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+              onPressed: (() {
+                Navigator.pop(context);
+              }),
+              child: const Text('Kembali')),
+          TextButton(
+              onPressed: (() {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            Topup(username: pasien.username)));
+              }),
+              child: const Text('Top Up Saldo')),
+        ],
+      ),
+    ],
   );
-  return card;
+
+  return display;
 }
