@@ -33,8 +33,8 @@ public class DokterController {
         DokterModel newDokter = dokterService.addDokter(dokter);
 
         if (newDokter.equals(dokter)) {
-            model.addAttribute("dokter", dokter);
-            return "redirect:/";
+            model.addAttribute("username", dokter.getUsername());
+            return "add-dokter";
         }
         else {
             model.addAttribute("validasi", "Password harus mengandung angka, huruf besar, huruf kecil, dan simbol, serta minimal memiliki 8 karakter. Mohon input kembali.");
