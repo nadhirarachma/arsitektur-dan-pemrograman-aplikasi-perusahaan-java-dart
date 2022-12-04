@@ -13,7 +13,6 @@ import 'package:provider/provider.dart';
 
 import 'package:rumahsehat_mobile/page/homepage.dart';
 
-
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
   final VoidCallback? onSignIn;
@@ -31,6 +30,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    String url = 'http://apap-087.cs.ui.ac.id/api/v1/login';
+    // String url = 'http://localhost:10087/api/v1/login';
     final request = context.watch<NetworkService>();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -157,16 +158,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                               });
                                               print(body);
                                               var result = await http.post(
-                                                  Uri.parse(
-                                                      'http://localhost:8080/api/v1/login'),
+                                                  Uri.parse(url),
                                                   headers: <String, String>{
                                                     "Content-Type":
                                                         "application/json; charset=UTF-8",
                                                     "Accept": "application/json"
                                                   },
                                                   body: body);
-                                  
+
                                               if (result.statusCode == 200) {
+                                                String username =
+                                                    unameController.text;
                                                 showDialog<String>(
                                                   context: context,
                                                   builder:
@@ -176,7 +178,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                         'Login Success'),
                                                     content: Text(
                                                         'Welcome to RumahSehat, ' +
-                                                            body.split(",")[0].split('"')[3]),
+                                                            body
+                                                                .split(",")[0]
+                                                                .split('"')[3]),
                                                     shape:
                                                         RoundedRectangleBorder(
                                                       borderRadius:
@@ -193,7 +197,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                 MaterialPageRoute(
                                                                     builder:
                                                                         (context) {
-                                                          return Home();
+                                                          return Home(
+                                                              username:
+                                                                  username);
                                                         })),
                                                         child: const Text(
                                                           'OK',
