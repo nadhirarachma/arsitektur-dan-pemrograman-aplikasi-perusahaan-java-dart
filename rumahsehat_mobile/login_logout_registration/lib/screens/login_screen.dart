@@ -11,6 +11,9 @@ import 'package:login_logout_registration/components/button.dart';
 import 'package:login_logout_registration/utils/network_service.dart';
 import 'package:provider/provider.dart';
 
+import 'package:rumahsehat_mobile/page/homepage.dart';
+
+
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
   final VoidCallback? onSignIn;
@@ -190,7 +193,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                 MaterialPageRoute(
                                                                     builder:
                                                                         (context) {
-                                                          return const WelcomeScreen();
+                                                          return Home();
                                                         })),
                                                         child: const Text(
                                                           'OK',
