@@ -30,8 +30,6 @@ public class DokterController {
     @PostMapping(value = "/add") 
     private String addDokterSubmit(@ModelAttribute DokterModel dokter, Model model) {
     
-        dokter.setIsSso(false);
-
         DokterModel newDokter = dokterService.addDokter(dokter);
 
         if (newDokter.equals(dokter)) {

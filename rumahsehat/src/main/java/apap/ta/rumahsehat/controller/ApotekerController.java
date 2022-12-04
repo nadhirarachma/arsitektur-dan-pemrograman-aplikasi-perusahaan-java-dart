@@ -29,8 +29,6 @@ public class ApotekerController {
 
     @PostMapping(value = "/add") 
     private String addApotekerSubmit(@ModelAttribute ApotekerModel apoteker, Model model) {
-       
-        apoteker.setIsSso(false);
 
         ApotekerModel newapoteker = apotekerService.addApoteker(apoteker);
 
