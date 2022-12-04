@@ -44,7 +44,7 @@ public class PasienRestController {
 		}else{
 			createUser(pasien);
 			pasien.setPassword(userService.getUserByUsername(pasien.getUsername()).getPassword());
-			return pasienRestService.createPasien(pasien);
+			return pasienRestService.addPasien(pasien);
 		}
 	}
 
@@ -55,7 +55,6 @@ public class PasienRestController {
 		user.setUsername(pasien.getUsername());
 		user.setPassword(pasien.getPassword());
 		user.setEmail(pasien.getEmail());
-		user.setIsSso(false);
 		return userService.addUser(user);
 	}
 
