@@ -15,11 +15,12 @@
   <div class="d-flex justify-content-center">
     <div class="container-xl  justify-content-center" style="background:white; height: 1000px; border-radius: 25px; margin: 50px; justify-content: center; align-items: center;border-color: sandybrown">
       <div style="justify-content: center; align-items: center">
+        <br>
         <h2 class="text-center">Daftar Obat</h2>
       </div>
       <br>
       <br>
-      <table class="table">
+      <table class="table" id="data">
         <thead>
         <tr style="background: #81cdf3;color: black">
           <th>No</th>
@@ -48,5 +49,12 @@
   </div>
 </div>
 </body>
-
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#data').DataTable();
+    });
+</script>
 </html>

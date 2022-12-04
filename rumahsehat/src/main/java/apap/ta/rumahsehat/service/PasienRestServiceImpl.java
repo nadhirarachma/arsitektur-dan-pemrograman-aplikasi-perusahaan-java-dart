@@ -15,6 +15,11 @@ public class PasienRestServiceImpl implements PasienRestService {
     @Autowired
     private PasienDb pasienDb;
 
+	@Override
+	public PasienModel getPasienByUsername(String username) {
+		return pasienDb.findByUsername(username);
+	}
+
     @Override
     public PasienModel addPasien(PasienModel pasien)  {
         String pass = encrypt(pasien.getPassword());
