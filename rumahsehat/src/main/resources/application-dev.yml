@@ -32,3 +32,9 @@ spring:
   web:
     resources:
       static-locations: file:src/main/resources/static/
+
+jwttoken:
+  secret: apap-87
+
+  # in milliseconds (5 mins)
+  expiration: 300000
