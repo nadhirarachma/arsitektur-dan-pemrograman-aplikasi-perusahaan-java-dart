@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import apap.ta.rumahsehat.model.PasienModel;
 import apap.ta.rumahsehat.model.UserModel;
 import apap.ta.rumahsehat.payload.PasienProfileDTO;
+import apap.ta.rumahsehat.payload.TopupDTO;
 import apap.ta.rumahsehat.service.PasienRestService;
 import apap.ta.rumahsehat.service.UserService;
 
@@ -70,5 +71,13 @@ public class PasienRestController {
 				HttpStatus.NOT_FOUND, "Tidak ada pasien dengan username " + username
 			);
 		}
+	}
+
+	@PostMapping("/topup")
+	private PasienModel topupSaldoPasien(@Valid @RequestBody TopupDTO topup, BindingResult bindingResult){
+		PasienModel pasien = pasienRestService.getPasienByUsername(topup.getUsername());
+		pasien.setSaldo(pasien.getSaldo() + topup.getJumlah());
+		pasienRestService.addPasien(pasien);
+		return pasien;
 	}
 }
