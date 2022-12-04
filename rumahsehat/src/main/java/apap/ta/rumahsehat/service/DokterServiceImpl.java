@@ -18,12 +18,15 @@ public class DokterServiceImpl implements DokterService {
     @Override
     public DokterModel addDokter(DokterModel dokter) {
 
-        String pass = encrypt(dokter.getPassword());
+        if (dokter.getPassword().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
+            String pass = encrypt(dokter.getPassword());
 
-        dokter.setPassword(pass);
-        dokter.setRole("Dokter");
+            dokter.setPassword(pass);
+            dokter.setRole("Dokter");
+            return dokterDb.save(dokter);
+        }
 
-        return dokterDb.save(dokter);
+        return new DokterModel();
     }
 
     @Override
