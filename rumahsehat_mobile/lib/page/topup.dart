@@ -37,23 +37,21 @@ class _Topup extends State<Topup> {
               Button(
                   text: "Konfirmasi",
                   onPressed: () async {
-                    var body = convert.jsonEncode(<String, dynamic>{
-                      'username': widget.username,
-                      'jumlah': int.parse(jumlahController.text)
-                    });
-                    var response = await http.post(Uri.parse(url),
-                        headers: <String, String>{
-                          'Content-type': 'application/json; charset=utf-8'
-                        },
-                        body: body);
-                    print(body);
-                    if (response.statusCode == 200) {
-                      Navigator.pop(context);
+                    bool valid = true;
+                    String message = '';
+                    if (int.tryParse(jumlahController.text) == null) {
+                      valid = false;
+                      message = 'Saldo top up harus berupa angka';
+                    } else if (int.parse(jumlahController.text) <= 0) {
+                      valid = false;
+                      message = 'Saldo harus bernilai positif';
+                    }
+                    if (!valid) {
                       showDialog(
                           context: context,
-                          builder: ((context) => AlertDialog(
-                                title: const Text('Top Up Berhasil'),
-                                content: const Text('Saldo berhasil ditambah'),
+                          builder: (context) => AlertDialog(
+                                title: const Text('Top Up Gagal'),
+                                content: Text(message),
                                 actions: [
                                   TextButton(
                                       onPressed: () {
@@ -61,7 +59,35 @@ class _Topup extends State<Topup> {
                                       },
                                       child: const Text('OK'))
                                 ],
-                              )));
+                              ));
+                    } else {
+                      var body = convert.jsonEncode(<String, dynamic>{
+                        'username': widget.username,
+                        'jumlah': int.parse(jumlahController.text)
+                      });
+                      var response = await http.post(Uri.parse(url),
+                          headers: <String, String>{
+                            'Content-type': 'application/json; charset=utf-8'
+                          },
+                          body: body);
+                      print(body);
+                      if (response.statusCode == 200) {
+                        Navigator.pop(context);
+                        showDialog(
+                            context: context,
+                            builder: ((context) => AlertDialog(
+                                  title: const Text('Top Up Berhasil'),
+                                  content:
+                                      const Text('Saldo berhasil ditambah'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('OK'))
+                                  ],
+                                )));
+                      }
                     }
                   })
             ],
