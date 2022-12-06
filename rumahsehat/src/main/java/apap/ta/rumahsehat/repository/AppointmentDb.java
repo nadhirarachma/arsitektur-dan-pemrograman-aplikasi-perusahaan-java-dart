@@ -13,6 +13,7 @@ public interface AppointmentDb extends JpaRepository<AppointmentModel, String> {
     List<AppointmentModel> findAppointmentModelsByDokter(DokterModel dokterModel);
 
     List<AppointmentModel> findAllByDokter(DokterModel dokterModel);
+    Optional<AppointmentModel> findByKode(String kode);
 
 //    List<AppointmentModel> findAllOrderByKodeDesc();
 }
