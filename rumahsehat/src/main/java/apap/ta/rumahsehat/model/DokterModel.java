@@ -9,6 +9,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,5 +28,6 @@ public class DokterModel extends UserModel{
 	private Integer tarif;
 
 	@OneToMany(mappedBy = "dokter", cascade = CascadeType.ALL)
+	@JsonIgnore
     private List<AppointmentModel> appointment;
 }

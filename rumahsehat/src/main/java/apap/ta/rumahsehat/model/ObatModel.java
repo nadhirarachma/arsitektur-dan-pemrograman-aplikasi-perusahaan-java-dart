@@ -6,8 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Setter
 @Getter
@@ -36,6 +36,7 @@ public class ObatModel {
 
     // Relasi dengan ResepModel
     @OneToMany(mappedBy = "obat", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<JumlahModel> jumlah;
 
     // // Relasi dengan ResepModel
