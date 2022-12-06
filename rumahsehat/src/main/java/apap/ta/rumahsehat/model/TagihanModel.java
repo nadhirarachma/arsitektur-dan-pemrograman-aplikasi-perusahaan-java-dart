@@ -5,12 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -23,8 +27,10 @@ import java.time.LocalDateTime;
 public class TagihanModel implements Serializable {
 
 	@Id
-    @NotNull
-    @Column(name = "kode", nullable = false, unique = true)
+    @Size(max = 255)
+    @GenericGenerator(name = "tagihan_id", strategy = "apap.ta.rumahsehat.model.TagihanIdGenerator")
+    @GeneratedValue(generator = "tagihan_id")
+    @Column(name = "kode", nullable = false)
     private String kode;
 	
     @NotNull
@@ -32,7 +38,6 @@ public class TagihanModel implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime tanggalTerbuat;
 
-    @NotNull
     @Column(nullable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime tanggalBayar;

@@ -26,11 +26,38 @@
                     <tbody>
                         <td th:text="${appointment.kode}"></td>
                         <td th:text="${#temporals.format(appointment.waktuAwal, 'dd-MM-yyyy HH:mm')}"></td>
-                        <td th:text="${appointment.isDone}"></td>
+                        <td th:if="${appointment.isDone == false}" th:text="'Selesai'"></td>
+                        <td th:if="${appointment.isDone == true}" th:text="'Belum Selesai'"></td>
+
                         <td th:text="${appointment.dokter.getNama()}"></td>
                         <td th:text="${appointment.pasien.getNama()}"></td>
-                        <td>
+                        <!-- <td>
                             <a class="btn btn-primary" th:href="@{/resep/detail/}">Detail</a>
+                        </td> -->
+                        <td th:if="*{resep != null}">
+                            <a class="btn btn-primary" th:href="@{/resep/view/} + ${resep.id}">Detail Resep</a>
+                        </td>
+                        
+                        <td>
+                        <div class="my-3 d-flex justify-content-center" sec:authorize="hasAuthority('Dokter')">
+                            <div th:if="*{appointment.isDone == false}">
+                                
+                                <div th:if="*{resep == null}">
+                                    <a class="btn btn-primary" th:href="@{/resep/add/}  + ${appointment.kode}">Buat Resep</a>
+        
+                                    <a  th:href="@{/appointment/isDone/} + ${appointment.kode}"
+                                    class="btn btn-primary btn-sm py-1 "
+                                    th:appointment-confirm-done="|Apakah ingin menyelesaikan appointment tanpa resep?|"
+                                    onclick="if (!confirm(this.getAttribute('appointment-confirm-done'))) return false"
+                                    >Selesai</a>
+                                </div>
+        
+                                <div th:unless="*{resep == null}">
+                                    <a class="btn btn-primary" th:href="@{/appointment/isDone/} + ${appointment.kode}">Selesai</a>
+                                </div>
+                      
+                            </div>
+                        </div>
                         </td>
                     </tbody>
                 </table>

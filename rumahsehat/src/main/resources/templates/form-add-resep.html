@@ -17,8 +17,7 @@
 					<div class="justify-content-center">
 						
 						<h2>Buat Daftar Resep</h2>
-						<br />
-						<form th:action="@{/resep/add}" th:object="${resep}" method="POST">
+						<form th:action="@{/resep/add/}  + ${kode}" th:object="${resep}" method="POST">
 							
 							Waktu Resep Dibuat: <br />
 							<input class="form-control" th:value="*{createdAt}" type="datetime-local" name="createdAt" />

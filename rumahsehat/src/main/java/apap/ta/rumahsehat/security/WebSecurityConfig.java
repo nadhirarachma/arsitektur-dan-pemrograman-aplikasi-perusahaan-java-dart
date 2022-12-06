@@ -21,8 +21,48 @@ import apap.ta.rumahsehat.config.JwtRequestFilter;
 
 @Configuration
 @EnableWebSecurity
+<<<<<<< rumahsehat/src/main/java/apap/ta/rumahsehat/security/WebSecurityConfig.java
+public class WebSecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable()
+            .authorizeRequests()
+            .antMatchers("/css/**").permitAll()
+            .antMatchers("/js/**").permitAll()
+            .antMatchers("/api/v1/get-dokter/**").permitAll()
+            .antMatchers("/api/v1/post-appointment").permitAll()
+            .antMatchers("/api/v1/resep").permitAll()
+            .antMatchers("/api/v1/resep/view/{id}").permitAll()
+            .antMatchers("/login-sso", "/validate-ticket").permitAll()
+            .antMatchers("/dokter/viewall").hasAuthority("Admin")
+            .antMatchers("/dokter/add").hasAuthority("Admin")
+            .antMatchers("/resep/add").hasAnyAuthority("Admin", "Dokter")
+            .antMatchers("/apoteker/viewall").hasAuthority("Admin")
+            .antMatchers("/apoteker/add").hasAuthority("Admin")
+            .antMatchers("/pasien/viewall").hasAuthority("Admin")
+            .antMatchers("/obat").hasAnyAuthority("Admin","Apoteker")
+            .antMatchers("/resep").hasAnyAuthority("Admin","Apoteker")
+            .anyRequest().authenticated()
+            .and()
+            .formLogin()
+            .loginPage("/login").permitAll()
+            .and()
+            .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .logoutSuccessUrl("/login").permitAll();
+        return http.build();
+    }
+
+    // @Bean
+    // public BCryptPasswordEncoder encoder() {
+    //     return new BCryptPasswordEncoder();
+    // }
+
+    public BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+=======
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+>>>>>>> rumahsehat/src/main/java/apap/ta/rumahsehat/security/WebSecurityConfig.java
 
     @Autowired
 	UserDetailsServiceImpl userDetailsService;
