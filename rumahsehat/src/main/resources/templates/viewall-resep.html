@@ -41,7 +41,7 @@
                         <td th:if="${resep.isDone == false}" th:text="'Belum dikonfirmasi'"></td>
                         <td th:if="${resep.isDone == true}" th:text="'Dikonfirmasi'"></td>
                         <td>
-                            <a class="btn btn-sm btn-primary" th:href="@{/}">Detail Resep</a>
+                            <a class="btn btn-sm btn-primary" th:href="@{/resep/view/} + ${resep.id}">Detail Resep</a>
                         </td>
                     </tr>
                     </tbody>
