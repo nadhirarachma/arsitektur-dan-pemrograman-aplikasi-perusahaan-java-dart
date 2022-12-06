@@ -20,7 +20,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter @Getter
 @Entity
-@JsonIgnoreProperties(value={"uuid", "appointment"}, allowSetters = true)
 @Table(name = "pasien")
 public class PasienModel extends UserModel{
 
