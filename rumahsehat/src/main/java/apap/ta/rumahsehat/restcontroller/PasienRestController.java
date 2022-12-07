@@ -42,21 +42,22 @@ public class PasienRestController {
 				HttpStatus.BAD_REQUEST, "Request body has invalid type or missing field"
 			);
 		}else{
-			createUser(pasien);
-			pasien.setPassword(userService.getUserByUsername(pasien.getUsername()).getPassword());
+			// createUser(pasien);
+			// pasien.setPassword(userService.getUserByUsername(pasien.getUsername()).getPassword());
 			return pasienRestService.addPasien(pasien);
 		}
 	}
 
-	private UserModel createUser(@Valid @RequestBody PasienModel pasien){
-		UserModel user = new UserModel();
-		user.setNama(pasien.getNama());
-		user.setRole("Pasien");
-		user.setUsername(pasien.getUsername());
-		user.setPassword(pasien.getPassword());
-		user.setEmail(pasien.getEmail());
-		return userService.addUser(user);
-	}
+	// api login pasien jadi gabisa dipanggil
+	// private UserModel createUser(@Valid @RequestBody PasienModel pasien){
+	// 	UserModel user = new UserModel();
+	// 	user.setNama(pasien.getNama());
+	// 	user.setRole("Pasien");
+	// 	user.setUsername(pasien.getUsername());
+	// 	user.setPassword(pasien.getPassword());
+	// 	user.setEmail(pasien.getEmail());
+	// 	return userService.addUser(user);
+	// }
 
 	@GetMapping("/profile/{username}")
 	private PasienProfileDTO getPasienProfile(@PathVariable("username") String username){
