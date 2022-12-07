@@ -11,7 +11,6 @@ class NetworkService {
   bool loggedIn = false;
   bool initialized = false;
   String username = "";
-  String token = "";
 
   late SharedPreferences local;
 
@@ -40,15 +39,6 @@ class NetworkService {
       c.withCredentials = true;
     }
 
-    headers['Content-Type'] = "application/json; charset=UTF-8;";
-    headers["Accept"] = "application/json";
-
-    headers["Access-Control-Allow-Origin"] = '*';
-    headers["Access-Control-Allow-Methods"] =
-        "GET, POST, PATCH, PUT, DELETE, OPTIONS";
-    headers["Access-Control-Allow-Headers"] =
-        "Origin, Content-Type, X-Auth-Token";
-
     http.Response response =
         await _client.post(Uri.parse(url), body: data, headers: headers);
 
@@ -56,14 +46,11 @@ class NetworkService {
 
     if (response.statusCode == 200) {
       loggedIn = true;
-      token = json.decode(response.body)['token'];
       username = json.decode(response.body)['username'];
     } else {
       loggedIn = false;
     }
 
-    print(response);
-    print(json.decode(response.body));
     return json.decode(response.body); // Expects and returns JSON request body
   }
 

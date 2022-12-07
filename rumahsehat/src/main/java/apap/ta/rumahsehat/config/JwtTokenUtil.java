@@ -33,14 +33,6 @@ public class JwtTokenUtil implements Serializable {
 				   .signWith(SignatureAlgorithm.HS512, jwtTokenSecret)
 				   .compact();
 	}
-
-	public String refreshJwtToken() {
-		return Jwts.builder()
-				   .setIssuedAt(new Date(System.currentTimeMillis()))
-				   .setExpiration(new Date(System.currentTimeMillis() + 1))
-				   .signWith(SignatureAlgorithm.HS512, jwtTokenSecret)
-				   .compact();
-	}
 	
 	public boolean validateJwtToken(String token) {
 		try {
