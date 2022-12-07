@@ -41,7 +41,7 @@ public class ObatController {
     public String updateObatSubmitPage(@ModelAttribute ObatModel obat, Model model){
         ObatModel updatedObat = obatService.updateStokObat(obat);
 
-        model.addAttribute("id", updatedObat.getIdObat());
+        model.addAttribute("nama", updatedObat.getNamaObat());
         return "update-stok-obat";
     }
 }
