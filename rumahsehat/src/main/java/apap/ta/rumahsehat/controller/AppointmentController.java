@@ -72,7 +72,7 @@ public class AppointmentController {
     @GetMapping("/appointment/detail/{kode}")
     public String viewDetailAppointment(@PathVariable(value="kode") String kode, Model model){
 
-        AppointmentModel janji = appointmentService.getAppointmentByCode(kode);
+        AppointmentModel janji = appointmentService.getAppointmentByKode(kode);
         model.addAttribute("appointment", janji);
         return "view-detail-appointment";
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rumahsehat_mobile/page/topup.dart';
 import 'package:rumahsehat_mobile/widget/drawer.dart';
 
 import 'dart:async';
@@ -47,11 +48,16 @@ class Profile extends StatefulWidget {
 
 class _Profile extends State<Profile> {
   late Future<PasienProfile> futurePasien;
+  late Widget card;
+
+  _getPasienProfile() async {
+    futurePasien = fetchPasien(widget.username);
+  }
 
   @override
   void initState() {
     super.initState();
-    futurePasien = fetchPasien(widget.username);
+    _getPasienProfile();
   }
 
   @override
@@ -65,7 +71,37 @@ class _Profile extends State<Profile> {
           future: futurePasien,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return userCard(snapshot.data!);
+              card = pasienCard(context, snapshot.data!);
+              return Column(
+                children: [
+                  card,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                          onPressed: (() {
+                            Navigator.pop(context);
+                          }),
+                          child: const Text('Kembali')),
+                      TextButton(
+                          onPressed: (() {
+                            Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            Topup(username: widget.username)))
+                                .then((value) {
+                              setState(() {
+                                _getPasienProfile();
+                              });
+                            });
+                          }),
+                          child: const Text('Top Up Saldo')),
+                    ],
+                  ),
+                ],
+              );
+              ;
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
@@ -75,7 +111,7 @@ class _Profile extends State<Profile> {
   }
 }
 
-Widget userCard(PasienProfile pasien) {
+Widget pasienCard(BuildContext context, PasienProfile pasien) {
   Widget card = Card(
     child: Column(
       children: [
@@ -86,5 +122,6 @@ Widget userCard(PasienProfile pasien) {
       ],
     ),
   );
+
   return card;
 }

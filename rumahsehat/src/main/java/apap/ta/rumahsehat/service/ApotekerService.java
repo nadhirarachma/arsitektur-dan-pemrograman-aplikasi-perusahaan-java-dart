@@ -9,4 +9,5 @@ public interface ApotekerService {
     public String encrypt(String password);
     ApotekerModel getApotekerByUsername(String username);
     List<ApotekerModel> getListApoteker();
+    ApotekerModel getApotekerById(String uuid);
 }
