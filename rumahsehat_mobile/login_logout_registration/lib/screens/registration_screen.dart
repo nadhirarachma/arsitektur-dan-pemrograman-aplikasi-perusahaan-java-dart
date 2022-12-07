@@ -23,6 +23,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //String url = 'http://apap-087.cs.ui.ac.id/api/v1/pasien/add';
+    String url = 'http://localhost:8080/api/v1/pasien/add';
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -159,7 +161,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                               print(body);
                                               var result = await http.post(
                                                   Uri.parse(
-                                                      'http://localhost:8080/api/v1/pasien/add'),
+                                                      url),
                                                   headers: <String, String>{
                                                     "Content-Type":
                                                         "application/json; charset=UTF-8",

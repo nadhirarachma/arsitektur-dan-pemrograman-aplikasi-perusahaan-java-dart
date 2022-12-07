@@ -30,8 +30,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String url = 'http://apap-087.cs.ui.ac.id/api/v1/login';
-    // String url = 'http://localhost:10087/api/v1/login';
+    //String url = 'http://apap-087.cs.ui.ac.id/api/v1/login';
+    String url = 'http://localhost:8080/api/v1/login';
     final request = context.watch<NetworkService>();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -165,8 +165,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     "Accept": "application/json"
                                                   },
                                                   body: body);
+                                              print(result.body.substring(2,7));
 
-                                              if (result.statusCode == 200) {
+                                              if (result.body.substring(2,7) == "token") {
                                                 String username =
                                                     unameController.text;
                                                 showDialog<String>(

@@ -1,7 +1,5 @@
 package apap.ta.rumahsehat.restcontroller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -31,7 +29,6 @@ public class JwtAuthenticationController {
   @PostMapping("/login")
   public ResponseEntity<?> userLogin(@RequestBody UserModel user) {
 
-    //System.out.println("AuthController -- userLogin");
     Authentication authentication = authenticationManager.authenticate(
           new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
     
@@ -41,7 +38,18 @@ public class JwtAuthenticationController {
     JwtResponse authResponse = new JwtResponse();
     authResponse.setToken(token);
     
-    System.out.println("HOI" + ResponseEntity.ok(authResponse));
     return ResponseEntity.ok(authResponse);
   }
+
+  @PostMapping("/logout")
+  public ResponseEntity<?> userLogout() {
+    
+    String token = jwtTokenUtil.refreshJwtToken();
+   
+    JwtResponse authResponse = new JwtResponse();
+    authResponse.setToken(token);
+    
+    return ResponseEntity.ok(authResponse);
+  }
+
 }
