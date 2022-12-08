@@ -33,39 +33,28 @@ public class AppointmentController {
     @Autowired
     private UserService userService;
 
-<<<<<<< rumahsehat/src/main/java/apap/ta/rumahsehat/controller/AppointmentController.java
-//    @GetMapping("/appointment/add")
-//    public String addAppointmentFormPage(Model model){
-//        AppointmentModel appointment = new AppointmentModel();
-//        List<DokterModel> listDokter = dokterService.getListDokter();
-//
-//        model.addAttribute("appointment", appointment);
-//        model.addAttribute("listDokterExisting", listDokter);
-//        return "form-add-appointment";
-//    }
-//
-//    @PostMapping(value="/appointment/add", params = {"save"})
-//    public String addAppointmentSubmitPage(@ModelAttribute AppointmentModel appointment, Model model, Authentication authentication){
-//        appointment.setIsDone(false);
-//        appointment.setWaktuAwal(LocalDateTime.now());
-//
-//        appointment.setKode(appointmentService.generateCode(appointment));
-//
-//        appointmentService.addAppointment(appointment);
-//        model.addAttribute("kode", appointment.getKode());
-//
-//        return "berhasil-add-appointment";
-//    }
-=======
-    @GetMapping("/appointment/add")
-    public String addAppointmentFormPage(Model model){
-        AppointmentModel appointment = new AppointmentModel();
-        List<DokterModel> listDokter = dokterService.getListDokter();
+   @GetMapping("/appointment/add")
+   public String addAppointmentFormPage(Model model){
+       AppointmentModel appointment = new AppointmentModel();
+       List<DokterModel> listDokter = dokterService.getListDokter();
 
-        model.addAttribute("appointment", appointment);
-        model.addAttribute("listDokterExisting", listDokter);
-        return "form-add-appointment";
-    }
+       model.addAttribute("appointment", appointment);
+       model.addAttribute("listDokterExisting", listDokter);
+       return "form-add-appointment";
+   }
+
+   @PostMapping(value="/appointment/add", params = {"save"})
+   public String addAppointmentSubmitPage(@ModelAttribute AppointmentModel appointment, Model model, Authentication authentication){
+       appointment.setIsDone(false);
+       appointment.setWaktuAwal(LocalDateTime.now());
+
+       appointment.setKode(appointmentService.generateCode(appointment));
+
+       appointmentService.addAppointment(appointment);
+       model.addAttribute("kode", appointment.getKode());
+
+       return "berhasil-add-appointment";
+   }
 
     @PostMapping(value="/appointment/add", params = {"save"})
     public String addAppointmentSubmitPage(@ModelAttribute AppointmentModel appointment, Model model, Authentication authentication){
@@ -79,7 +68,6 @@ public class AppointmentController {
 
         return "berhasil-add-appointment";
     }
->>>>>>> rumahsehat/src/main/java/apap/ta/rumahsehat/controller/AppointmentController.java
 
     @GetMapping("/appointment")
     public String listAppointment(Model model, Authentication authentication){
@@ -105,8 +93,6 @@ public class AppointmentController {
 
     }
 
-<<<<<<< rumahsehat/src/main/java/apap/ta/rumahsehat/controller/AppointmentController.java
-=======
 //    @GetMapping("/get-dokter")
 //    public List<?> getAllDokter(){
 //        if(dokterService.getListDokter().size()==0){
@@ -128,5 +114,4 @@ public class AppointmentController {
 //        }
 //        //return null;
 //    }
->>>>>>> rumahsehat/src/main/java/apap/ta/rumahsehat/controller/AppointmentController.java
 }
