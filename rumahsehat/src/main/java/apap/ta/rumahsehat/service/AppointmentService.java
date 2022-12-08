@@ -1,7 +1,7 @@
 package apap.ta.rumahsehat.service;
 
 import apap.ta.rumahsehat.model.AppointmentModel;
-import apap.ta.rumahsehat.model.PasienModel;
+// import apap.ta.rumahsehat.model.PasienModel;
 import apap.ta.rumahsehat.payload.AppointmentDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,9 +13,6 @@ public interface AppointmentService {
     String generateCode();
     List<AppointmentModel> getListAppointment();
     AppointmentModel getAppointmentByCode(String kode);
-    // AppointmentModel addAppointment(PasienModel pasien, AppointmentModel appointment);
-    String generateCode();
-    List<AppointmentModel> getListAppointment();
     AppointmentModel getAppointmentByKode(String kode);
 
     List<AppointmentModel> getListAppointmentByDokter(String dokter);
