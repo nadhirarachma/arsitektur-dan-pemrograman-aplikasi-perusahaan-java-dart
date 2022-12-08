@@ -4,7 +4,7 @@ import apap.ta.rumahsehat.model.AppointmentModel;
 import apap.ta.rumahsehat.payload.AppointmentDTO;
 import apap.ta.rumahsehat.repository.AppointmentDb;
 import apap.ta.rumahsehat.repository.DokterDb;
-import apap.ta.rumahsehat.model.PasienModel;
+// import apap.ta.rumahsehat.model.PasienModel;
 import apap.ta.rumahsehat.repository.PasienDb;
 import apap.ta.rumahsehat.repository.UserDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.time.LocalDate;
+// import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -112,6 +112,20 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    public AppointmentModel getAppointmentByCode(String kode){
+        return appointmentDb.findById(kode).get();
+    }
+
+    @Override
+    public List<AppointmentModel> getListAppointmentByPasien(String pasienModel) {
+        return appointmentDb.findAppointmentModelsByPasien(pasienDb.findByUsername(pasienModel));
+    }
+
+    @Override
+    public AppointmentModel findById(String kode) {
+        return appointmentDb.findById(kode).get();
+    }
+
     public AppointmentModel getAppointmentByKode(String kode){
         Optional<AppointmentModel> appointment = appointmentDb.findByKode(kode);
         if (appointment.isPresent()) {
