@@ -4,10 +4,7 @@ import apap.ta.rumahsehat.model.AppointmentModel;
 import apap.ta.rumahsehat.payload.AppointmentDTO;
 import apap.ta.rumahsehat.repository.AppointmentDb;
 import apap.ta.rumahsehat.repository.DokterDb;
-<<<<<<< rumahsehat/src/main/java/apap/ta/rumahsehat/service/AppointmentServiceImpl.java
-=======
 import apap.ta.rumahsehat.model.PasienModel;
->>>>>>> rumahsehat/src/main/java/apap/ta/rumahsehat/service/AppointmentServiceImpl.java
 import apap.ta.rumahsehat.repository.PasienDb;
 import apap.ta.rumahsehat.repository.UserDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +47,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     public void addAppointment(AppointmentModel appointment){
         appointmentDb.save(appointment);
     }
-<<<<<<< rumahsehat/src/main/java/apap/ta/rumahsehat/service/AppointmentServiceImpl.java
-=======
     // @Override
     // public AppointmentModel addAppointment(PasienModel pasien, AppointmentModel appointment){
     //     appointment.setIsDone(false);
@@ -60,7 +55,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     //     return appointmentDb.save(appointment);
     // }
 
->>>>>>> rumahsehat/src/main/java/apap/ta/rumahsehat/service/AppointmentServiceImpl.java
 
     @Override
     public String generateCode() {
