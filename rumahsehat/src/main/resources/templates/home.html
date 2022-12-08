@@ -26,6 +26,8 @@
                     </p>
                     <br>
                     <div class="button">
+                        <a class="mx-2 btn" th:href="@{/dokter/add}" th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}" style="color: white;background:#62c1f0; height: 50px; border-radius: 10px;">Menambah Dokter</a>
+                        <a class="mx-2 btn" th:href="@{/apoteker/add}" th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}" style="color: white;background:#62c1f0; height: 50px; border-radius: 10px;">Menambah Apoteker</a>
                         <a class="mx-2 btn" th:href="@{/dokter/viewall}" th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}" style="color: white;background:#62c1f0; height: 50px; border-radius: 10px;">Daftar Dokter</a>
                         <a class="mx-2 btn" th:href="@{/apoteker/viewall}" th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}" style="color: white;background:#62c1f0; height: 50px; border-radius: 10px;">Daftar Apoteker</a>
                         <a class="mx-2 btn" th:href="@{/pasien/viewall}" th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}" style="color: white;background:#62c1f0; height: 50px; border-radius: 10px;">Daftar Pasien</a>

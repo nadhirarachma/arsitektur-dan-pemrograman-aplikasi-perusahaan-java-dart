@@ -33,6 +33,30 @@ public class AppointmentController {
     @Autowired
     private UserService userService;
 
+<<<<<<< rumahsehat/src/main/java/apap/ta/rumahsehat/controller/AppointmentController.java
+//    @GetMapping("/appointment/add")
+//    public String addAppointmentFormPage(Model model){
+//        AppointmentModel appointment = new AppointmentModel();
+//        List<DokterModel> listDokter = dokterService.getListDokter();
+//
+//        model.addAttribute("appointment", appointment);
+//        model.addAttribute("listDokterExisting", listDokter);
+//        return "form-add-appointment";
+//    }
+//
+//    @PostMapping(value="/appointment/add", params = {"save"})
+//    public String addAppointmentSubmitPage(@ModelAttribute AppointmentModel appointment, Model model, Authentication authentication){
+//        appointment.setIsDone(false);
+//        appointment.setWaktuAwal(LocalDateTime.now());
+//
+//        appointment.setKode(appointmentService.generateCode(appointment));
+//
+//        appointmentService.addAppointment(appointment);
+//        model.addAttribute("kode", appointment.getKode());
+//
+//        return "berhasil-add-appointment";
+//    }
+=======
     @GetMapping("/appointment/add")
     public String addAppointmentFormPage(Model model){
         AppointmentModel appointment = new AppointmentModel();
@@ -55,6 +79,7 @@ public class AppointmentController {
 
         return "berhasil-add-appointment";
     }
+>>>>>>> rumahsehat/src/main/java/apap/ta/rumahsehat/controller/AppointmentController.java
 
     @GetMapping("/appointment")
     public String listAppointment(Model model, Authentication authentication){
@@ -72,12 +97,16 @@ public class AppointmentController {
     @GetMapping("/appointment/detail/{kode}")
     public String viewDetailAppointment(@PathVariable(value="kode") String kode, Model model){
 
+        AppointmentModel janji = appointmentService.getAppointmentByCode(kode);
+
         AppointmentModel janji = appointmentService.getAppointmentByKode(kode);
         model.addAttribute("appointment", janji);
         return "view-detail-appointment";
 
     }
 
+<<<<<<< rumahsehat/src/main/java/apap/ta/rumahsehat/controller/AppointmentController.java
+=======
 //    @GetMapping("/get-dokter")
 //    public List<?> getAllDokter(){
 //        if(dokterService.getListDokter().size()==0){
@@ -99,4 +128,5 @@ public class AppointmentController {
 //        }
 //        //return null;
 //    }
+>>>>>>> rumahsehat/src/main/java/apap/ta/rumahsehat/controller/AppointmentController.java
 }
