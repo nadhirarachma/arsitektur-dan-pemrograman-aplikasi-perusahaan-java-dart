@@ -10,6 +10,9 @@ import java.util.List;
 
 public interface AppointmentService {
     void addAppointment(AppointmentModel appointment);
+    String generateCode();
+    List<AppointmentModel> getListAppointment();
+    AppointmentModel getAppointmentByCode(String kode);
     // AppointmentModel addAppointment(PasienModel pasien, AppointmentModel appointment);
     String generateCode();
     List<AppointmentModel> getListAppointment();
@@ -20,4 +23,7 @@ public interface AppointmentService {
 
     ResponseEntity<?> createAppointment(AppointmentDTO appointmentDTO, Authentication authentication);
 
+    List<AppointmentModel> getListAppointmentByPasien(String pasienModel);
+
+    AppointmentModel findById(String kode);
 }
