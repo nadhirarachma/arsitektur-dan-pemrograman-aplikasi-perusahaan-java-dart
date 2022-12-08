@@ -37,15 +37,16 @@ public class ResepModel {
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime createdAt;
 
-    @OneToOne(cascade=CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "appointment_kode", referencedColumnName = "kode")
     private AppointmentModel appointment;
 
-    //Relasi dengan ObatModel
+    // Relasi dengan ObatModel
     @OneToMany(mappedBy = "resep", cascade = CascadeType.ALL)
-    private List<JumlahModel> jumlah;
+    List<JumlahModel> jumlah;
 
-    @ManyToOne(fetch= FetchType.EAGER, optional = false)
-    @JoinColumn(name = "confirmer_uuid", referencedColumnName= "uuid", nullable = false)
+    @ManyToOne(fetch= FetchType.EAGER)
+    @JoinColumn(name = "confirmer_uuid", referencedColumnName= "uuid", nullable = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ApotekerModel apotek;
 }

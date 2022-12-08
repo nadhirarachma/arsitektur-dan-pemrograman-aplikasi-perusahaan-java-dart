@@ -29,6 +29,7 @@ public class ObatController {
         model.addAttribute("listObat", listObat);
         return "viewall-obat";
     }
+    
     @GetMapping("/obat/{idObat}/update_stok")
     public String updateObatFormPage(@PathVariable String idObat, Model model) {
         ObatModel obat = obatService.getObatbyId(idObat);
@@ -40,7 +41,7 @@ public class ObatController {
     public String updateObatSubmitPage(@ModelAttribute ObatModel obat, Model model){
         ObatModel updatedObat = obatService.updateStokObat(obat);
 
-        model.addAttribute("id", updatedObat.getIdObat());
+        model.addAttribute("nama", updatedObat.getNamaObat());
         return "update-stok-obat";
     }
 }

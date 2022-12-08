@@ -4,6 +4,10 @@ import apap.ta.rumahsehat.model.AppointmentModel;
 import apap.ta.rumahsehat.payload.AppointmentDTO;
 import apap.ta.rumahsehat.repository.AppointmentDb;
 import apap.ta.rumahsehat.repository.DokterDb;
+<<<<<<< rumahsehat/src/main/java/apap/ta/rumahsehat/service/AppointmentServiceImpl.java
+=======
+import apap.ta.rumahsehat.model.PasienModel;
+>>>>>>> rumahsehat/src/main/java/apap/ta/rumahsehat/service/AppointmentServiceImpl.java
 import apap.ta.rumahsehat.repository.PasienDb;
 import apap.ta.rumahsehat.repository.UserDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +50,17 @@ public class AppointmentServiceImpl implements AppointmentService {
     public void addAppointment(AppointmentModel appointment){
         appointmentDb.save(appointment);
     }
+<<<<<<< rumahsehat/src/main/java/apap/ta/rumahsehat/service/AppointmentServiceImpl.java
+=======
+    // @Override
+    // public AppointmentModel addAppointment(PasienModel pasien, AppointmentModel appointment){
+    //     appointment.setIsDone(false);
+    //     appointment.setPasien(pasien);
+
+    //     return appointmentDb.save(appointment);
+    // }
+
+>>>>>>> rumahsehat/src/main/java/apap/ta/rumahsehat/service/AppointmentServiceImpl.java
 
     @Override
     public String generateCode() {
@@ -71,16 +86,22 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public ResponseEntity<?> createAppointment(AppointmentDTO appointmentDTO, Authentication authentication) {
         try{
+
 //            System.out.println(appointmentDTO);
 //            System.out.println(dokterDb.findByUsername(appointmentDTO.getUsername()));
 //            System.out.println(pasienDb.findByUsername(authentication.getName()));
+
             AppointmentModel appointmentModel = new AppointmentModel();
             if(checkAppointment(appointmentDTO.getUsername(),appointmentDTO.getTanggal())){
                 appointmentModel.setKode(generateCode());
                 appointmentModel.setIsDone(false);
                 appointmentModel.setWaktuAwal(appointmentDTO.getTanggal());
                 appointmentModel.setDokter(dokterDb.findByUsername(appointmentDTO.getUsername()));
+
                 //appointmentModel.setPasien(pasienDb.findByUsername(authentication.getName()));
+
+//                appointmentModel.setPasien(pasienDb.findByUsername(authentication.getName()));
+
                 appointmentModel.setPasien(null);
                 appointmentDb.save(appointmentModel);
                 return ResponseEntity.ok().body("Appointment berhasi ditambahkan");
@@ -118,5 +139,12 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public AppointmentModel findById(String kode) {
         return appointmentDb.findById(kode).get();
+
+    public AppointmentModel getAppointmentByKode(String kode){
+        Optional<AppointmentModel> appointment = appointmentDb.findByKode(kode);
+        if (appointment.isPresent()) {
+            return appointment.get();            
+        } else return null;
+
     }
 }

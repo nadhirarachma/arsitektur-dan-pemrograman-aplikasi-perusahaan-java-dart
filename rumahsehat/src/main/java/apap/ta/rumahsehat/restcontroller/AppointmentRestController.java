@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/")
 public class AppointmentRestController {
     @Autowired
     private AppointmentRestService appointmentRestService;

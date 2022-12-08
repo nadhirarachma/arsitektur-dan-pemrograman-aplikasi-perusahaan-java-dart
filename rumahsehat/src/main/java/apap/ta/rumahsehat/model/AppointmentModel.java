@@ -45,13 +45,20 @@ public class AppointmentModel implements Serializable{
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "uuidPasien", referencedColumnName = "uuid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private PasienModel pasien;
 
     //relasi dengan dokter
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "uuidDokter", referencedColumnName = "uuid", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
     private DokterModel dokter;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_resep", referencedColumnName = "id")
+    @JsonIgnore
+    private ResepModel resep;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "kode_tagihan", referencedColumnName = "kode")
+    private TagihanModel tagihan;
 }
