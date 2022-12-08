@@ -22,6 +22,7 @@ public class WebSecurityConfig {
             .antMatchers("/css/**").permitAll()
             .antMatchers("/js/**").permitAll()
             .antMatchers("/api/v1/get-dokter/**").permitAll()
+            .antMatchers("/api/v1/**").permitAll()
             .antMatchers("/api/v1/post-appointment").permitAll()
             .antMatchers("/login-sso", "/validate-ticket").permitAll()
             .antMatchers("/dokter/viewall").hasAuthority("Admin")

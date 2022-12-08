@@ -71,13 +71,16 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public ResponseEntity<?> createAppointment(AppointmentDTO appointmentDTO, Authentication authentication) {
         try{
+//            System.out.println(appointmentDTO);
+//            System.out.println(dokterDb.findByUsername(appointmentDTO.getUsername()));
+//            System.out.println(pasienDb.findByUsername(authentication.getName()));
             AppointmentModel appointmentModel = new AppointmentModel();
             if(checkAppointment(appointmentDTO.getUsername(),appointmentDTO.getTanggal())){
                 appointmentModel.setKode(generateCode());
                 appointmentModel.setIsDone(false);
                 appointmentModel.setWaktuAwal(appointmentDTO.getTanggal());
                 appointmentModel.setDokter(dokterDb.findByUsername(appointmentDTO.getUsername()));
-//                appointmentModel.setPasien(pasienDb.findByUsername(authentication.getName()));
+                //appointmentModel.setPasien(pasienDb.findByUsername(authentication.getName()));
                 appointmentModel.setPasien(null);
                 appointmentDb.save(appointmentModel);
                 return ResponseEntity.ok().body("Appointment berhasi ditambahkan");
@@ -104,6 +107,16 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentModel getAppointmentByCode(String kode){
+        return appointmentDb.findById(kode).get();
+    }
+
+    @Override
+    public List<AppointmentModel> getListAppointmentByPasien(String pasienModel) {
+        return appointmentDb.findAppointmentModelsByPasien(pasienDb.findByUsername(pasienModel));
+    }
+
+    @Override
+    public AppointmentModel findById(String kode) {
         return appointmentDb.findById(kode).get();
     }
 }

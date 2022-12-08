@@ -26,7 +26,9 @@
                     <tbody>
                         <td th:text="${appointment.kode}"></td>
                         <td th:text="${#temporals.format(appointment.waktuAwal, 'dd-MM-yyyy HH:mm')}"></td>
-                        <td th:text="${appointment.isDone}"></td>
+                        <td th:if="${appointment.isDone == false}" th:text="'Belum Selesai'"></td>
+                        <td th:if="${appointment.isDone == true}" th:text="'Selesai'"></td>
+
                         <td th:text="${appointment.dokter.getNama()}"></td>
                         <td th:text="${appointment.pasien.getNama()}"></td>
                         <td>

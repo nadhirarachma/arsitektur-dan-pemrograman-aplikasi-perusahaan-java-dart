@@ -18,4 +18,7 @@ public interface AppointmentService {
 
     ResponseEntity<?> createAppointment(AppointmentDTO appointmentDTO, Authentication authentication);
 
+    List<AppointmentModel> getListAppointmentByPasien(String pasienModel);
+
+    AppointmentModel findById(String kode);
 }
