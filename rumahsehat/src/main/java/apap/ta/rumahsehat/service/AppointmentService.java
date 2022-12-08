@@ -13,11 +13,13 @@ public interface AppointmentService {
     String generateCode();
     List<AppointmentModel> getListAppointment();
     AppointmentModel getAppointmentByCode(String kode);
-    AppointmentModel getAppointmentByKode(String kode);
+    //AppointmentModel getAppointmentByKode(String kode);
 
     List<AppointmentModel> getListAppointmentByDokter(String dokter);
 
-
     ResponseEntity<?> createAppointment(AppointmentDTO appointmentDTO, Authentication authentication);
 
+    List<AppointmentModel> getListAppointmentByPasien(String pasienModel);
+
+    AppointmentModel findById(String kode);
 }

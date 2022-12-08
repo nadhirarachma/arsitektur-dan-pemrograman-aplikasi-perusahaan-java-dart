@@ -35,42 +35,6 @@ public class AppointmentController {
     @Autowired
     private UserService userService;
 
-   @GetMapping("/appointment/add")
-   public String addAppointmentFormPage(Model model){
-       AppointmentModel appointment = new AppointmentModel();
-       List<DokterModel> listDokter = dokterService.getListDokter();
-
-       model.addAttribute("appointment", appointment);
-       model.addAttribute("listDokterExisting", listDokter);
-       return "form-add-appointment";
-   }
-
-//    @PostMapping(value="/appointment/add", params = {"save"})
-//    public String addAppointmentSubmitPage(@ModelAttribute AppointmentModel appointment, Model model, Authentication authentication){
-//        appointment.setIsDone(false);
-//        appointment.setWaktuAwal(LocalDateTime.now());
-
-//        appointment.setKode(appointmentService.generateCode(appointment));
-
-//        appointmentService.addAppointment(appointment);
-//        model.addAttribute("kode", appointment.getKode());
-
-//        return "berhasil-add-appointment";
-//    }
-
-    @PostMapping(value="/appointment/add", params = {"save"})
-    public String addAppointmentSubmitPage(@ModelAttribute AppointmentModel appointment, Model model, Authentication authentication){
-        appointment.setIsDone(false);
-//        appointment.setWaktuAwal(LocalDateTime.now());
-
-//        appointment.setKode(appointmentService.generateCode(appointment));
-
-        appointmentService.addAppointment(appointment);
-        model.addAttribute("kode", appointment.getKode());
-
-        return "berhasil-add-appointment";
-    }
-
     @GetMapping("/appointment")
     public String listAppointment(Model model, Authentication authentication){
         List<AppointmentModel> listAppointment = new ArrayList<>();
@@ -89,31 +53,10 @@ public class AppointmentController {
 
         // AppointmentModel janji = appointmentService.getAppointmentByCode(kode);
 
-        AppointmentModel janji = appointmentService.getAppointmentByKode(kode);
+        AppointmentModel janji = appointmentService.getAppointmentByCode(kode);
         model.addAttribute("appointment", janji);
         return "view-detail-appointment";
 
     }
 
-//    @GetMapping("/get-dokter")
-//    public List<?> getAllDokter(){
-//        if(dokterService.getListDokter().size()==0){
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tidak Ada Dokter Tersedia");
-//        }else {
-//            return dokterService.getListDokter();
-//        }
-//    }
-//
-//    @PostMapping("/post-appointment")
-//    public ResponseEntity<?> postAppointment(@Valid @RequestBody
-//                                             AppointmentDTO appointmentDTO, Authentication authentication){
-//        try{
-//            return appointmentService.createAppointment(appointmentDTO, authentication);
-//        }catch (NoSuchElementException e){
-//            throw new ResponseStatusException(
-//                    HttpStatus.BAD_REQUEST,"Appoinment Tidak Berhasil Dibuat"
-//            );
-//        }
-//        //return null;
-//    }
 }

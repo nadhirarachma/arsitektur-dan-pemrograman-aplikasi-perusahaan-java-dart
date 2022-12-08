@@ -1,6 +1,8 @@
 package apap.ta.rumahsehat.restcontroller;
 
+import apap.ta.rumahsehat.model.AppointmentModel;
 import apap.ta.rumahsehat.payload.AppointmentDTO;
+import apap.ta.rumahsehat.payload.AppointmentGetDetailDTO;
 import apap.ta.rumahsehat.service.AppointmentRestService;
 import apap.ta.rumahsehat.service.AppointmentService;
 import apap.ta.rumahsehat.service.DokterService;
@@ -47,5 +49,19 @@ public class AppointmentRestController {
             );
         }
         //return null;
+    }
+
+    @GetMapping("/get-appointment-pasien")
+    public List<?> getAppointmentByPasien(Authentication authentication){
+        if(appointmentService.getListAppointmentByPasien(authentication.getName()).size()==0){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tidak Ada Appointment Tersedia");
+        }else {
+            return appointmentService.getListAppointmentByPasien(authentication.getName());
+        }
+    }
+
+    @GetMapping("/get-appointment-detail-pasien")
+    public AppointmentModel getAppointmentDetailPasien(@RequestBody AppointmentGetDetailDTO appointmentGetDetailDTO ){
+        return appointmentService.findById(appointmentGetDetailDTO.getKode());
     }
 }

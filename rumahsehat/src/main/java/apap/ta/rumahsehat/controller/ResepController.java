@@ -66,7 +66,7 @@ public class ResepController {
 
     @GetMapping("/resep/add/{kode}")
     public String addResepFormPage(@PathVariable String kode, Model model) {
-        appointment = appointmentService.getAppointmentByKode(kode);
+        appointment = appointmentService.getAppointmentByCode(kode);
         ResepModel resep = new ResepModel();
         
         List<ObatModel> listObat = obatService.getSortedListObat();
@@ -85,7 +85,7 @@ public class ResepController {
 
     @PostMapping(value="/resep/add/{kode}", params = {"save"})
     public String addResepSubmitPage(@PathVariable String kode, @ModelAttribute ResepModel resep, @ModelAttribute JumlahModel jumlah, Model model) {
-        appointment = appointmentService.getAppointmentByKode(kode);
+        appointment = appointmentService.getAppointmentByCode(kode);
         System.out.println(appointment.getKode());
         if (resep.getJumlah() == null) {
             resep.setJumlah(new ArrayList<>());
@@ -109,7 +109,7 @@ public class ResepController {
             @ModelAttribute ResepModel resep,
             Model model
     ){
-        appointment = appointmentService.getAppointmentByKode(kode);
+        appointment = appointmentService.getAppointmentByCode(kode);
         if (resep.getJumlah() == null || resep.getJumlah().size()==0){
             resep.setJumlah(new ArrayList<>());
         }
@@ -129,7 +129,7 @@ public class ResepController {
             @RequestParam("deleteRow") Integer row,
             Model model
     ){
-        appointment = appointmentService.getAppointmentByKode(kode);
+        appointment = appointmentService.getAppointmentByCode(kode);
         final Integer rowId = Integer.valueOf(row);
         resep.getJumlah().remove(rowId.intValue());
 
