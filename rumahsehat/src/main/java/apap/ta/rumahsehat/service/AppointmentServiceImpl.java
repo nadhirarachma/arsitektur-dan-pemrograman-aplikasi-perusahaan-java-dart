@@ -80,22 +80,13 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public ResponseEntity<?> createAppointment(AppointmentDTO appointmentDTO, Authentication authentication) {
         try{
-
-//            System.out.println(appointmentDTO);
-//            System.out.println(dokterDb.findByUsername(appointmentDTO.getUsername()));
-//            System.out.println(pasienDb.findByUsername(authentication.getName()));
-
             AppointmentModel appointmentModel = new AppointmentModel();
             if(checkAppointment(appointmentDTO.getUsername(),appointmentDTO.getTanggal())){
                 appointmentModel.setKode(generateCode());
                 appointmentModel.setIsDone(false);
                 appointmentModel.setWaktuAwal(appointmentDTO.getTanggal());
                 appointmentModel.setDokter(dokterDb.findByUsername(appointmentDTO.getUsername()));
-
-                //appointmentModel.setPasien(pasienDb.findByUsername(authentication.getName()));
-
 //                appointmentModel.setPasien(pasienDb.findByUsername(authentication.getName()));
-
                 appointmentModel.setPasien(null);
                 appointmentDb.save(appointmentModel);
                 return ResponseEntity.ok().body("Appointment berhasi ditambahkan");
@@ -140,6 +131,5 @@ public class AppointmentServiceImpl implements AppointmentService {
         if (appointment.isPresent()) {
             return appointment.get();            
         } else return null;
-
     }
 }
