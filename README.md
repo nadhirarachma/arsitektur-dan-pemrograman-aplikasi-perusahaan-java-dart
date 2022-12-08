@@ -12,8 +12,8 @@
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan |
 | --- | --- | --- |
 | 2006596825 | Al Ghifari Enerza Sentanu | 14 |
-| 2006597475 | Alviona Retno Amalia | 6 |
-| 1906318716 | Azhar Rahmatilah Addzikri | 9 |
+| 2006597475 | Alviona Retno Amalia | 9 |
+| 1906318716 | Azhar Rahmatilah Addzikri | 6 |
 | 2006463686 | Helga Syahda Elmira | 12 |
 | 2006484974 | Nadhira Rachma Salsabila Anandra | 2 |
 ---
@@ -22,8 +22,8 @@
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan |
 | --- | --- | --- |
 | 2006596825 | Al Ghifari Enerza Sentanu | 15 |
-| 2006597475 | Alviona Retno Amalia | 7 |
-| 1906318716 | Azhar Rahmatilah Addzikri | 10 |
+| 2006597475 | Alviona Retno Amalia | 10 |
+| 1906318716 | Azhar Rahmatilah Addzikri | 7 |
 | 2006463686 | Helga Syahda Elmira | 1 |
 | 2006484974 | Nadhira Rachma Salsabila Anandra | 3 |
 ---
@@ -32,8 +32,8 @@
 | NPM | Nama Lengkap | Fitur yang akan diselesaikan |
 | --- | --- | --- |
 | 2006596825 | Al Ghifari Enerza Sentanu | 16, 17 |
-| 2006597475 | Alviona Retno Amalia | 8 |
-| 1906318716 | Azhar Rahmatilah Addzikri | 11 |
+| 2006597475 | Alviona Retno Amalia | 11 |
+| 1906318716 | Azhar Rahmatilah Addzikri | 8 |
 | 2006463686 | Helga Syahda Elmira | 13 |
 | 2006484974 | Nadhira Rachma Salsabila Anandra | 4, 5 |
 ---

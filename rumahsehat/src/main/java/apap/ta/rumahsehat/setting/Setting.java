@@ -2,8 +2,13 @@ package apap.ta.rumahsehat.setting;
 
 public class Setting {
    
+<<<<<<< rumahsehat/src/main/java/apap/ta/rumahsehat/setting/Setting.java
     //final public static String CLIENT_BASE_URL = "http://apap-087.cs.ui.ac.id";
     final public static String CLIENT_BASE_URL = "http://localhost:8080";
+=======
+    final public static String CLIENT_BASE_URL = "http://apap-087.cs.ui.ac.id";
+    // final public static String CLIENT_BASE_URL = "http://localhost:10087";
+>>>>>>> rumahsehat/src/main/java/apap/ta/rumahsehat/setting/Setting.java
     
     final public static String CLIENT_LOGIN = CLIENT_BASE_URL + "/validate-ticket";
     

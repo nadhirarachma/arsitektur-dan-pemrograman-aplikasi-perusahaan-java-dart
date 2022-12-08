@@ -8,6 +8,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -30,6 +32,7 @@ public class JumlahModel {
 
     // Relation dengan ResepModel
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "resep", referencedColumnName = "id")
+    @JsonIgnore
+    @JoinColumn(name = "resep", referencedColumnName = "id", nullable = false)
     private ResepModel resep;
 }

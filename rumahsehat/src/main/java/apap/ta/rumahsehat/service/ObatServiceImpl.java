@@ -24,7 +24,7 @@ public class ObatServiceImpl implements ObatService{
 
     @Override
     public List<ObatModel> getSortedListObat() {
-        return obatDb.findAll(Sort.by(Sort.Direction.ASC, "namaObat"));
+        return obatDb.findAll(Sort.by(Sort.Direction.ASC, "idObat"));
     }
 
     @Override

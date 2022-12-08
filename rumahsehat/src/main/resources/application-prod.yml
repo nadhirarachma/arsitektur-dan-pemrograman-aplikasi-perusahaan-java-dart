@@ -4,8 +4,8 @@ server:
 
 spring:
   #konfigurasi untuk koneksi MySQL
-#  spring.sql.init.platform=mysql
-#  spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+  # spring.sql.init.platform=mysql
+  # spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 
   # konfigurasi untuk koneksi db
   datasource:
