@@ -1,10 +1,10 @@
 package apap.ta.rumahsehat.service;
 
 import apap.ta.rumahsehat.model.AppointmentModel;
+import apap.ta.rumahsehat.model.PasienModel;
 import apap.ta.rumahsehat.payload.AppointmentDTO;
 import apap.ta.rumahsehat.repository.AppointmentDb;
 import apap.ta.rumahsehat.repository.DokterDb;
-// import apap.ta.rumahsehat.model.PasienModel;
 import apap.ta.rumahsehat.repository.PasienDb;
 import apap.ta.rumahsehat.repository.UserDb;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-// import java.time.LocalDate;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,14 +47,6 @@ public class AppointmentServiceImpl implements AppointmentService {
     public void addAppointment(AppointmentModel appointment){
         appointmentDb.save(appointment);
     }
-    // @Override
-    // public AppointmentModel addAppointment(PasienModel pasien, AppointmentModel appointment){
-    //     appointment.setIsDone(false);
-    //     appointment.setPasien(pasien);
-
-    //     return appointmentDb.save(appointment);
-    // }
-
 
     @Override
     public String generateCode() {
@@ -101,6 +93,8 @@ public class AppointmentServiceImpl implements AppointmentService {
         }
     }
 
+
+
     public boolean checkAppointment(String username, LocalDateTime waktuAwal){
         List<AppointmentModel> listAppointment = appointmentDb.findAllByDokter(dokterDb.findByUsername(username));
         for (int i = 0; i < listAppointment.size() ; i++) {
@@ -126,10 +120,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentDb.findById(kode).get();
     }
 
-    public AppointmentModel getAppointmentByKode(String kode){
-        Optional<AppointmentModel> appointment = appointmentDb.findByKode(kode);
-        if (appointment.isPresent()) {
-            return appointment.get();            
-        } else return null;
-    }
+
 }
+
+
