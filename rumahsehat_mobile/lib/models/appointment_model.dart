@@ -13,9 +13,12 @@ class AppointmentModel {
     required this.namaPasien,
   });
 
-  // factory AppointmentModel.fromJson(Map<String, dynamic> json) => AppointmentModel(
-  //       id: json["uuid"],
-  //       username: json["username"],
-  //       tarif: json["tarif"],
-  //     );
+  factory AppointmentModel.fromJson(Map<String, dynamic> json) =>
+      AppointmentModel(
+        kode: json["kode"],
+        waktuAwal: DateTime.parse(json["waktuAwal"]),
+        isDone: json["isDone"],
+        namaDokter: json["dokter"]["username"],
+        namaPasien: json["pasien"]["username"],
+      );
 }

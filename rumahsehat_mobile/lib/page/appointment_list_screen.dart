@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rumahsehat_mobile/blocs/appointment_bloc/appointment_bloc.dart';
+import 'package:rumahsehat_mobile/commons/extensions/date_time_extension.dart';
+import 'package:rumahsehat_mobile/models/appointment_model.dart';
 import 'package:rumahsehat_mobile/page/appointment_detail_screen.dart';
+import 'package:rumahsehat_mobile/repositories/appointment_repository.dart';
 
 class AppointmentListScreen extends StatelessWidget {
   static const routeName = '/view-appointment';
@@ -7,25 +12,6 @@ class AppointmentListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Dummy data.
-    List<Map<String, String>> _dummyData = [
-      {
-        "nama": "Ajay",
-        "waktu_awal": "18 November 2022 12:00",
-        "status": "Selesai",
-      },
-      {
-        "nama": "Ajay",
-        "waktu_awal": "18 November 2022 12:00",
-        "status": "Selesai",
-      },
-      {
-        "nama": "Ajay",
-        "waktu_awal": "18 November 2022 12:00",
-        "status": "Selesai",
-      },
-    ];
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -38,36 +24,58 @@ class AppointmentListScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: ListView.builder(
-            itemCount: _dummyData.length,
-            itemBuilder: ((context, index) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Material(
-                  borderRadius: BorderRadius.circular(8.0),
-                  color: Colors.blue[100],
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const AppointmentDetailScreen();
-                      }));
-                    },
-                    child: _buildCard(_dummyData[index], index + 1),
-                  ),
-                ),
-              );
-            }),
+      body: BlocProvider<AppointmentBloc>(
+        create: (_) {
+          final repository =
+              RepositoryProvider.of<AppointmentRepository>(context);
+          return AppointmentBloc(repository)..add(FetchPatientAppointments());
+        },
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: BlocBuilder<AppointmentBloc, AppointmentState>(
+              builder: (context, state) {
+                if (state is SuccessFetchAppointmentsData) {
+                  final listAppointment = state.listAppointments;
+                  return ListView.builder(
+                    itemCount: listAppointment.length,
+                    itemBuilder: ((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Material(
+                          borderRadius: BorderRadius.circular(8.0),
+                          color: Colors.blue[100],
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return AppointmentDetailScreen(
+                                  appointment: listAppointment[index],
+                                );
+                              }));
+                            },
+                            child:
+                                _buildCard(listAppointment[index], index + 1),
+                          ),
+                        ),
+                      );
+                    }),
+                  );
+                } else if (state is FailFetchAppointmensData) {
+                  return const Center(
+                      child: Text("Tidak ada appointment untuk saat ini."));
+                } else {
+                  return const Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildCard(Map<String, String> data, int no) {
+  Widget _buildCard(AppointmentModel data, int no) {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -105,11 +113,11 @@ class AppointmentListScreen extends StatelessWidget {
             children: [
               Text(no.toString()),
               const SizedBox(height: 4),
-              Text(data["nama"]!),
+              Text(data.namaDokter),
               const SizedBox(height: 4),
-              Text(data["waktu_awal"]!),
+              Text(data.waktuAwal.displayDate),
               const SizedBox(height: 4),
-              Text(data["status"]!),
+              Text(data.isDone ? "Selesai" : "Belum selesai"),
             ],
           ),
         ],

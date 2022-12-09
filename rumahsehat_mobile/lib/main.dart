@@ -4,6 +4,7 @@ import 'package:login_logout_registration/utils/network_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:login_logout_registration/screens/welcome_screen.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:rumahsehat_mobile/service_locator/repository_providers.dart';
 import 'package:rumahsehat_mobile/service_locator/service_locator.dart';
 
@@ -11,6 +12,8 @@ import 'package:rumahsehat_mobile/service_locator/service_locator.dart';
 void main() {
   runApp(MyApp());
   setupLocator();
+  initializeDateFormatting('id');
+
 }
 
 // ignore: use_key_in_widget_constructors
