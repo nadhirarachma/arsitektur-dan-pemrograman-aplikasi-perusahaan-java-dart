@@ -52,9 +52,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     public String generateCode() {
         String awal = "APT-";
         List<AppointmentModel> appointmentModelList = appointmentDb.findAll();
-        String[] kodesplit = appointmentModelList.get(appointmentModelList.size()-1).getKode().split("-");
-        int kodeAkhir = Integer.parseInt(kodesplit[1]);
-        awal += kodeAkhir+1;
+        String nomorAppointment = Integer.toString(appointmentModelList.size() + 1);
+        awal += nomorAppointment;
         return awal;
     }
 
@@ -78,8 +77,8 @@ public class AppointmentServiceImpl implements AppointmentService {
                 appointmentModel.setIsDone(false);
                 appointmentModel.setWaktuAwal(appointmentDTO.getTanggal());
                 appointmentModel.setDokter(dokterDb.findByUsername(appointmentDTO.getUsername()));
-//                appointmentModel.setPasien(pasienDb.findByUsername(authentication.getName()));
-                appointmentModel.setPasien(null);
+                appointmentModel.setPasien(pasienDb.findByUsername(authentication.getName()));
+//                appointmentModel.setPasien(null);
                 appointmentDb.save(appointmentModel);
                 return ResponseEntity.ok().body("Appointment berhasi ditambahkan");
             }
