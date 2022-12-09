@@ -2,9 +2,11 @@ package apap.ta.rumahsehat.restcontroller;
 
 
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import apap.ta.rumahsehat.model.ResepModel;
+import apap.ta.rumahsehat.payload.JumlahDTO;
 import apap.ta.rumahsehat.service.ResepService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,11 @@ public class ResepRestController {
     @GetMapping(value = "/resep")
     private List<ResepModel> retrieveListResep() {
         return resepService.getListResep();
+    }
+
+    @GetMapping(value = "/resep/jumlah/{id}")
+    private Map<String, JumlahDTO> retrieveListJumlah(@PathVariable("id") Long id) {
+        return resepService.getListJumlah(id);
     }
 
 }
