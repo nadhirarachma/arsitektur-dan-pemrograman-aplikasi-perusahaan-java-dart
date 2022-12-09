@@ -77,6 +77,7 @@ public class WebSecurityConfig {
             .antMatchers("/api/v1/logout").permitAll()
             .antMatchers("/api/v1/pasien/profile/**").hasAuthority("Pasien")
             .antMatchers("/api/v1/get-dokter/**").permitAll()
+				.antMatchers("/api/v1/get-appointment-pasien").permitAll()
             .antMatchers("/api/v1/post-appointment").permitAll().antMatchers("/api/v1/get-appointment-detail-pasien").permitAll()
 			.antMatchers("/api/v1/pasien/add").permitAll()
             .antMatchers("/login-sso", "/validate-ticket").permitAll()
