@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:rumahsehat_mobile/commons/extensions/date_time_extension.dart';
+import 'package:rumahsehat_mobile/models/appointment_model.dart';
+import 'package:rumahsehat_mobile/widget/blue_button.dart';
 
 class AppointmentDetailScreen extends StatelessWidget {
   static const routeName = '/detail-appointment';
-  const AppointmentDetailScreen({Key? key}) : super(key: key);
+  final AppointmentModel appointment;
+  const AppointmentDetailScreen({
+    Key? key,
+    required this.appointment,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +49,8 @@ class AppointmentDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    "APT - 1",
+                  Text(
+                    appointment.kode,
                   ),
                   const SizedBox(height: 16),
                   const Text(
@@ -53,8 +60,8 @@ class AppointmentDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    "20 November 2022 20:22",
+                  Text(
+                    appointment.waktuAwal.displayDate,
                   ),
                   const SizedBox(height: 16),
                   const Text(
@@ -64,8 +71,8 @@ class AppointmentDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    "Selesai",
+                  Text(
+                    appointment.isDone ? "Selesai" : "Belum selesai",
                   ),
                   const SizedBox(height: 16),
                   const Text(
@@ -75,8 +82,8 @@ class AppointmentDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    "Dokter Ajay S.Ked",
+                  Text(
+                    appointment.namaDokter,
                   ),
                   const SizedBox(height: 16),
                   const Text(
@@ -86,28 +93,16 @@ class AppointmentDetailScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    "Martin Silawangi",
+                  Text(
+                    appointment.namaPasien,
                   ),
                   const SizedBox(height: 16),
-                  TextButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
-                        (states) {
-                          return Colors.blue;
-                        },
-                      ),
-                      shape: MaterialStateProperty.all<OutlinedBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                        ),
-                      ),
-                    ),
-                    child: const Text(
-                      "Lihat resep",
-                      style: TextStyle(color: Colors.white),
-                    ),
+                  BlueButton(
+                    onPressed: appointment.isDone ? () {} : null,
+                    minWidth: 100,
+                    text: "Lihat resep",
+                    backgroundColor:
+                        appointment.isDone ? Colors.blue : Colors.grey[350],
                   ),
                 ],
               ),
