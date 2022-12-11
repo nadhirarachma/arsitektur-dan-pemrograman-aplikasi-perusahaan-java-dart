@@ -18,7 +18,7 @@ class AppointmentListScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         title: const Text(
-          "Lihat Appointment by Ajay",
+          "List Appointment",
           style: TextStyle(
             color: Colors.black,
           ),

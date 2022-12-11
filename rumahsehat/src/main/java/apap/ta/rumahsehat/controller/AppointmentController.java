@@ -59,4 +59,17 @@ public class AppointmentController {
 
     }
 
+//    @GetMapping("/appointment/isDone/{kode}")
+//    public String isDoneAppointment(@PathVariable(value="kode") String kode, Model model){
+//
+//        // AppointmentModel janji = appointmentService.getAppointmentByCode(kode);
+//
+//        AppointmentModel janji = appointmentService.getAppointmentByCode(kode);
+//        janji.setIsDone(true);
+//
+//        model.addAttribute("appointment", janji);
+//        return "isDone-appointment";
+//
+//    }
+
 }
