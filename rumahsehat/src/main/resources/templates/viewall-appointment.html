@@ -15,7 +15,6 @@
             <thead>
             <tr>
                 <th>No</th>
-                <th th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}">Kode</th>
                 <th th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}">Nama Dokter</th>
                 <th>Nama Pasien</th>
                 <th>Waktu Awal</th>
@@ -26,7 +25,6 @@
             <tbody>
             <tr th:each="appointment, iterationStatus : ${listAppointment}">
                 <td th:text="${iterationStatus.count}"></td>
-                <td th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}" th:text="${appointment.kode}"></td>
                 <td th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}" th:text="${appointment.dokter.getNama()}"></td>
                 <td th:text="${appointment.pasien.getNama()}"></td>
                 <td th:text="${#temporals.format(appointment.waktuAwal, 'dd-MM-yyyy HH:mm')}"></td>
