@@ -1,113 +1,114 @@
-import 'dart:convert' as convert;
 import 'dart:convert';
-import 'package:flutter/material.dart';
+import 'dart:async';
 import 'package:http/http.dart' as http;
-
 import 'package:flutter/material.dart';
-import 'package:rumahsehat_mobile/page/topup.dart';
-import 'package:rumahsehat_mobile/widget/drawer.dart';
+import 'package:flutter/services.dart';
 
-Future<DetailResep> fetchResep(int id) async {
-  // String url = 'http://apap-087.cs.ui.ac.id/api/v1/pasien/profile/';
-  // String url = 'http://localhost:10087/api/v1/pasien/profile/';
+Future<Resep> fetchResep(int id) async {
   String url = 'http://localhost:8080/api/v1/resep/view/';
-  // String url2 = 'http://localhost:8080/api/v1/resep/jumlah/';
+  // String url = 'http://apap-087.cs.ui.ac.id/api/v1/resep/view/';
   final response = await http.get(Uri.parse(url + id.toString()));
   print(response.statusCode);
   print(response.body);
   if (response.statusCode == 200) {
-    return DetailResep.fromJson(jsonDecode(response.body));
+    return Resep.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Gagal melihat daftar resep');
   }
+
 }
 
-// Future<List<DaftarObat>> fetchObat(int id) async {
-//   String url2 = 'http://localhost:8080/api/v1/resep/jumlah/';
-//   final response = await http.get(Uri.parse(url2 + id.toString()));
-//   print(response.statusCode);
-//   print(response.body);
-//   if (response.statusCode == 200) {
-//     // return List<DaftarObat>.fromJson(jsonDecode(response.body));
-//     Map<String, dynamic> jsonList = convert.jsonDecode(response.body);
-//   } else {
-//     throw Exception('Gagal melihat daftar resep');
-//   }
-// }
-
-class DaftarObat {
-  final String namaObat;
-  final String jumlah;
-
-  const DaftarObat(
-      {required this.namaObat,
-      required this.jumlah});
-
-  factory DaftarObat.fromJson(Map<String, dynamic> json) {
-    return DaftarObat(
-        namaObat: json['obat'],
-        jumlah: json['kuantitas']);
-  }
-}
-
-class DetailResep {
+class Resep {
   final int id;
   final String pasien;
   final String apoteker;
   final String dokter;
-  final int totalObat;
   final String status;
-  final List<DaftarObat> listObat;
+  final int total;
+  final List<Obat> listObat;
 
-  const DetailResep(
-      {required this.id,
-      required this.pasien,
-      required this.apoteker,
-      required this.dokter,
-      required this.totalObat,
-      required this.status,
-      required this.listObat});
+  const Resep({
+    required this.id,
+    required this.pasien,
+    required this.apoteker,
+    required this.dokter,
+    required this.status,
+    required this.total,
+    required this.listObat,
+  });
 
-  factory DetailResep.fromJson(Map<String, dynamic> json) {
-    String apoteker;
+  factory Resep.fromJson(Map<String, dynamic> json) {
+    dynamic apoteker;
     if (json['apoteker'] != null) {
       apoteker = json['apoteker'];
+    } else {
+      apoteker = "Belum Ada";
     }
-    else {
-      apoteker = "";
+
+    int _total = 0;
+    List<Obat> _listObat = [];
+    for (var obj in json['jumlah']) {
+      _total = (_total + obj['kuantitas']) as int;
+      obj['obat']['kuantitas'] = obj['kuantitas'];
+      Obat obat = Obat.fromJson(obj['obat']);
+      _listObat.add(obat);
     }
-    // List<String> listObat = json['jumlah'];
-    // // for (int = 0; i < json['ju) {
 
-    // // }
-    // List<DaftarObat> temp;
-
-    // listObat.forEach((var i) {
-    //   DaftarObat daftarObat = new DaftarObat(namaObat: i, jumlah: jumlah);
-    // });
-
-    return DetailResep(
-        id: json['id'],
-        pasien: json['appointment']['pasien']['username'],
-        apoteker: apoteker,
-        dokter: json['appointment']['dokter']['username'],
-        totalObat: jsonDecode(json['jumlah']).length,
-        status: json['isDone'] ? "Sudah Dikonfirmasi" : "Belum Dikonfirmasi",
-        listObat: json['jumlah']);
+    bool isDone = json['isDone'];
+    return Resep(
+      id: json['id'],
+      pasien: json['appointment']['pasien']['username'],
+      apoteker: apoteker,
+      dokter: json['appointment']['dokter']['username'],
+      status: isDone ? 'Sudah Dikonfirmasi' : 'Belum Dikonfirmasi',
+      total: _total,
+      listObat: _listObat,
+    );
   }
 }
 
-class Resep extends StatefulWidget {
-  const Resep({Key? key, required this.username, required this.id}) : super(key: key);
+class Obat {
+  final String id;
+  final String nama;
+  final int stok;
+  final int harga;
+  final int kuantitas;
 
-  final String username;
-  final int id;
-  State<Resep> createState() => _Resep();
+  const Obat({
+    required this.id,
+    required this.nama,
+    required this.stok,
+    required this.harga,
+    required this.kuantitas,
+  });
+
+  factory Obat.fromJson(Map<String, dynamic> json) {
+    return Obat(
+      id: json['idObat'],
+      nama: json['namaObat'],
+      stok: json['stok'],
+      harga: json['harga'],
+      kuantitas: json['kuantitas'],
+    );
+  }
 }
 
-class _Resep extends State<Resep> {
-  late Future<DetailResep> futureResep;
-  late Widget card;
+class DetailResepPage extends StatefulWidget {
+  final String username;
+  final int id;
+
+  const DetailResepPage({
+    Key? key,
+    required this.username,
+    required this.id,
+  }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _DetailResepState();
+}
+
+class _DetailResepState extends State<DetailResepPage> {
+  late Future<Resep> futureResep;
 
   _getDetailResep() async {
     futureResep = fetchResep(widget.id);
@@ -122,28 +123,18 @@ class _Resep extends State<Resep> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color.fromRGBO(239, 248, 253, 0.9),
-        appBar: AppBar(title: const Text('Detail Resep')),
-        drawer: DrawerPage(username: widget.username),
-        body: SingleChildScrollView(
-            child: FutureBuilder<DetailResep>(
+      appBar: AppBar(title: const Text('Detail Resep')),
+      // drawer: DrawerPage(username: widget.username),
+      body: SingleChildScrollView(
+        child: FutureBuilder<Resep>(
           future: futureResep,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              card = resepCard(context, snapshot.data!);
               return Column(
                 children: [
-                  card,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      TextButton(
-                          onPressed: (() {
-                            Navigator.pop(context);
-                          }),
-                          child: const Text('Kembali')),
-                    ],
-                  ),
+                  _buildDetailResep(context, snapshot.data!),
+                  _buildDaftarObat(context, snapshot.data!.listObat),
+                  _buildKolomTombol(context),
                 ],
               );
               ;
@@ -152,157 +143,255 @@ class _Resep extends State<Resep> {
             }
             return const CircularProgressIndicator();
           },
-        )));
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetailResep(BuildContext context, Resep resep) {
+    return Column(
+      children: [
+        const SizedBox(
+          height: 16,
+        ),
+        const Text(
+          'Detail Resep',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Container(
+          margin: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(2),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.4),
+                spreadRadius: 3,
+                blurRadius: 7,
+                offset: const Offset(0, 2), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildDetailResepItem('ID', resep.id.toString()),
+                  _buildDetailResepItem('Dokter', resep.dokter),
+                ],
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildDetailResepItem('Pasien', resep.pasien),
+                  _buildDetailResepItem('Total Obat', resep.listObat.length.toString()),
+                ],
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _buildDetailResepItem('Apoteker', resep.apoteker),
+                  _buildDetailResepItem('Status', resep.status),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDetailResepItem(String title, String value) {
+    return Expanded(
+      child: SizedBox(
+        width: double.maxFinite,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            Text(value),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDaftarObat(BuildContext context, List<Obat> listObat) {
+    List<DataRow> rows = [];
+    listObat.asMap().forEach(
+      (index, obat) {
+        rows.add(
+          DataRow(
+            cells: [
+              DataCell(
+                Text((index + 1).toString()),
+              ),
+              DataCell(
+                Text(obat.nama),
+              ),
+              DataCell(
+                Text(obat.kuantitas.toString()),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+
+    return Column(
+      children: [
+        const SizedBox(
+          height: 16,
+        ),
+        const Text(
+          'Daftar Obat',
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Container(
+          height: 1,
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          color: Colors.grey.shade300,
+        ),
+        Container(
+          margin: const EdgeInsets.symmetric(horizontal: 12),
+          child: DataTable(
+            rows: rows,
+            columns: const [
+              DataColumn(
+                label: Text(
+                  'Nomor',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'Nama Obat',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+              DataColumn(
+                label: Text(
+                  'Jumlah',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          height: 1,
+          margin: const EdgeInsets.symmetric(horizontal: 16),
+          color: Colors.grey.shade300,
+        ),
+        const SizedBox(
+          height: 16,
+        )
+      ],
+    );
+  }
+
+  Widget _buildKolomTombol(BuildContext context) {
+    return Row(
+      children: [
+        const SizedBox(
+          width: 12,
+        ),
+        _buildTombol(
+          context,
+          title: 'Kembali',
+          textColor: Colors.white,
+          decoration: const BoxDecoration(
+            color: Colors.blue,
+          ),
+          onClick: () => {
+            // TODO: TAMBAH ACTION
+            Navigator.pop(context)
+          },
+        ),
+        const SizedBox(
+          width: 12,
+        ),
+        _buildTombol(
+          context,
+          title: 'Daftar Resep',
+          textColor: Colors.blue,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            border: Border.all(
+              color: Colors.blue,
+            ),
+          ),
+          onClick: () => {
+            // Di web aja 
+          },
+        ),
+        const SizedBox(
+          width: 12,
+        ),
+        _buildTombol(
+          context,
+          title: 'Konfirmasi Resep',
+          textColor: Colors.yellow,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            border: Border.all(
+              color: Colors.yellow,
+            ),
+          ),
+          onClick: () => {
+            // Belum handle
+          },
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTombol(
+    BuildContext context, {
+    required String title,
+    Color textColor = Colors.black,
+    BoxDecoration? decoration,
+    VoidCallback? onClick,
+  }) {
+    return GestureDetector(
+      onTap: onClick,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+        decoration: decoration?.copyWith(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(4),
+          ),
+        ),
+        child: Text(
+          title,
+          style: TextStyle(color: textColor),
+        ),
+      ),
+    );
   }
 }
-
-Widget resepCard(BuildContext context, DetailResep resep) {
-  Widget card = Card(
-    child: Column(
-      children: [
-        Text('id: ' + resep.id.toString()),
-        Text('pasien : ' + resep.pasien),
-        Text('apoteker : ' + resep.apoteker),
-        Text('dokter : ' + resep.dokter),
-        Text('total obat : ' + resep.totalObat.toString()),
-        Text('status : ' + resep.status),
-      ],
-    ),
-  );
-
-  return card;
-}
-
-// import 'dart:async';
-// import 'dart:convert';
-
-// import 'package:flutter/material.dart';
-// import 'package:http/http.dart' as http;
-
-
-// class DaftarObat {
-//   final String namaObat;
-//   final String jumlah;
-
-//   const DaftarObat(
-//       {required this.namaObat,
-//       required this.jumlah});
-
-//   factory DaftarObat.fromJson(Map<String, dynamic> json) {
-//     return DaftarObat(
-//         namaObat: json['obat'],
-//         jumlah: json['kuantitas']);
-//   }
-// }
-
-// class Detail {
-//   final int id;
-//   final String pasien;
-//   final String apoteker;
-//   final String dokter;
-//   final int totalObat;
-//   final String status;
-//   final List<DaftarObat> listObat;
-
-//   const Detail(
-//       {required this.id,
-//       required this.pasien,
-//       required this.apoteker,
-//       required this.dokter,
-//       required this.totalObat,
-//       required this.status,
-//       required this.listObat});
-
-//   factory Detail.fromJson(Map<String, dynamic> json) {
-//     return Detail(
-//         id: json['id'],
-//         pasien: json['appointment']['pasien']['username'],
-//         apoteker: json['apoteker'],
-//         dokter: json['appointment']['dokter']['username'],
-//         totalObat: jsonDecode(json['jumlah']).length,
-//         status: json['isDone'] ? "Sudah Dikonfirmasi" : "Belum Dikonfirmasi",
-//         listObat: json['jumlah']);
-//   }
-// }
-
-// Future<Detail> fetchDetailResep(int id) async {
-//   final response = await http.get(
-//       Uri.parse('http://localhost:8080/api/v1/resep/view/${id}'));
-
-//   if (response.statusCode == 200) {
-//     // If the server did return a 200 OK response,
-//     // then parse the JSON.
-//     Detail detailResep = Detail.fromJson(json.decode(response.body));
-//     return detailResep;
-//   } else {
-//     // If the server did not return a 200 OK response,
-//     // then throw an exception.
-//     throw Exception('Failed to load appointment');
-//   }
-// }
-
-// class DetailResep extends StatefulWidget {
-
-//   int id;
-//   DetailResep({super.key, required this.id});
-
-//   @override
-//   // ignore: library_private_types_in_public_api
-//   _DetailResepState createState() => _DetailResepState();
-// }
-
-// class _DetailResepState extends State<DetailResep> {
-//   late Future<Detail> resep;
-
-//   @override
-//   void initState() {
-//     super.initState();
-//     resep = fetchDetailResep(widget.id);
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text("Detail Resep"),
-//       ),
-//       body: FutureBuilder(
-//         future: resep,
-//         builder: (context, snapshot) {
-//           if (!snapshot.hasData) {
-//             return const Center(child: CircularProgressIndicator());
-//           }
-
-//           if (snapshot.hasData) {
-//             return GridView.count(
-//               primary: false,
-//               padding: const EdgeInsets.all(20),
-//               crossAxisSpacing: 10,
-//               mainAxisSpacing: 10,
-//               crossAxisCount: 2,
-//               children: <Widget>[
-//                 Container(
-//                     padding: const EdgeInsets.all(8),
-//                     child: Text("ID: ${snapshot.data!.id}")),
-//                 Container(
-//                     padding: const EdgeInsets.all(8),
-//                     child: Text("Waktu Awal: ${snapshot.data!.}")),
-//                 Container(
-//                     padding: const EdgeInsets.all(8),
-//                     child: Text("Status: ${snapshot.data!.status}")),
-//                 Container(
-//                     padding: const EdgeInsets.all(8),
-//                     child: Text("Nama Dokter: ${snapshot.data!.namaDokter}")),
-//                 Container(
-//                     padding: const EdgeInsets.all(8),
-//                     child: Text("Nama Pasien: ${snapshot.data!.namaPasien}")),
-//               ],
-//             );
-//           }
-
-//           return const Center();
-//         },
-//       ),
-//     );
-//   }
-// }
