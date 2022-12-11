@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rumahsehat_mobile/page/detail-resep.dart';
+import 'package:rumahsehat_mobile/page/appointment_list_screen.dart';
+import 'package:rumahsehat_mobile/page/create_appointment_screen.dart';
 import 'package:rumahsehat_mobile/page/profile.dart';
 import 'package:rumahsehat_mobile/widget/drawer.dart';
 
@@ -35,70 +37,70 @@ class _Homepage extends State<Home> {
                   mainAxisSpacing: 5,
                   crossAxisSpacing: 5,
                   children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        // Navigator.push(context,MaterialPageRoute(builder: (context) => AddAppointment()));
-                      },
-                      child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          elevation: 16,
-                          margin: const EdgeInsets.all(9),
-                          child: InkWell(
-                              onTap: () {
-                                // Navigator.push(context,MaterialPageRoute(builder: (context) => AddAppointment()));
-                              },
-                              splashColor: Colors.lightBlue,
-                              child: Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: const <Widget>[
-                                    Icon(
-                                      Icons.add,
-                                      size: 25,
-                                      color: Colors.blueGrey,
-                                    ),
-                                    Text(
-                                      "Buat Appointment",
-                                      softWrap: true,
-                                      style: TextStyle(fontSize: 8),
-                                    ),
-                                  ],
+                    Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        elevation: 16,
+                        margin: const EdgeInsets.all(9),
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const CreateAppointmentScreen(),
                                 ),
-                              ))),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // Navigator.push(context,MaterialPageRoute(builder: (context) => JadwalAppointment()));
-                      },
-                      child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          elevation: 16,
-                          margin: const EdgeInsets.all(9),
-                          child: InkWell(
-                              onTap: () {
-                                // Navigator.push(context,MaterialPageRoute(builder: (context) => JadwalAppointment()));
-                              },
-                              splashColor: Colors.lightBlue,
-                              child: Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: const <Widget>[
-                                    Icon(
-                                      Icons.today,
-                                      size: 25,
-                                      color: Colors.blueGrey,
-                                    ),
-                                    Text(
-                                      "Jadwal Appointment",
-                                      softWrap: true,
-                                      style: TextStyle(fontSize: 8),
-                                    ),
-                                  ],
-                                ),
-                              ))),
-                    ),
+                              );
+                            },
+                            splashColor: Colors.lightBlue,
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.add,
+                                    size: 25,
+                                    color: Colors.blueGrey,
+                                  ),
+                                  Text(
+                                    "Buat Appointment",
+                                    softWrap: true,
+                                    style: TextStyle(fontSize: 8),
+                                  ),
+                                ],
+                              ),
+                            ))),
+                    Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                        elevation: 16,
+                        margin: const EdgeInsets.all(9),
+                        child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const AppointmentListScreen()));
+                            },
+                            splashColor: Colors.lightBlue,
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.today,
+                                    size: 25,
+                                    color: Colors.blueGrey,
+                                  ),
+                                  Text(
+                                    "Jadwal Appointment",
+                                    softWrap: true,
+                                    style: TextStyle(fontSize: 8),
+                                  ),
+                                ],
+                              ),
+                            ))),
                     GestureDetector(
                       onTap: () {
                         // Navigator.push(context,MaterialPageRoute(builder: (context) => Profile()));

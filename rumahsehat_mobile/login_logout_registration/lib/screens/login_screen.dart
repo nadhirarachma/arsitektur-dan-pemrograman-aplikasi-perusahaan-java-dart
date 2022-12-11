@@ -1,8 +1,7 @@
 import 'dart:convert' as convert;
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:login_logout_registration/screens/welcome_screen.dart';
 import 'package:login_logout_registration/screens/registration_screen.dart';
 
 import 'package:login_logout_registration/components/input.dart';
@@ -12,6 +11,7 @@ import 'package:login_logout_registration/utils/network_service.dart';
 import 'package:provider/provider.dart';
 
 import 'package:rumahsehat_mobile/page/homepage.dart';
+import 'package:rumahsehat_mobile/services/secure_storage.dart';
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
@@ -24,13 +24,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final LocalStorageService _storageService = LocalStorageService();
+
   final TextEditingController unameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   String textFieldsValue = "";
 
   @override
   Widget build(BuildContext context) {
-    //String url = 'http://apap-087.cs.ui.ac.id/api/v1/login';
+    // String url = 'https://apap-087.cs.ui.ac.id/api/v1/login';
     String url = 'http://localhost:8080/api/v1/login';
     final request = context.watch<NetworkService>();
     Size size = MediaQuery.of(context).size;
@@ -165,9 +167,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     "Accept": "application/json"
                                                   },
                                                   body: body);
-                                              print(result.body.substring(2,7));
-
-                                              if (result.body.substring(2,7) == "token") {
+                                              if (result.body.substring(2, 7) ==
+                                                  "token") {
+                                                final decodedBody = convert
+                                                    .jsonDecode(result.body);
+                                                final token = decodedBody["token"];
+                                                log(token);
+                                                await _storageService
+                                                    .writeSecureData(
+                                                        "token", token);
                                                 String username =
                                                     unameController.text;
                                                 showDialog<String>(
