@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 
 Future<Resep> fetchResep(int id) async {
   String url = 'http://localhost:8080/api/v1/resep/view/';
+  // String url = 'http://localhost:10087/api/v1/resep/view/';
   // String url = 'http://apap-087.cs.ui.ac.id/api/v1/resep/view/';
   final response = await http.get(Uri.parse(url + id.toString()));
   print(response.statusCode);
