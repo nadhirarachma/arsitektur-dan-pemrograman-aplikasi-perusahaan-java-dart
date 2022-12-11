@@ -176,6 +176,7 @@ class _Homepage extends State<Home> {
                     GestureDetector(
                       onTap: () {
                         // Navigator.push(context,MaterialPageRoute(builder: (context) => Profile()));
+                        // 
                       },
                       child: Card(
                           shape: RoundedRectangleBorder(
