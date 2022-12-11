@@ -187,7 +187,7 @@ class _Homepage extends State<Home> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => Resep(
+                                        builder: (context) => DetailResepPage(
                                               username: widget.username,
                                               id: 1,
                                             )));
