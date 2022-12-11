@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import apap.ta.rumahsehat.model.PasienModel;
-import apap.ta.rumahsehat.model.UserModel;
 import apap.ta.rumahsehat.payload.PasienProfileDTO;
 import apap.ta.rumahsehat.payload.TopupDTO;
 import apap.ta.rumahsehat.service.PasienRestService;
@@ -42,23 +41,19 @@ public class PasienRestController {
 			throw new ResponseStatusException(
 				HttpStatus.BAD_REQUEST, "Request body has invalid type or missing field"
 			);
-		}else{
-			// createUser(pasien);
-			// pasien.setPassword(userService.getUserByUsername(pasien.getUsername()).getPassword());
-			return pasienRestService.addPasien(pasien);
+		}
+		else{
+			PasienModel newPasien = pasienRestService.addPasien(pasien);
+			if (newPasien.equals(pasien)) {
+				return newPasien;
+			}
+			else {
+				throw new ResponseStatusException(
+					HttpStatus.INTERNAL_SERVER_ERROR, "User dengan username atau email yang sama telah terdapat pada sistem"
+				);
+			}
 		}
 	}
-
-	// api login pasien jadi gabisa dipanggil
-	// private UserModel createUser(@Valid @RequestBody PasienModel pasien){
-	// 	UserModel user = new UserModel();
-	// 	user.setNama(pasien.getNama());
-	// 	user.setRole("Pasien");
-	// 	user.setUsername(pasien.getUsername());
-	// 	user.setPassword(pasien.getPassword());
-	// 	user.setEmail(pasien.getEmail());
-	// 	return userService.addUser(user);
-	// }
 
 	@GetMapping("/profile/{username}")
 	private PasienProfileDTO getPasienProfile(@PathVariable("username") String username){

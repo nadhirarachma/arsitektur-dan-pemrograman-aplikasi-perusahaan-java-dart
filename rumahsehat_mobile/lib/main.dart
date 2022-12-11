@@ -1,8 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:login_logout_registration/screens/login_screen.dart';
-import 'package:login_logout_registration/utils/network_service.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:login_logout_registration/screens/welcome_screen.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:rumahsehat_mobile/service_locator/repository_providers.dart';
@@ -24,12 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: repositoryProviders,
-      child: Provider(
-        create: (_) {
-          NetworkService request = NetworkService();
-          return request;
-        },
-        child: MaterialApp(
+      child: MaterialApp(
           title: "RumahSehat",
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
@@ -41,7 +34,6 @@ class MyApp extends StatelessWidget {
             WelcomeScreen.routeName: (context) => const WelcomeScreen(),
           },
         ),
-      ),
     );
   }
 }

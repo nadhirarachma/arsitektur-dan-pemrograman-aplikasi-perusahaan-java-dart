@@ -36,6 +36,10 @@ public class DokterController {
             model.addAttribute("username", dokter.getUsername());
             return "add-dokter";
         }
+        else if (newDokter.getUsername().equals("exist")) {
+            model.addAttribute("validasi", "User dengan username atau email yang sama telah terdapat pada sistem. Mohon input kembali.");
+            return "form-add-dokter";
+        }
         else {
             model.addAttribute("validasi", "Password harus mengandung angka, huruf besar, huruf kecil, dan simbol, serta minimal memiliki 8 karakter. Mohon input kembali.");
             return "form-add-dokter";

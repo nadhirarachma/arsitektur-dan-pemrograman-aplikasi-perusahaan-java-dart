@@ -14,6 +14,7 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController unameController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -23,8 +24,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //String url = 'https://apap-087.cs.ui.ac.id/api/v1/pasien/add';
-    String url = 'http://localhost:8080/api/v1/pasien/add';
+    String url = 'https://apap-087.cs.ui.ac.id/api/v1/pasien/add';
+    // String url = 'http://localhost:8080/api/v1/pasien/add';
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -67,6 +68,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       height: 15.0,
                     ),
                     Form(
+                      key: _formKey,
                       child: Column(children: <Widget>[
                         Card(
                             margin: const EdgeInsets.symmetric(
@@ -109,11 +111,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                             hint: "E-mail",
                                             controller: emailController),
                                         Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              vertical: 7),
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 5, horizontal: 20),
-                                          width: size.width * 0.7,
+                                          margin: const EdgeInsets.symmetric(vertical: 7),
+                                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                                          width: size.width * 0.6,
                                           decoration: BoxDecoration(
                                             color: const Color.fromRGBO(
                                                 206, 238, 255, 0.7),
@@ -133,8 +133,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                               border: InputBorder.none,
                                             ),
                                             validator: (value) {
+                                                RegExp regex=RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$');
                                               if (value!.isEmpty) {
                                                 return 'Please fill out this field.';
+                                              }
+                                              else if(!regex.hasMatch(value)){
+                                                return 'Aa-num-symbol (>= 8 char)';
                                               }
                                               textFieldsValue = value;
                                               return null;
@@ -151,7 +155,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         Button(
                                             text: "Sign Up",
                                             onPressed: () async {
-                                              var body = convert
+                                              if (_formKey.currentState!.validate()) {
+                                                var body = convert
                                                   .jsonEncode(<String, String>{
                                                 'username':
                                                     unameController.text,
@@ -218,7 +223,45 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                                 emailController.clear();
                                                 passwordController.clear();
                                                 ageController.clear();
-                                              } else {
+                                              } 
+                                              else if (result.statusCode == 500) {
+                                                showDialog<String>(
+                                                  context: context,
+                                                  builder:
+                                                      (BuildContext context) =>
+                                                          AlertDialog(
+                                                    title: const Text(
+                                                        'Register Failed'),
+                                                    content: const Text(
+                                                        'User dengan username atau email yang sama telah terdapat pada sistem. Mohon input kembali.'),
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              30),
+                                                    ),
+                                                    backgroundColor:
+                                                        Colors.blue[200],
+                                                    actions: <Widget>[
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context, 'OK'),
+                                                        child: const Text(
+                                                          'OK',
+                                                          style: TextStyle(
+                                                            fontSize: 14.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.indigo,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              }
+                                              else {
                                                 showDialog<String>(
                                                   context: context,
                                                   builder:
@@ -247,7 +290,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                                             fontSize: 14.0,
                                                             fontWeight:
                                                                 FontWeight.bold,
-                                                            color: Colors.white,
+                                                            color: Colors.indigo,
                                                           ),
                                                         ),
                                                       ),
@@ -255,15 +298,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                                   ),
                                                 );
                                               }
+                                              }
                                             }),
                                         SizedBox(height: size.height * 0.03),
+                                        const Text(
+                                                        'Sudah Punya Akun?'),
                                         TextButton(
                                           child: const Text(
-                                            'Sudah Punya Akun? Login Disini',
+                                            'Login Sekarang',
                                             style: TextStyle(
                                               fontSize: 14.0,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.black,
+                                              color: Colors.indigo,
                                             ),
                                           ),
                                           onPressed: () {

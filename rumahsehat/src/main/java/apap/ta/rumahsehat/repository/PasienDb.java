@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PasienDb extends JpaRepository<PasienModel, String> {
     PasienModel findByUsername(String pasien);
+    PasienModel findByEmail(String email);
 }

@@ -34,7 +34,7 @@ class Button extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
           primary: Colors.blue[400],
-          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           textStyle: TextStyle(
               color: textColor,
               fontSize: 14,

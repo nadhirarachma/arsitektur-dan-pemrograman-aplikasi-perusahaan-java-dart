@@ -8,4 +8,5 @@ import apap.ta.rumahsehat.model.ApotekerModel;
 public interface ApotekerDb extends JpaRepository<ApotekerModel, Long>{
     ApotekerModel findByUsername(String username);
     ApotekerModel findByUuid(String uuid);
+    ApotekerModel findByEmail(String email);
 }
