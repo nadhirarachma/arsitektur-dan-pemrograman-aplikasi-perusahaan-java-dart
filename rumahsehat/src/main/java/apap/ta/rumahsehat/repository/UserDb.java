@@ -7,4 +7,5 @@ import apap.ta.rumahsehat.model.UserModel;
 @Repository
 public interface UserDb extends JpaRepository<UserModel, Long>{
     UserModel findByUsername(String username);
+    UserModel findByEmail(String email);
 }

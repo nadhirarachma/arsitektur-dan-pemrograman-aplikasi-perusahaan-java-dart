@@ -1,10 +1,7 @@
 library login_logout_registration_registration;
 
 import 'package:flutter/material.dart';
-
 import 'package:login_logout_registration/screens/welcome_screen.dart';
-import 'package:login_logout_registration/utils/network_service.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,18 +14,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (_) {
-        NetworkService request = NetworkService();
-        return request;
-      },
-      child: MaterialApp(
+    return MaterialApp(
         title: "RumahSehat",
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
             primaryColor: Colors.indigo, scaffoldBackgroundColor: Colors.white),
         home: const WelcomeScreen(),
-      ),
-    );
+      );
   }
 }

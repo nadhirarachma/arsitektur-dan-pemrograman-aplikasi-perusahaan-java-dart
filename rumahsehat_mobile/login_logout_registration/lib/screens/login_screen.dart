@@ -7,9 +7,6 @@ import 'package:login_logout_registration/screens/registration_screen.dart';
 import 'package:login_logout_registration/components/input.dart';
 import 'package:login_logout_registration/components/button.dart';
 
-import 'package:login_logout_registration/utils/network_service.dart';
-import 'package:provider/provider.dart';
-
 import 'package:rumahsehat_mobile/page/homepage.dart';
 import 'package:rumahsehat_mobile/services/secure_storage.dart';
 
@@ -32,9 +29,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //String url = 'https://apap-087.cs.ui.ac.id/api/v1/login';
-    String url = 'http://localhost:8080/api/v1/login';
-    final request = context.watch<NetworkService>();
+    String url = 'https://apap-087.cs.ui.ac.id/api/v1/login';
+    // String url = 'http://localhost:8080/api/v1/login';
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -117,7 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               vertical: 7),
                                           padding: const EdgeInsets.symmetric(
                                               vertical: 5, horizontal: 20),
-                                          width: size.width * 0.7,
+                                          width: size.width * 0.6,
                                           decoration: BoxDecoration(
                                             color: const Color.fromRGBO(
                                                 206, 238, 255, 0.7),
@@ -258,13 +254,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                               }
                                             }),
                                         SizedBox(height: size.height * 0.03),
+                                        const Text(
+                                                        'Belum Punya Akun?'),
                                         TextButton(
                                           child: const Text(
-                                            'Belum Punya Akun? Registrasi Disini',
+                                            'Registrasi Sekarang',
                                             style: TextStyle(
                                               fontSize: 14.0,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.black,
+                                              color: Colors.indigo,
                                             ),
                                           ),
                                           onPressed: () {

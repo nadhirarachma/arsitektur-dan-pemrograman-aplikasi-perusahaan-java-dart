@@ -4,8 +4,6 @@ import 'package:login_logout_registration/screens/login_screen.dart';
 import 'package:login_logout_registration/screens/registration_screen.dart';
 
 import 'package:login_logout_registration/components/button.dart';
-import 'package:login_logout_registration/utils/network_service.dart';
-import 'package:provider/provider.dart';
 
 class WelcomeScreen extends StatelessWidget {
   static const routeName = '/WelcomeScreen';
@@ -13,7 +11,6 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final request = context.watch<NetworkService>();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SingleChildScrollView(
@@ -39,7 +36,7 @@ class WelcomeScreen extends StatelessWidget {
                     const Text(
                       "Welcome to RumahSehat!",
                       style: TextStyle(
-                          fontSize: 30.0,
+                          fontSize: 25.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.blue),
                     ),

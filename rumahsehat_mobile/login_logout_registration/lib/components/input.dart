@@ -24,7 +24,7 @@ class _InputFieldState extends State<InputField> {
     return Container(
         margin: const EdgeInsets.symmetric(vertical: 7),
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-        width: size.width * 0.7,
+        width: size.width * 0.6,
         decoration: BoxDecoration(
           color: const Color.fromRGBO(206, 238, 255, 0.7),
           borderRadius: BorderRadius.circular(29),

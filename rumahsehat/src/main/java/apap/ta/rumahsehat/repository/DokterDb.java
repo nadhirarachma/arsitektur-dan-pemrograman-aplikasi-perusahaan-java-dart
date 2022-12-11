@@ -7,4 +7,5 @@ import apap.ta.rumahsehat.model.DokterModel;
 @Repository
 public interface DokterDb extends JpaRepository<DokterModel, Long>{
     DokterModel findByUsername(String username);
+    DokterModel findByEmail(String email);
 }

@@ -36,6 +36,10 @@ public class ApotekerController {
             model.addAttribute("username", apoteker.getUsername());
             return "add-apoteker";
         }
+        else if (newApoteker.getUsername().equals("exist")) {
+            model.addAttribute("validasi", "User dengan username atau email yang sama telah terdapat pada sistem. Mohon input kembali.");
+            return "form-add-apoteker";
+        }
         else {
             model.addAttribute("validasi", "Password harus mengandung angka, huruf besar, huruf kecil, dan simbol, serta minimal memiliki 8 karakter. Mohon input kembali.");
             return "form-add-apoteker";

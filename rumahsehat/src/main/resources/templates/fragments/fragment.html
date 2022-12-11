@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>View Course</title>
+  <title>RumahSehat</title>
   <head th:fragment="css">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
   </head>
@@ -43,7 +43,7 @@
       </li>
     </ul>
     <ul class="navbar-nav pull-right">
-      <a class="nav-item nav-link text-text-secondary" th:href="@{/logout-sso}">Logout</a>
+      <a class="nav-item nav-link text-text-secondary" onclick="return confirm('Are you sure to logout?');" th:href="@{/logout-sso}">Logout</a>
   </ul>
   </div>
 </nav>
