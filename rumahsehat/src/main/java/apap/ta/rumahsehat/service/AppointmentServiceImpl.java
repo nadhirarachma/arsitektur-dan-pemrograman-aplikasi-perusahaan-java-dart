@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -80,7 +81,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                 appointmentModel.setPasien(pasienDb.findByUsername(authentication.getName()));
 //                appointmentModel.setPasien(null);
                 appointmentDb.save(appointmentModel);
-                return ResponseEntity.ok().body("Appointment berhasi ditambahkan");
+                return ResponseEntity.ok().body("Appointment berhasil ditambahkan");
             }
             throw new ResponseStatusException(
                     HttpStatus.BAD_REQUEST, "Appointment tidak berhasil dibuat, silahkan pilih tanggal lain"
@@ -97,7 +98,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     public boolean checkAppointment(String username, LocalDateTime waktuAwal){
         List<AppointmentModel> listAppointment = appointmentDb.findAllByDokter(dokterDb.findByUsername(username));
         for (int i = 0; i < listAppointment.size() ; i++) {
-            if(listAppointment.get(i).getWaktuAwal().equals(waktuAwal)){
+            Duration duration = Duration.between(listAppointment.get(i).getWaktuAwal(), waktuAwal);
+            if((listAppointment.get(i).getWaktuAwal().equals(waktuAwal)) || (duration.toDays() == 0 && duration.toHours() == 0)){
                 return false;
             }
         }
@@ -121,5 +123,3 @@ public class AppointmentServiceImpl implements AppointmentService {
 
 
 }
-
-

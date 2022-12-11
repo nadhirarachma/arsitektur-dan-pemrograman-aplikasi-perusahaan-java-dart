@@ -23,7 +23,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //String url = 'http://apap-087.cs.ui.ac.id/api/v1/pasien/add';
+    //String url = 'https://apap-087.cs.ui.ac.id/api/v1/pasien/add';
     String url = 'http://localhost:8080/api/v1/pasien/add';
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -109,14 +109,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                             hint: "E-mail",
                                             controller: emailController),
                                         Container(
-                                          margin: const EdgeInsets.symmetric(vertical: 7),
-                                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 7),
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5, horizontal: 20),
                                           width: size.width * 0.7,
                                           decoration: BoxDecoration(
-                                            color: const Color.fromRGBO(206, 238, 255, 0.7),
-                                            borderRadius: BorderRadius.circular(29),
+                                            color: const Color.fromRGBO(
+                                                206, 238, 255, 0.7),
+                                            borderRadius:
+                                                BorderRadius.circular(29),
                                           ),
-                                          child:TextFormField(
+                                          child: TextFormField(
                                             controller: passwordController,
                                             obscureText: true,
                                             cursorColor: Colors.black,
@@ -135,7 +139,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                               textFieldsValue = value;
                                               return null;
                                             },
-                                          ),),
+                                          ),
+                                        ),
                                         InputField(
                                             hint: "Umur",
                                             keyboardType: TextInputType.number,
@@ -160,8 +165,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                               });
                                               print(body);
                                               var result = await http.post(
-                                                  Uri.parse(
-                                                      url),
+                                                  Uri.parse(url),
                                                   headers: <String, String>{
                                                     "Content-Type":
                                                         "application/json; charset=UTF-8",

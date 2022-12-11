@@ -19,7 +19,7 @@ class AppointmentDetailScreen extends StatelessWidget {
         centerTitle: true,
         elevation: 0,
         title: const Text(
-          "Detail Appointment by Ajay",
+          "Detail Appointment",
           style: TextStyle(
             color: Colors.black,
           ),

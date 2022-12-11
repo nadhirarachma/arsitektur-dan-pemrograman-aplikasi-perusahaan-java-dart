@@ -32,7 +32,7 @@ class _CreateAppointmentScreenState extends State<CreateAppointmentScreen> {
         centerTitle: true,
         elevation: 0,
         title: const Text(
-          "Buat Appointment by Ajay",
+          "Create Appointment",
           style: TextStyle(
             color: Colors.black,
           ),

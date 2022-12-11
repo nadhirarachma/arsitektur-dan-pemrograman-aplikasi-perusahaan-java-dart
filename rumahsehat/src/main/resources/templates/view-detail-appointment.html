@@ -44,7 +44,6 @@
                                 
                                 <div th:if="*{resep == null}">
                                     <a class="btn btn-primary" th:href="@{/resep/add/}  + ${appointment.kode}">Buat Resep</a>
-        
                                     <a  th:href="@{/appointment/isDone/} + ${appointment.kode}"
                                     class="btn btn-primary btn-sm py-1 "
                                     th:appointment-confirm-done="|Apakah ingin menyelesaikan appointment tanpa resep?|"
@@ -55,7 +54,6 @@
                                 <div th:unless="*{resep == null}">
                                     <a class="btn btn-primary" th:href="@{/appointment/isDone/} + ${appointment.kode}">Selesai</a>
                                 </div>
-                      
                             </div>
                         </div>
                         </td>

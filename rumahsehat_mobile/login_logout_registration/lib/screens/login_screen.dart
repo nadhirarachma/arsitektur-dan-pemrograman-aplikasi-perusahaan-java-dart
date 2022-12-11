@@ -32,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // String url = 'https://apap-087.cs.ui.ac.id/api/v1/login';
+    //String url = 'https://apap-087.cs.ui.ac.id/api/v1/login';
     String url = 'http://localhost:8080/api/v1/login';
     final request = context.watch<NetworkService>();
     Size size = MediaQuery.of(context).size;
@@ -171,7 +171,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   "token") {
                                                 final decodedBody = convert
                                                     .jsonDecode(result.body);
-                                                final token = decodedBody["token"];
+                                                final token =
+                                                    decodedBody["token"];
                                                 log(token);
                                                 await _storageService
                                                     .writeSecureData(
