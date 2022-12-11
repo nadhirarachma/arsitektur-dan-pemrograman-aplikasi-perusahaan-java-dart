@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rumahsehat_mobile/page/detail-resep.dart';
 import 'package:rumahsehat_mobile/page/appointment_list_screen.dart';
 import 'package:rumahsehat_mobile/page/create_appointment_screen.dart';
 import 'package:rumahsehat_mobile/page/profile.dart';
@@ -167,6 +168,45 @@ class _Homepage extends State<Home> {
                                     ),
                                     Text(
                                       "Tagihan",
+                                      softWrap: true,
+                                      style: TextStyle(fontSize: 8),
+                                    ),
+                                  ],
+                                ),
+                              ))),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // Navigator.push(context,MaterialPageRoute(builder: (context) => Profile()));
+                        // 
+                      },
+                      child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          elevation: 16,
+                          margin: const EdgeInsets.all(9),
+                          child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailResepPage(
+                                              username: widget.username,
+                                              id: 1,
+                                            )));
+                              },
+                              splashColor: Colors.lightBlue,
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: const <Widget>[
+                                    Icon(
+                                      Icons.account_circle,
+                                      size: 25,
+                                      color: Colors.blueGrey,
+                                    ),
+                                    Text(
+                                      "Detail Resep",
                                       softWrap: true,
                                       style: TextStyle(fontSize: 8),
                                     ),
