@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -31,6 +32,15 @@ public class TagihanServiceImpl implements TagihanService {
             list.add(appo.getTagihan());
         }
         return list;
+    }
+
+    @Override
+    public TagihanModel getTagihan(String kode) {
+        Optional<TagihanModel> tagihan = tagihanDb.findByKode(kode);
+        if (tagihan.isPresent()) {
+            return tagihan.get();
+        }
+        return null;
     }
 
 }
