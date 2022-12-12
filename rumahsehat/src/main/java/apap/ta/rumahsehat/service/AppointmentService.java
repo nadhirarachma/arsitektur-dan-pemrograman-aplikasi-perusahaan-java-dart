@@ -16,7 +16,8 @@ public interface AppointmentService {
     AppointmentModel getAppointmentByCode(String kode);
     //AppointmentModel getAppointmentByKode(String kode);
 
-    List<AppointmentModel> getAppointmentAYear(LocalDateTime start, LocalDateTime end);
+    List<AppointmentModel> getAppointmentAMonth(LocalDateTime start, LocalDateTime end);
+
     List<AppointmentModel> getListAppointmentByDokter(String dokter);
 
     ResponseEntity<?> createAppointment(AppointmentDTO appointmentDTO, Authentication authentication);

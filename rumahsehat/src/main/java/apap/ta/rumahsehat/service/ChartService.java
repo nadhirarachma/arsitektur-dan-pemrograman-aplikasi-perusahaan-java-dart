@@ -2,8 +2,9 @@ package apap.ta.rumahsehat.service;
 
 import apap.ta.rumahsehat.model.AppointmentModel;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ChartService {
-    int[] getPendapatan(List<AppointmentModel> appointmentModelList);
+    int[] getTagihan(List<AppointmentModel> appointmentModelList, LocalDateTime start, LocalDateTime end);
 }
