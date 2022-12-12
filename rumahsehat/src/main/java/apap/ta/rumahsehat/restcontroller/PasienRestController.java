@@ -73,7 +73,7 @@ public class PasienRestController {
 	// 	return userService.addUser(user);
 	// }
 
-	@GetMapping("/{username}/profile")
+	@GetMapping("/profile/{username}")
 	private PasienProfileDTO getPasienProfile(@PathVariable("username") String username){
 		try {
 			PasienModel pasien = pasienRestService.getPasienByUsername(username);
