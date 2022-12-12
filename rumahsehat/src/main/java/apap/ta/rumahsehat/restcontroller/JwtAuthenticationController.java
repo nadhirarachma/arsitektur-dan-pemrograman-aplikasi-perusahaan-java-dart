@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import apap.ta.rumahsehat.model.JwtResponse;
 import apap.ta.rumahsehat.model.UserModel;
+import lombok.extern.slf4j.Slf4j;
 import apap.ta.rumahsehat.config.JwtTokenUtil;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/")
 public class JwtAuthenticationController {
@@ -37,6 +39,8 @@ public class JwtAuthenticationController {
    
     JwtResponse authResponse = new JwtResponse();
     authResponse.setToken(token);
+
+    log.info("Login Successful");
     
     return ResponseEntity.ok(authResponse);
   }
@@ -49,6 +53,8 @@ public class JwtAuthenticationController {
     JwtResponse authResponse = new JwtResponse();
     authResponse.setToken(token);
     
+    log.info("Logout Successful");
+
     return ResponseEntity.ok(authResponse);
   }
 

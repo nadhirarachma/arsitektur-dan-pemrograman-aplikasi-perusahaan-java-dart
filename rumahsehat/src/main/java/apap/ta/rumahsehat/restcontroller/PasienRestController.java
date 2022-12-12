@@ -20,8 +20,9 @@ import apap.ta.rumahsehat.model.PasienModel;
 import apap.ta.rumahsehat.payload.PasienProfileDTO;
 import apap.ta.rumahsehat.payload.TopupDTO;
 import apap.ta.rumahsehat.service.PasienRestService;
-import apap.ta.rumahsehat.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/pasien")
 public class PasienRestController {
@@ -30,14 +31,12 @@ public class PasienRestController {
 	private PasienRestService pasienRestService;
 
 	@Autowired
-	private UserService userService;
-
-	@Autowired
 	private ModelMapper modelMapper;
 
 	@PostMapping("/add")
 	private PasienModel createPasien(@Valid @RequestBody PasienModel pasien, BindingResult bindingResult){
 		if (bindingResult.hasFieldErrors()) {
+			log.warn("Failed to Create Pasien");
 			throw new ResponseStatusException(
 				HttpStatus.BAD_REQUEST, "Request body has invalid type or missing field"
 			);
@@ -45,9 +44,11 @@ public class PasienRestController {
 		else{
 			PasienModel newPasien = pasienRestService.addPasien(pasien);
 			if (newPasien.equals(pasien)) {
+				log.info("Pasien Successfully Created");
 				return newPasien;
 			}
 			else {
+				log.warn("Failed to create pasien. User with same username or email already exist.");
 				throw new ResponseStatusException(
 					HttpStatus.INTERNAL_SERVER_ERROR, "User dengan username atau email yang sama telah terdapat pada sistem"
 				);
