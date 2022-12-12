@@ -141,43 +141,6 @@ class _Homepage extends State<Home> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Home(
-                                      username: widget.username,
-                                    )));
-                      },
-                      child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          elevation: 16,
-                          margin: const EdgeInsets.all(9),
-                          child: InkWell(
-                              onTap: () {
-                                // Navigator.push(context,MaterialPageRoute(builder: (context) => DaftarTagihan()));
-                              },
-                              splashColor: Colors.lightBlue,
-                              child: Center(
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: const <Widget>[
-                                    Icon(
-                                      Icons.payment,
-                                      size: 25,
-                                      color: Colors.blueGrey,
-                                    ),
-                                    Text(
-                                      "Tagihan",
-                                      softWrap: true,
-                                      style: TextStyle(fontSize: 8),
-                                    ),
-                                  ],
-                                ),
-                              ))),
-                    ),
-                    GestureDetector(
-                      onTap: () {
                         // Navigator.push(context,MaterialPageRoute(builder: (context) => Profile()));
                         //
                       },
@@ -202,7 +165,7 @@ class _Homepage extends State<Home> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: const <Widget>[
                                     Icon(
-                                      Icons.account_circle,
+                                      Icons.medication,
                                       size: 25,
                                       color: Colors.blueGrey,
                                     ),
@@ -240,7 +203,7 @@ class _Homepage extends State<Home> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: const <Widget>[
                                     Icon(
-                                      Icons.account_circle,
+                                      Icons.payment,
                                       size: 25,
                                       color: Colors.blueGrey,
                                     ),
