@@ -254,8 +254,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               }
                                             }),
                                         SizedBox(height: size.height * 0.03),
-                                        const Text(
-                                                        'Belum Punya Akun?'),
+                                        const Text('Belum Punya Akun?'),
                                         TextButton(
                                           child: const Text(
                                             'Registrasi Sekarang',

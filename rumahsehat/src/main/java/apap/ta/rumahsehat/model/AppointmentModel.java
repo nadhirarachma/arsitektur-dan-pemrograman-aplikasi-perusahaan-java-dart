@@ -1,6 +1,8 @@
 package apap.ta.rumahsehat.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,9 +55,9 @@ public class AppointmentModel implements Serializable{
     @OnDelete(action = OnDeleteAction.CASCADE)
     private DokterModel dokter;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_resep", referencedColumnName = "id")
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     private ResepModel resep;
 
     @OneToOne(cascade = CascadeType.ALL)
