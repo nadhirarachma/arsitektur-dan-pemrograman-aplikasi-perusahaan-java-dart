@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>RumahSehat</title>
+  <title>View Course</title>
   <head th:fragment="css">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
   </head>
@@ -43,7 +43,7 @@
       </li>
     </ul>
     <ul class="navbar-nav pull-right">
-      <a class="nav-item nav-link text-text-secondary" onclick="return confirm('Are you sure to logout?');" th:href="@{/logout-sso}">Logout</a>
+      <a class="nav-item nav-link text-text-secondary" th:href="@{/logout-sso}">Logout</a>
   </ul>
   </div>
 </nav>
@@ -52,6 +52,11 @@
 <footer th:fragment="footer">
   <!-- Section: Social media -->
   <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+    <!-- Left -->
+    <div class="me-5 d-none d-lg-block">
+      <span>Informasi singkat mengenai kami:</span>
+    </div>
+    <!-- Left -->
 
     <!-- Right -->
     <div>
@@ -160,7 +165,7 @@
   <!-- Copyright -->
   <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.025);">
     © 2022 APAP:
-    <a class="text-reset fw-bold" href="https://www.youtube.com/watch?v=FkDMuYHvikQ">Bismillah Lulus Apap</a>
+    <a class="text-reset fw-bold" href="https://www.youtube.com/watch?v=HMuxy1xS5J0">Bismillah Lulus Apap</a>
   </div>
 </footer>
 </html>
