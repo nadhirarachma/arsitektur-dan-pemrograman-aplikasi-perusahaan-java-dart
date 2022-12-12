@@ -19,7 +19,7 @@
                 </div>
                 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <script th:inline="javascript">
-                  let labels = [[$,{labels}]]
+                  let labels = [[${labels}]]
                     const data = {
                         labels: labels,
                         datasets: [{
