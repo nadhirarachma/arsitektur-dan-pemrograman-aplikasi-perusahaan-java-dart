@@ -7,9 +7,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 Future<PasienProfile> fetchPasien(String username) async {
-  // String url = 'http://apap-087.cs.ui.ac.id/api/v1/pasien/profile/';
-  // String url = 'http://localhost:10087/api/v1/pasien/profile/';
-  String url = 'http://localhost:8080/api/v1/pasien/profile/';
+  String url = 'http://apap-087.cs.ui.ac.id/api/v1/pasien/profile/';
+  // String url = 'http://localhost:8080/api/v1/pasien/profile/';
   final response = await http.get(Uri.parse(url + username));
   if (response.statusCode == 200) {
     return PasienProfile.fromJson(jsonDecode(response.body));
