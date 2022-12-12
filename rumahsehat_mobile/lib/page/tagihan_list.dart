@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:login_logout_registration/components/button.dart';
+import 'package:rumahsehat_mobile/page/tagihan_detail.dart';
 import 'package:rumahsehat_mobile/widget/drawer.dart';
 
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../models/tagihan_model.dart';
+
 Future<List<Tagihan>> fetchListTagihan(String username) async {
-  // String url = 'http://apap-087.cs.ui.ac.id/api/v1/pasien/profile/';
-  String url = 'http://localhost:8080/api/v1/tagihan/';
+  String url = 'http://apap-087.cs.ui.ac.id/api/v1/tagihan/';
+  // String url = 'http://localhost:8080/api/v1/tagihan/';
   final response = await http.get(Uri.parse(url + username));
   if (response.statusCode == 200) {
     List<dynamic> responseList = jsonDecode(response.body);
@@ -23,27 +26,6 @@ Future<List<Tagihan>> fetchListTagihan(String username) async {
     return tagihanList;
   } else {
     throw Exception('Gagal mendapatkan tagihan');
-  }
-}
-
-class Tagihan {
-  final String kode;
-  final bool isPaid;
-  final String tanggalTerbuat;
-  final int jumlahTagihan;
-
-  const Tagihan(
-      {required this.kode,
-      required this.isPaid,
-      required this.tanggalTerbuat,
-      required this.jumlahTagihan});
-
-  factory Tagihan.fromJson(Map<String, dynamic> json) {
-    return Tagihan(
-        kode: json['kode'],
-        isPaid: json['isPaid'],
-        tanggalTerbuat: json['tanggalTerbuat'],
-        jumlahTagihan: json['jumlahTagihan']);
   }
 }
 
@@ -73,14 +55,14 @@ class _DaftarTagihan extends State<TagihanList> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromRGBO(239, 248, 253, 0.9),
-        appBar: AppBar(title: const Text('Profile')),
+        appBar: AppBar(title: const Text('Daftar Tagihan')),
         drawer: DrawerPage(username: widget.username),
         body: SingleChildScrollView(
             child: FutureBuilder<List<Tagihan>>(
           future: futureListTagihan,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              tabel = tagihanList(context, snapshot.data!);
+              tabel = tagihanList(context, snapshot.data!, widget.username);
               return Column(
                 children: [
                   TextButton(
@@ -100,7 +82,7 @@ class _DaftarTagihan extends State<TagihanList> {
   }
 }
 
-Widget tagihanList(BuildContext context, List<Tagihan> list) {
+Widget tagihanList(BuildContext context, List<Tagihan> list, String username) {
   Widget result;
 
   if (list.isNotEmpty) {
@@ -117,7 +99,7 @@ Widget tagihanList(BuildContext context, List<Tagihan> list) {
     );
     datas.add(header);
     for (var tagihan in list) {
-      datas.add(dataTagihan(tagihan));
+      datas.add(dataTagihan(context, tagihan, username));
     }
     result = Card(
       child: Column(children: datas),
@@ -129,14 +111,24 @@ Widget tagihanList(BuildContext context, List<Tagihan> list) {
   return result;
 }
 
-Widget dataTagihan(Tagihan tagihan) {
+Widget dataTagihan(BuildContext context, Tagihan tagihan, String username) {
   Widget data = Row(
     children: [
       Text(tagihan.kode),
       Text(tagihan.jumlahTagihan.toString()),
       Checkbox(value: tagihan.isPaid, onChanged: null),
       Text(tagihan.tanggalTerbuat),
-      Button(text: "bayar", onPressed: () {})
+      Button(
+          text: "Detail",
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TagihanDetail(
+                          kode: tagihan.kode,
+                          username: username,
+                        )));
+          })
     ],
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
   );
