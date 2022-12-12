@@ -45,6 +45,11 @@
             </p>
             <br>
             <div class="row d-flex justify-content-center">
+                <a class="mx-2 btn btn-outline-light" th:href="@{/chart}"
+                   th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}"
+                   style="background:#81cdf3;border-radius: 20px;padding-inline:10%; width: 270px;height:40px;">Chart</a>
+                <br>
+                <br>
                 <a class="mx-2 btn btn-outline-light" th:href="@{/dokter/viewall}"
                    th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}"
                    style="background:#81cdf3;border-radius: 20px;padding-inline:10%; width: 270px;height:40px;">Daftar Dokter</a>
@@ -70,7 +75,7 @@
             </div>
         </div>
     </div>
-    </div>
-    </body>
-    <footer th:replace="fragments/fragment :: footer"></footer>
+</div>
+</body>
+<footer th:replace="fragments/fragment :: footer"></footer>
 </html>
