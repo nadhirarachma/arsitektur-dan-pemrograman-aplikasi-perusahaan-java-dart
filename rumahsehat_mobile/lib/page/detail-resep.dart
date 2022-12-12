@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 Future<Resep> fetchResep(int id) async {
-  String url = 'http://localhost:8080/api/v1/resep/view/';
+  //String url = 'http://localhost:8080/api/v1/resep/view/';
   // String url = 'http://localhost:10087/api/v1/resep/view/';
-  // String url = 'http://apap-087.cs.ui.ac.id/api/v1/resep/view/';
+  String url = 'http://apap-087.cs.ui.ac.id/api/v1/resep/view/';
   final response = await http.get(Uri.parse(url + id.toString()));
   print(response.statusCode);
   print(response.body);
@@ -16,7 +16,6 @@ Future<Resep> fetchResep(int id) async {
   } else {
     throw Exception('Gagal melihat daftar resep');
   }
-
 }
 
 class Resep {
@@ -198,7 +197,8 @@ class _DetailResepState extends State<DetailResepPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildDetailResepItem('Pasien', resep.pasien),
-                  _buildDetailResepItem('Total Obat', resep.listObat.length.toString()),
+                  _buildDetailResepItem(
+                      'Total Obat', resep.listObat.length.toString()),
                 ],
               ),
               const SizedBox(
@@ -348,7 +348,7 @@ class _DetailResepState extends State<DetailResepPage> {
             ),
           ),
           onClick: () => {
-            // Di web aja 
+            // Di web aja
           },
         ),
         const SizedBox(
