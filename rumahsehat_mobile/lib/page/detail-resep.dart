@@ -337,37 +337,6 @@ class _DetailResepState extends State<DetailResepPage> {
         const SizedBox(
           width: 12,
         ),
-        _buildTombol(
-          context,
-          title: 'Daftar Resep',
-          textColor: Colors.blue,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            border: Border.all(
-              color: Colors.blue,
-            ),
-          ),
-          onClick: () => {
-            // Di web aja 
-          },
-        ),
-        const SizedBox(
-          width: 12,
-        ),
-        _buildTombol(
-          context,
-          title: 'Konfirmasi Resep',
-          textColor: Colors.yellow,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            border: Border.all(
-              color: Colors.yellow,
-            ),
-          ),
-          onClick: () => {
-            // Belum handle
-          },
-        ),
       ],
     );
   }
