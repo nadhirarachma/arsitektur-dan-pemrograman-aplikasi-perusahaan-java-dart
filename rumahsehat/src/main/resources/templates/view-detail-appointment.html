@@ -34,8 +34,8 @@
                         <!-- <td>
                             <a class="btn btn-primary" th:href="@{/resep/detail/}">Detail</a>
                         </td> -->
-                        <td th:if="*{resep != null}">
-                            <a class="btn btn-primary" th:href="@{/resep/view/} + ${resep.id}">Detail Resep</a>
+                        <td>
+                            <a class="btn btn-primary" th:href="@{/resep/view/} + ${id}" th:if="${hasResep}">Detail Resep</a>
                         </td>
                         
                         <td>

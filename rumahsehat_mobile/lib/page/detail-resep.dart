@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 Future<Resep> fetchResep(int id) async {
-  String url = 'http://localhost:8080/api/v1/resep/view/';
-  // String url = 'http://localhost:10087/api/v1/resep/view/';
-  // String url = 'http://apap-087.cs.ui.ac.id/api/v1/resep/view/';
+  // String url = 'http://localhost:8080/api/v1/resep/view/';
+  String url = 'http://apap-087.cs.ui.ac.id/api/v1/resep/view/';
   final response = await http.get(Uri.parse(url + id.toString()));
   print(response.statusCode);
   print(response.body);
@@ -16,13 +15,12 @@ Future<Resep> fetchResep(int id) async {
   } else {
     throw Exception('Gagal melihat daftar resep');
   }
-
 }
 
 class Resep {
   final int id;
   final String pasien;
-  final String apoteker;
+  final String apotek;
   final String dokter;
   final String status;
   final int total;
@@ -31,7 +29,7 @@ class Resep {
   const Resep({
     required this.id,
     required this.pasien,
-    required this.apoteker,
+    required this.apotek,
     required this.dokter,
     required this.status,
     required this.total,
@@ -39,11 +37,11 @@ class Resep {
   });
 
   factory Resep.fromJson(Map<String, dynamic> json) {
-    dynamic apoteker;
-    if (json['apoteker'] != null) {
-      apoteker = json['apoteker'];
+    dynamic apotek;
+    if (json['apotek'] != null) {
+      apotek = json['apotek']['username'];
     } else {
-      apoteker = "Belum Ada";
+      apotek = "Belum Ada";
     }
 
     int _total = 0;
@@ -59,7 +57,7 @@ class Resep {
     return Resep(
       id: json['id'],
       pasien: json['appointment']['pasien']['username'],
-      apoteker: apoteker,
+      apotek: apotek,
       dokter: json['appointment']['dokter']['username'],
       status: isDone ? 'Sudah Dikonfirmasi' : 'Belum Dikonfirmasi',
       total: _total,
@@ -198,7 +196,8 @@ class _DetailResepState extends State<DetailResepPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildDetailResepItem('Pasien', resep.pasien),
-                  _buildDetailResepItem('Total Obat', resep.listObat.length.toString()),
+                  _buildDetailResepItem(
+                      'Total Obat', resep.listObat.length.toString()),
                 ],
               ),
               const SizedBox(
@@ -207,7 +206,7 @@ class _DetailResepState extends State<DetailResepPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  _buildDetailResepItem('Apoteker', resep.apoteker),
+                  _buildDetailResepItem('Apoteker', resep.apotek),
                   _buildDetailResepItem('Status', resep.status),
                 ],
               ),
@@ -330,43 +329,11 @@ class _DetailResepState extends State<DetailResepPage> {
             color: Colors.blue,
           ),
           onClick: () => {
-            // TODO: TAMBAH ACTION
             Navigator.pop(context)
           },
         ),
         const SizedBox(
           width: 12,
-        ),
-        _buildTombol(
-          context,
-          title: 'Daftar Resep',
-          textColor: Colors.blue,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            border: Border.all(
-              color: Colors.blue,
-            ),
-          ),
-          onClick: () => {
-            // Di web aja 
-          },
-        ),
-        const SizedBox(
-          width: 12,
-        ),
-        _buildTombol(
-          context,
-          title: 'Konfirmasi Resep',
-          textColor: Colors.yellow,
-          decoration: BoxDecoration(
-            color: Colors.transparent,
-            border: Border.all(
-              color: Colors.yellow,
-            ),
-          ),
-          onClick: () => {
-            // Belum handle
-          },
         ),
       ],
     );
