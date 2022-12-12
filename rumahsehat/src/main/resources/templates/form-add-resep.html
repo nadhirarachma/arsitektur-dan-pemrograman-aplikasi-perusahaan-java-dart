@@ -20,7 +20,7 @@
 						<form th:action="@{/resep/add/}  + ${kode}" th:object="${resep}" method="POST">
 							
 							Waktu Resep Dibuat: <br />
-							<input class="form-control" th:value="*{createdAt}" type="datetime-local" name="createdAt" />
+							<input class="form-control" th:value="*{createdAt}" type="datetime-local" name="createdAt" required/>
 							<br /><br />
 							
 							<table class="table">
