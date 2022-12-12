@@ -166,6 +166,9 @@ public class ResepController {
     public String konfirmasiResep(@PathVariable Long id, Model model) {
         
         ResepModel resep = resepService.getResepById(id);
+        if (!cekStokObat(resep.getJumlah())) {
+            return "error-konfirmasi-resep";
+        }
 
         TagihanModel tagihan = new TagihanModel();
         int banyakTagihan = kalkulasiTagihan(resep.getJumlah(), resep.getAppointment().getDokter());
@@ -189,14 +192,31 @@ public class ResepController {
         return "konfirmasi-resep";
     }
 
-    private Integer kalkulasiTagihan(List<JumlahModel> listResepObat, DokterModel dokter) {
+    private Integer kalkulasiTagihan(List<JumlahModel> listObat, DokterModel dokter) {
         int tarifDokter = dokter.getTarif();
-        int tarifObat = 0;
+        int hargaObat = 0;
 
-        for (JumlahModel resep: listResepObat) {
-            tarifObat += (resep.getKuantitas() * resep.getObat().getHarga());}
+        for (JumlahModel resep: listObat) {
+            hargaObat += (resep.getKuantitas() * resep.getObat().getHarga());}
 
-        return tarifDokter + tarifObat;
+        return tarifDokter + hargaObat;
+    }
+
+    private Boolean cekStokObat(List<JumlahModel> listObat) {
+        for (JumlahModel resep : listObat) {
+            ObatModel obat = obatService.getObatbyId(resep.getObat().getIdObat());
+            if (resep.getKuantitas() > obat.getStok()) {
+                return false;
+            }
+        }
+
+        for (JumlahModel resep : listObat) {
+            ObatModel obat = obatService.getObatbyId(resep.getObat().getIdObat());
+            int jumlahObat = obat.getStok() - resep.getKuantitas();
+            obat.setStok(jumlahObat);
+            obatService.updateStokObat(obat);
+        }
+        return true;
     }
 
 }
