@@ -16,7 +16,6 @@ Future<Resep> fetchResep(int id) async {
   } else {
     throw Exception('Gagal melihat daftar resep');
   }
-
 }
 
 class Resep {
@@ -198,7 +197,8 @@ class _DetailResepState extends State<DetailResepPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildDetailResepItem('Pasien', resep.pasien),
-                  _buildDetailResepItem('Total Obat', resep.listObat.length.toString()),
+                  _buildDetailResepItem(
+                      'Total Obat', resep.listObat.length.toString()),
                 ],
               ),
               const SizedBox(
