@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rumahsehat_mobile/commons/extensions/date_time_extension.dart';
 import 'package:rumahsehat_mobile/models/appointment_model.dart';
+import 'package:rumahsehat_mobile/page/detail-resep.dart';
 import 'package:rumahsehat_mobile/widget/blue_button.dart';
 
 class AppointmentDetailScreen extends StatelessWidget {
@@ -98,7 +99,17 @@ class AppointmentDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   BlueButton(
-                    onPressed: appointment.idResep != null ? () {} : null,
+                    onPressed: appointment.idResep != null
+                        ? () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DetailResepPage(
+                                      username: appointment.namaPasien,
+                                      id: appointment.idResep!),
+                                ));
+                          }
+                        : null,
                     minWidth: 100,
                     text: "Lihat resep",
                     backgroundColor:
