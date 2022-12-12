@@ -19,12 +19,12 @@
                 </div>
                 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 <script th:inline="javascript">
-                  let labels = [[${labels}]]
+                  let labels = [[$,{labels}]]
                     const data = {
                         labels: labels,
                         datasets: [{
-                            label: 'Pendapatan Dokter Periode Tahunan',
-                            data: [[${tagihan}]],
+                            label: 'Total Tagihan Periode Bulanan',
+                            data: [[$,{tagihan}]],
                             fill: true,
                             borderColor: 'rgb(75, 192, 192)',
                             tension: 0.1
