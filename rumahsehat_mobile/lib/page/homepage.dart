@@ -3,6 +3,7 @@ import 'package:rumahsehat_mobile/page/detail-resep.dart';
 import 'package:rumahsehat_mobile/page/appointment_list_screen.dart';
 import 'package:rumahsehat_mobile/page/create_appointment_screen.dart';
 import 'package:rumahsehat_mobile/page/profile.dart';
+import 'package:rumahsehat_mobile/page/tagihan_list.dart';
 import 'package:rumahsehat_mobile/widget/drawer.dart';
 
 class Home extends StatefulWidget {
@@ -178,7 +179,7 @@ class _Homepage extends State<Home> {
                     GestureDetector(
                       onTap: () {
                         // Navigator.push(context,MaterialPageRoute(builder: (context) => Profile()));
-                        // 
+                        //
                       },
                       child: Card(
                           shape: RoundedRectangleBorder(
@@ -207,6 +208,44 @@ class _Homepage extends State<Home> {
                                     ),
                                     Text(
                                       "Detail Resep",
+                                      softWrap: true,
+                                      style: TextStyle(fontSize: 8),
+                                    ),
+                                  ],
+                                ),
+                              ))),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // Navigator.push(context,MaterialPageRoute(builder: (context) => Profile()));
+                        //
+                      },
+                      child: Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12)),
+                          elevation: 16,
+                          margin: const EdgeInsets.all(9),
+                          child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TagihanList(
+                                              username: widget.username,
+                                            )));
+                              },
+                              splashColor: Colors.lightBlue,
+                              child: Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: const <Widget>[
+                                    Icon(
+                                      Icons.account_circle,
+                                      size: 25,
+                                      color: Colors.blueGrey,
+                                    ),
+                                    Text(
+                                      "Daftar Tagihan",
                                       softWrap: true,
                                       style: TextStyle(fontSize: 8),
                                     ),

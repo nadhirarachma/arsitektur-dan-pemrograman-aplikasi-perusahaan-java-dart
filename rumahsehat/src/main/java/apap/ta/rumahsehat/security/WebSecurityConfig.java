@@ -82,6 +82,7 @@ public class WebSecurityConfig {
             .antMatchers("/api/v1/post-appointment").permitAll().antMatchers("/api/v1/get-appointment-detail-pasien").permitAll()
 			.antMatchers("/api/v1/pasien/add").permitAll()
             .antMatchers("/api/v1/pasien/topup").permitAll()
+            .antMatchers("/api/v1/tagihan/{username}").permitAll()
             .antMatchers("/api/v1/resep").permitAll()
             .antMatchers("/api/v1/resep/view/{id}").permitAll()
             .antMatchers("/api/v1/resep/jumlah/{id}").permitAll()
