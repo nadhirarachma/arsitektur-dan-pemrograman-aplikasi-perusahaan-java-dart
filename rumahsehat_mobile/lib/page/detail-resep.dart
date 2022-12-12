@@ -16,7 +16,6 @@ Future<Resep> fetchResep(int id) async {
   } else {
     throw Exception('Gagal melihat daftar resep');
   }
-
 }
 
 class Resep {
@@ -198,7 +197,8 @@ class _DetailResepState extends State<DetailResepPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildDetailResepItem('Pasien', resep.pasien),
-                  _buildDetailResepItem('Total Obat', resep.listObat.length.toString()),
+                  _buildDetailResepItem(
+                      'Total Obat', resep.listObat.length.toString()),
                 ],
               ),
               const SizedBox(
@@ -335,6 +335,37 @@ class _DetailResepState extends State<DetailResepPage> {
         ),
         const SizedBox(
           width: 12,
+        ),
+        _buildTombol(
+          context,
+          title: 'Daftar Resep',
+          textColor: Colors.blue,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            border: Border.all(
+              color: Colors.blue,
+            ),
+          ),
+          onClick: () => {
+            // Di web aja 
+          },
+        ),
+        const SizedBox(
+          width: 12,
+        ),
+        _buildTombol(
+          context,
+          title: 'Konfirmasi Resep',
+          textColor: Colors.yellow,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            border: Border.all(
+              color: Colors.yellow,
+            ),
+          ),
+          onClick: () => {
+            // Belum handle
+          },
         ),
       ],
     );
