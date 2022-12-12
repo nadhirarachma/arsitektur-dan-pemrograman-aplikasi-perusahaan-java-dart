@@ -112,6 +112,11 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
+    public List<AppointmentModel> getAppointmentAYear(LocalDateTime start, LocalDateTime end) {
+        return appointmentDb.findAllByWaktuAwalBetween(start,end);
+    }
+
+    @Override
     public List<AppointmentModel> getListAppointmentByPasien(String pasienModel) {
         return appointmentDb.findAppointmentModelsByPasien(pasienDb.findByUsername(pasienModel));
     }
