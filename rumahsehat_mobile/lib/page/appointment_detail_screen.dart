@@ -112,8 +112,9 @@ class AppointmentDetailScreen extends StatelessWidget {
                         : null,
                     minWidth: 100,
                     text: "Lihat resep",
-                    backgroundColor:
-                        appointment.isDone ? Colors.blue : Colors.grey[350],
+                    backgroundColor: appointment.idResep != null
+                        ? Colors.blue
+                        : Colors.grey[350],
                   ),
                 ],
               ),
