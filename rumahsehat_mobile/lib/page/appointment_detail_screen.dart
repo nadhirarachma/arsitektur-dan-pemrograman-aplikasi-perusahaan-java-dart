@@ -98,7 +98,7 @@ class AppointmentDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 16),
                   BlueButton(
-                    onPressed: appointment.isDone ? () {} : null,
+                    onPressed: appointment.idResep != null ? () {} : null,
                     minWidth: 100,
                     text: "Lihat resep",
                     backgroundColor:
