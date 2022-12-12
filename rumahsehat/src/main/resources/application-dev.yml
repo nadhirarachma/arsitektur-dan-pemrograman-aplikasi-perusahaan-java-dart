@@ -36,5 +36,5 @@ spring:
 jwttoken:
   secret: apap-87
 
-  # in milliseconds (5 mins)
-  expiration: 300000
+  # in milliseconds (1440 mins/ 1 day)
+  expiration: 86400000
