@@ -54,6 +54,12 @@ public class AppointmentController {
         // AppointmentModel janji = appointmentService.getAppointmentByCode(kode);
 
         AppointmentModel janji = appointmentService.getAppointmentByCode(kode);
+        // Handling view detail appointment
+        if (janji.getResep() != null) {
+            Long id = janji.getResep().getId();
+            model.addAttribute("hasResep", true);
+            model.addAttribute("id", id);
+        }
         model.addAttribute("appointment", janji);
         return "view-detail-appointment";
 
