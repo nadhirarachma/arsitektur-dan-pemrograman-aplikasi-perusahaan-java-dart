@@ -94,7 +94,6 @@ public class WebSecurityConfig {
             .antMatchers("/dokter/viewall").hasAuthority("Admin")
             .antMatchers("/dokter/add").hasAuthority("Admin")
             .antMatchers("/resep/add").hasAnyAuthority("Admin", "Dokter")
-            .antMatchers("/resep/konfirmasi/{id}").hasAuthority("Apoteker")
             .antMatchers("/apoteker/viewall").hasAuthority("Admin")
             .antMatchers("/apoteker/add").hasAuthority("Admin")
             .antMatchers("/pasien/viewall").hasAuthority("Admin")
