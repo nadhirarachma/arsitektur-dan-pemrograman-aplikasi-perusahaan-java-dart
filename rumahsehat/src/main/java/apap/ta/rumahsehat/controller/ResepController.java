@@ -29,7 +29,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class ResepController {
     @Qualifier("resepServiceImpl")
@@ -70,7 +72,7 @@ public class ResepController {
         ResepModel resep = new ResepModel();
         
         List<ObatModel> listObat = obatService.getSortedListObat();
-        System.out.println(listObat.get(0).getNamaObat());
+        log.info(listObat.get(0).getNamaObat());
         List<JumlahModel> listJumlahNew = new ArrayList<>();
 
         resep.setJumlah(listJumlahNew);
@@ -86,7 +88,7 @@ public class ResepController {
     @PostMapping(value="/resep/add/{kode}", params = {"save"})
     public String addResepSubmitPage(@PathVariable String kode, @ModelAttribute ResepModel resep, @ModelAttribute JumlahModel jumlah, Model model) {
         appointment = appointmentService.getAppointmentByCode(kode);
-        System.out.println(appointment.getKode());
+        log.info(appointment.getKode());
         if (resep.getJumlah() == null) {
             resep.setJumlah(new ArrayList<>());
         }
@@ -105,12 +107,12 @@ public class ResepController {
     }
 
     @PostMapping(value="/resep/add/{kode}", params = {"addRow"})
-    private String addRowResepMultiple(@PathVariable String kode,
+    public String addRowResepMultiple(@PathVariable String kode,
             @ModelAttribute ResepModel resep,
             Model model
     ){
         appointment = appointmentService.getAppointmentByCode(kode);
-        if (resep.getJumlah() == null || resep.getJumlah().size()==0){
+        if (resep.getJumlah() == null || resep.getJumlah().isEmpty()){
             resep.setJumlah(new ArrayList<>());
         }
 
@@ -124,14 +126,13 @@ public class ResepController {
     }
 
     @PostMapping(value="/resep/add/{kode}", params = {"deleteRow"})
-    private String deleteRowResepMultiple(@PathVariable String kode,
+    public String deleteRowResepMultiple(@PathVariable String kode,
             @ModelAttribute ResepModel resep,
             @RequestParam("deleteRow") Integer row,
             Model model
     ){
         appointment = appointmentService.getAppointmentByCode(kode);
-        final Integer rowId = Integer.valueOf(row);
-        resep.getJumlah().remove(rowId.intValue());
+        resep.getJumlah().remove(row.intValue());
 
         List<ObatModel> listObat = obatService.getSortedListObat();
 
@@ -152,7 +153,7 @@ public class ResepController {
 
         String namaDokter= resep.getAppointment().getDokter().getNama();
         String namaPasien= resep.getAppointment().getPasien().getNama();
-        System.out.println(namaDokter);
+        log.info(namaDokter);
 
         model.addAttribute("resep", resep);
         model.addAttribute("namaApoteker", namaApoteker);

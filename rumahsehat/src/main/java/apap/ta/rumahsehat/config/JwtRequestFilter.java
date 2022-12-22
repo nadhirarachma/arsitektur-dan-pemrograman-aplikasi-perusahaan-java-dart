@@ -25,12 +25,11 @@ public class JwtRequestFilter extends OncePerRequestFilter{
 			throws ServletException, IOException {
 		try {
 			String token = getTokenFromRequest(request);
-			//System.out.println("Token-- " + token);
+	
 			if (token != null && jwtTokenUtil.validateJwtToken(token)) {
 				String username = jwtTokenUtil.getUserNameFromJwtToken(token);
-				//System.out.println("User Name--JwtTokenFilter-- " + username);
 				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-				//System.out.println("Authorities--JwtTokenFilter-- " + userDetails.getAuthorities());
+				
 				UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
 				authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -38,7 +37,7 @@ public class JwtRequestFilter extends OncePerRequestFilter{
 				SecurityContextHolder.getContext().setAuthentication(authentication);
 			}
 		} catch (Exception e) {
-			//logger.error("Cannot set user authentication: {}", e);
+		
 			throw new RuntimeException("Cannot set user authentication" + e.getMessage());
 		}
 		filterChain.doFilter(request, response);

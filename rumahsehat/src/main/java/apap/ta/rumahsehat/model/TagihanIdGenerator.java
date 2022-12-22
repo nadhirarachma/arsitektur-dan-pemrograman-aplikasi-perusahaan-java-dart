@@ -20,14 +20,12 @@ public class TagihanIdGenerator implements IdentifierGenerator {
         String akhir = "";
         Connection connection = session.connection();
 
-        try {
-            Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery("SELECT COUNT(KODE) AS ID FROM TAGIHAN");
             if(rs.next()) {
                 Integer id = rs.getInt(1)+1;
                 akhir = id.toString();
-                String generatedId = awalan + akhir;
-                return generatedId;
+                return awalan + akhir;
             }
         }
         catch (SQLException e){

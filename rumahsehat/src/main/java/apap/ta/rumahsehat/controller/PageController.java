@@ -64,39 +64,44 @@ public class PageController {
                 )
         ).retrieve().bodyToMono(ServiceResponse.class).block();
 
-        Attributes attributes = serviceResponse.getAuthenticationSuccess().getAttributes();
-        String username = serviceResponse.getAuthenticationSuccess().getUser();
+        if (serviceResponse != null) {
+            Attributes attributes = serviceResponse.getAuthenticationSuccess().getAttributes();
+            String username = serviceResponse.getAuthenticationSuccess().getUser();
 
-        UserModel user = userService.getUserByUsername(username);
+            UserModel user = userService.getUserByUsername(username);
 
-        List<String> whitelist = new ArrayList<>();
-        Collections.addAll(whitelist, "al.ghifari01", "azhar.rahmatilah", "alviona.retno", "helga.syahda", "nadhira.rachma");
-
-        if (whitelist.contains(username)) {
-            if (user == null) {
-                user = new UserModel();
-                user.setEmail(username + "@ui.ac.id");
-                user.setNama(attributes.getNama());
-                user.setPassword("rumahsehat");
-                user.setUsername(username);
-                user.setRole("Admin");
-                userService.addUser(user);
+            List<String> whitelist = new ArrayList<>();
+            Collections.addAll(whitelist, "al.ghifari01", "azhar.rahmatilah", "alviona.retno", "helga.syahda", "nadhira.rachma");
+    
+            if (whitelist.contains(username)) {
+                if (user == null) {
+                    user = new UserModel();
+                    user.setEmail(username + "@ui.ac.id");
+                    user.setNama(attributes.getNama());
+                    user.setPassword("rumahsehat");
+                    user.setUsername(username);
+                    user.setRole("Admin");
+                    userService.addUser(user);
+                }
             }
+            else {
+                redirectAttrs.addFlashAttribute("error", "Mohon maaf, Anda tidak memiliki akses sebagai Admin.");
+                return new ModelAndView("redirect:/login");
+            }
+    
+            Authentication authentication = new UsernamePasswordAuthenticationToken(username, "rumahsehat");
+            
+            SecurityContext securityContext = SecurityContextHolder.getContext();
+            securityContext.setAuthentication(authentication);
+    
+            HttpSession httpSession = request.getSession(true);
+            httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext); 
+            
+            return new ModelAndView("redirect:/");
         }
         else {
-            redirectAttrs.addFlashAttribute("error", "Mohon maaf, Anda tidak memiliki akses sebagai Admin.");
             return new ModelAndView("redirect:/login");
         }
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "rumahsehat");
-        
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        securityContext.setAuthentication(authentication);
-
-        HttpSession httpSession = request.getSession(true);
-        httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
-        
-        return new ModelAndView("redirect:/");
     }
 
     @GetMapping(value = "/login-sso")
