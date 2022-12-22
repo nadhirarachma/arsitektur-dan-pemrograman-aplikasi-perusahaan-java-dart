@@ -4,6 +4,7 @@ import apap.ta.rumahsehat.model.AppointmentModel;
 import apap.ta.rumahsehat.service.AppointmentService;
 import apap.ta.rumahsehat.service.ChartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +21,7 @@ public class ChartController {
     ChartService chartService;
 
     @RequestMapping("/chart")
-    public String chart(Model model) {
+    private String chart(Model model) {
         LocalDateTime dateTime=LocalDateTime.now();
         LocalDateTime startDate = LocalDateTime.of(dateTime.getYear(), dateTime.getMonth(),1,0,0);
         LocalDateTime endDate = startDate.plusMonths(1).minusMinutes(1);

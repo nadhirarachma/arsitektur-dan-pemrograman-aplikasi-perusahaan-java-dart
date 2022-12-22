@@ -1,5 +1,6 @@
 package apap.ta.rumahsehat.service;
 
+import apap.ta.rumahsehat.model.AppointmentModel;
 import apap.ta.rumahsehat.payload.AppointmentDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

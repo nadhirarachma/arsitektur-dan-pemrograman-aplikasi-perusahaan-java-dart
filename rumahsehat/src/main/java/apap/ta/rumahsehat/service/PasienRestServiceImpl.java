@@ -57,6 +57,7 @@ public class PasienRestServiceImpl implements PasienRestService {
     @Override
     public String encrypt(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(password);
+        String hashedPassword = passwordEncoder.encode(password);
+        return hashedPassword;
     }
 }

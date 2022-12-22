@@ -23,14 +23,14 @@ public class DokterController {
     private DokterService dokterService;
 
     @GetMapping(value = "/add")
-    public String addDokterFormPage(Model model) {
+    private String addDokterFormPage(Model model) {
         DokterModel dokter = new DokterModel();
         model.addAttribute("dokter", dokter);
         return "form-add-dokter";
     }
 
     @PostMapping(value = "/add") 
-    public String addDokterSubmit(@ModelAttribute DokterModel dokter, Model model) {
+    private String addDokterSubmit(@ModelAttribute DokterModel dokter, Model model) {
     
         DokterModel newDokter = dokterService.addDokter(dokter);
 
