@@ -4,9 +4,10 @@ import apap.ta.rumahsehat.model.AppointmentModel;
 import apap.ta.rumahsehat.service.AppointmentService;
 import apap.ta.rumahsehat.service.ChartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,15 +20,15 @@ public class ChartController {
     @Autowired
     ChartService chartService;
 
-    @GetMapping("/chart")
-    public String chart(Model model) {
-        var dateTime=LocalDateTime.now();
-        var startDate = LocalDateTime.of(dateTime.getYear(), dateTime.getMonth(),1,0,0);
+    @RequestMapping("/chart")
+    private String chart(Model model) {
+        LocalDateTime dateTime=LocalDateTime.now();
+        LocalDateTime startDate = LocalDateTime.of(dateTime.getYear(), dateTime.getMonth(),1,0,0);
         LocalDateTime endDate = startDate.plusMonths(1).minusMinutes(1);
 
         int day = startDate.plusMonths(1).minusMinutes(1).getDayOfMonth();
-        var days = new int[endDate.getDayOfMonth()];
-        for(var i=0;i<day;i++){
+        int[] days = new int[endDate.getDayOfMonth()];
+        for(int i=0;i<day;i++){
             days[i] = i+1;
         }
 

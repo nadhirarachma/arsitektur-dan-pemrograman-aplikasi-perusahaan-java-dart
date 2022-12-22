@@ -67,9 +67,6 @@ public class WebSecurityConfig {
 		httpSecurity.addFilterBefore(jwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
-    String admin = "Admin";
-    String apoteker = "Apoteker";
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
@@ -91,18 +88,18 @@ public class WebSecurityConfig {
             .antMatchers("/api/v1/resep").permitAll()
             .antMatchers("/api/v1/resep/view/{id}").permitAll()
             .antMatchers("/api/v1/resep/jumlah/{id}").permitAll()
-            .antMatchers("/resep").hasAnyAuthority(admin,apoteker)
-            .antMatchers("/resep/view/{id}").hasAnyAuthority(admin,apoteker,"Dokter")
+            .antMatchers("/resep").hasAnyAuthority("Admin","Apoteker")
+            .antMatchers("/resep/view/{id}").hasAnyAuthority("Admin","Apoteker","Dokter")
             .antMatchers("/login-sso", "/validate-ticket").permitAll()
-            .antMatchers("/dokter/viewall").hasAuthority(admin)
-            .antMatchers("/dokter/add").hasAuthority(admin)
-            .antMatchers("/resep/add").hasAnyAuthority(admin, "Dokter")
-            .antMatchers("/apoteker/viewall").hasAuthority(admin)
-            .antMatchers("/apoteker/add").hasAuthority(admin)
-            .antMatchers("/pasien/viewall").hasAuthority(admin)
-            .antMatchers("/obat").hasAnyAuthority(admin,apoteker)
-			.antMatchers("/obat/{idObat}/update_stok").hasAnyAuthority(apoteker)
-			.antMatchers("/chart").hasAnyAuthority(admin)
+            .antMatchers("/dokter/viewall").hasAuthority("Admin")
+            .antMatchers("/dokter/add").hasAuthority("Admin")
+            .antMatchers("/resep/add").hasAnyAuthority("Admin", "Dokter")
+            .antMatchers("/apoteker/viewall").hasAuthority("Admin")
+            .antMatchers("/apoteker/add").hasAuthority("Admin")
+            .antMatchers("/pasien/viewall").hasAuthority("Admin")
+            .antMatchers("/obat").hasAnyAuthority("Admin","Apoteker")
+			.antMatchers("/obat/{idObat}/update_stok").hasAnyAuthority("Apoteker")
+			.antMatchers("/chart").hasAnyAuthority("Admin")
 			.anyRequest().authenticated()
             .and()
             .formLogin()
