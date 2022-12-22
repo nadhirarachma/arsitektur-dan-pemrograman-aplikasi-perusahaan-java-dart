@@ -35,9 +35,9 @@ public class ResepServiceImpl implements ResepService{
     public Map<String, JumlahDTO> getListJumlah(Long id) {
         Map<String, JumlahDTO> jumlahDTO = new HashMap<>();
         ResepModel resep = getResepById(id);
-        var counter = 1;
+        int counter = 1;
         for (JumlahModel i : resep.getJumlah()) {
-            var jml = new JumlahDTO();
+            JumlahDTO jml = new JumlahDTO();
             jml.setId(i.getId());
             jml.setKuantitas(i.getKuantitas());  
             jml.setNamaObat(i.getObat().getNamaObat());  

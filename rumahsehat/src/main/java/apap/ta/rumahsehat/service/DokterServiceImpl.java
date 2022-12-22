@@ -34,7 +34,7 @@ public class DokterServiceImpl implements DokterService {
         String email = dokter.getEmail();
         if (apotekerDb.findByUsername(uname) == null && dokterDb.findByUsername(uname) == null && pasienDb.findByUsername(uname) == null && userDb.findByUsername(uname) == null
         && apotekerDb.findByEmail(email) == null && dokterDb.findByEmail(email) == null && pasienDb.findByEmail(email) == null && userDb.findByEmail(email) == null) {
-            if (dokter.getPassword().matches("^([^A-Z]*+)([^a-z]*+)([^0-9]*+)([^#?!@$%^&*-]*+).{8,}$")) {
+            if (dokter.getPassword().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
                 String pass = encrypt(dokter.getPassword());
     
                 dokter.setPassword(pass);
@@ -42,13 +42,13 @@ public class DokterServiceImpl implements DokterService {
                 return dokterDb.save(dokter);
             }
             else {
-                var dokterPassUnmatched = new DokterModel();
+                DokterModel dokterPassUnmatched = new DokterModel();
                 dokterPassUnmatched.setUsername("unmatched");
                 return dokterPassUnmatched;
             }
         }
         else {
-            var dokterExist = new DokterModel();
+            DokterModel dokterExist = new DokterModel();
             dokterExist.setUsername("exist");
             return dokterExist;
         }
@@ -56,13 +56,15 @@ public class DokterServiceImpl implements DokterService {
 
     @Override
     public String encrypt(String password) {
-        var passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(password);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+        return hashedPassword;
     }
 
     @Override
-    public DokterModel getDokterByUsername(String username){
-        return dokterDb.findByUsername(username);
+    public DokterModel getDokterByUsername(String Doktername){
+        DokterModel Dokter = dokterDb.findByUsername(Doktername);
+        return Dokter;
     }
 
     @Override

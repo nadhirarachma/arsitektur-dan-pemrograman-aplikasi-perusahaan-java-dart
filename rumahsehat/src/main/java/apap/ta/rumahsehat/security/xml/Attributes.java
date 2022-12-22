@@ -13,13 +13,13 @@ import javax.xml.bind.annotation.XmlElement;
 public class Attributes {
 
     @XmlElement(namespace = "http://www.yale.edu/tp/cas")
-    private String ldapCn;
+    private String ldap_cn;
 
     @XmlElement(namespace = "http://www.yale.edu/tp/cas")
-    private String kdOrg;
+    private String kd_org;
 
     @XmlElement(namespace = "http://www.yale.edu/tp/cas")
-    private String peranUser;
+    private String peran_user;
 
     @XmlElement(namespace = "http://www.yale.edu/tp/cas")
     private String nama;
