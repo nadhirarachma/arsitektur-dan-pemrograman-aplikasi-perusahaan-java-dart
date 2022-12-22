@@ -3,6 +3,7 @@ package apap.ta.rumahsehat.restcontroller;
 import apap.ta.rumahsehat.model.AppointmentModel;
 import apap.ta.rumahsehat.payload.AppointmentDTO;
 import apap.ta.rumahsehat.payload.AppointmentGetDetailDTO;
+import apap.ta.rumahsehat.service.AppointmentRestService;
 import apap.ta.rumahsehat.service.AppointmentService;
 import apap.ta.rumahsehat.service.DokterService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,8 @@ import java.util.NoSuchElementException;
 @RestController
 @RequestMapping("/api/v1/")
 public class AppointmentRestController {
+    @Autowired
+    private AppointmentRestService appointmentRestService;
 
     @Autowired
     private DokterService dokterService;
@@ -30,7 +33,7 @@ public class AppointmentRestController {
 
     @GetMapping("/get-dokter")
     public List<?> getAllDokter(){
-        if(dokterService.getListDokter().isEmpty()){
+        if(dokterService.getListDokter().size()==0){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tidak Ada Dokter Tersedia");
         }else {
             return dokterService.getListDokter();
@@ -50,12 +53,13 @@ public class AppointmentRestController {
                     HttpStatus.BAD_REQUEST,"Appoinment Tidak Berhasil Dibuat"
             );
         }
+        //return null;
     }
 
     @GetMapping("/get-appointment-pasien")
     public List<?> getAppointmentByPasien(Authentication authentication){
         log.info("Received message request list appointment for pasien");
-        if(appointmentService.getListAppointmentByPasien(authentication.getName()).isEmpty()){
+        if(appointmentService.getListAppointmentByPasien(authentication.getName()).size()==0){
             log.warn("pasien don't have appointment");
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tidak Ada Appointment Tersedia");
         }else {

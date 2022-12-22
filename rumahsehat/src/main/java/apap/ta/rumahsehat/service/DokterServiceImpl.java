@@ -57,12 +57,14 @@ public class DokterServiceImpl implements DokterService {
     @Override
     public String encrypt(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(password);
+        String hashedPassword = passwordEncoder.encode(password);
+        return hashedPassword;
     }
 
     @Override
-    public DokterModel getDokterByUsername(String username){
-        return dokterDb.findByUsername(username);
+    public DokterModel getDokterByUsername(String Doktername){
+        DokterModel Dokter = dokterDb.findByUsername(Doktername);
+        return Dokter;
     }
 
     @Override

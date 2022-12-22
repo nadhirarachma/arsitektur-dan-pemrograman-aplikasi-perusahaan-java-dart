@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.modelmapper.spi.ErrorMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,17 +36,17 @@ public class TagihanRestController {
 	PasienRestService pasienRestService;
 
 	@GetMapping("/{username}")
-	public List<TagihanModel> getListTagihan(@PathVariable String username){
+	private List<TagihanModel> getListTagihan(@PathVariable String username){
 		return tagihanService.getListTagihan(pasienService.getPasienByUsername(username));
 	}
 
 	@GetMapping("/detail/{kode}")
-	public TagihanModel getTagihan(@PathVariable String kode){
+	private TagihanModel getTagihan(@PathVariable String kode){
 		return tagihanService.getTagihan(kode);
 	}
 
 	@PostMapping("/bayar")
-	public PasienModel bayarTagihan(@Valid @RequestBody BayarDTO bayar, BindingResult bindingResult) throws Exception{
+	private PasienModel bayarTagihan(@Valid @RequestBody BayarDTO bayar, BindingResult bindingResult) throws Exception{
 		PasienModel pasienModel = pasienService.getPasienByUsername(bayar.getUsername());
 		TagihanModel tagihanModel = tagihanService.getTagihan(bayar.getKode());
 
