@@ -16,8 +16,7 @@ public class PasienServiceImpl implements PasienService {
 
     @Override
     public PasienModel getPasienByUsername(String username){
-        PasienModel pasien = pasienDb.findByUsername(username);
-        return pasien;
+        return pasienDb.findByUsername(username);
     }
 
     @Override
