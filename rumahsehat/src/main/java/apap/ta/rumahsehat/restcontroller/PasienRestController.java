@@ -21,6 +21,7 @@ import org.springframework.web.server.ResponseStatusException;
 import apap.ta.rumahsehat.model.AppointmentModel;
 import apap.ta.rumahsehat.model.PasienModel;
 import apap.ta.rumahsehat.model.TagihanModel;
+import apap.ta.rumahsehat.model.UserModel;
 import apap.ta.rumahsehat.payload.ListTagihanDTO;
 import apap.ta.rumahsehat.payload.PasienProfileDTO;
 import apap.ta.rumahsehat.payload.TopupDTO;
@@ -39,7 +40,7 @@ public class PasienRestController {
 	private ModelMapper modelMapper;
 
 	@PostMapping("/add")
-	public PasienModel createPasien(@Valid @RequestBody PasienModel pasien, BindingResult bindingResult){
+	private PasienModel createPasien(@Valid @RequestBody PasienModel pasien, BindingResult bindingResult){
 		if (bindingResult.hasFieldErrors()) {
 			log.warn("Failed to Create Pasien");
 			throw new ResponseStatusException(
@@ -61,12 +62,24 @@ public class PasienRestController {
 		}
 	}
 
+	// api login pasien jadi gabisa dipanggil
+	// private UserModel createUser(@Valid @RequestBody PasienModel pasien){
+	// 	UserModel user = new UserModel();
+	// 	user.setNama(pasien.getNama());
+	// 	user.setRole("Pasien");
+	// 	user.setUsername(pasien.getUsername());
+	// 	user.setPassword(pasien.getPassword());
+	// 	user.setEmail(pasien.getEmail());
+	// 	return userService.addUser(user);
+	// }
+
 	@GetMapping("/profile/{username}")
-	public PasienProfileDTO getPasienProfile(@PathVariable("username") String username){
+	private PasienProfileDTO getPasienProfile(@PathVariable("username") String username){
 		try {
 			PasienModel pasien = pasienRestService.getPasienByUsername(username);
+			PasienProfileDTO profile = modelMapper.map(pasien, PasienProfileDTO.class);
 
-			return modelMapper.map(pasien, PasienProfileDTO.class);
+			return profile;
 		} catch (NoSuchElementException e) {
 			throw new ResponseStatusException(
 				HttpStatus.NOT_FOUND, "Tidak ada pasien dengan username " + username
@@ -75,7 +88,7 @@ public class PasienRestController {
 	}
 
 	@PostMapping("/topup")
-	public PasienModel topupSaldoPasien(@Valid @RequestBody TopupDTO topup, BindingResult bindingResult){
+	private PasienModel topupSaldoPasien(@Valid @RequestBody TopupDTO topup, BindingResult bindingResult){
 		PasienModel pasien = pasienRestService.getPasienByUsername(topup.getUsername());
 		pasien.setSaldo(pasien.getSaldo() + topup.getJumlah());
 		pasienRestService.addPasien(pasien);
@@ -83,8 +96,8 @@ public class PasienRestController {
 	}
 
 	@GetMapping("/{username}/tagihan/viewall")
-	public ListTagihanDTO lihatDaftarTagihan(@PathVariable("username") String username){
-		var listTagihanDTO = new ListTagihanDTO();
+	private ListTagihanDTO lihatDaftarTagihan(@PathVariable("username") String username){
+		ListTagihanDTO listTagihanDTO = new ListTagihanDTO();
 		PasienModel pasien = pasienRestService.getPasienByUsername(username);
 		List<TagihanModel> listTagihan = new ArrayList<>();
 		for (AppointmentModel a : pasien.getAppointment()) {

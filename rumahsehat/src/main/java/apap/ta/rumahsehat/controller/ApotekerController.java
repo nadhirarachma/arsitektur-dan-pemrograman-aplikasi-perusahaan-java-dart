@@ -22,17 +22,15 @@ public class ApotekerController {
     @Autowired
     private ApotekerService apotekerService;
 
-    String formAddApoteker = "form-add-apoteker";
-
     @GetMapping(value = "/add")
-    public String addApotekerFormPage(Model model) {
-        var apoteker = new ApotekerModel();
+    private String addApotekerFormPage(Model model) {
+        ApotekerModel apoteker = new ApotekerModel();
         model.addAttribute("apoteker", apoteker);
-        return formAddApoteker;
+        return "form-add-apoteker";
     }
 
     @PostMapping(value = "/add") 
-    public String addApotekerSubmit(@ModelAttribute ApotekerModel apoteker, Model model) {
+    private String addApotekerSubmit(@ModelAttribute ApotekerModel apoteker, Model model) {
        
         ApotekerModel newApoteker = apotekerService.addApoteker(apoteker);
 
@@ -43,12 +41,12 @@ public class ApotekerController {
         else if (newApoteker.getUsername().equals("exist")) {
             log.warn("Failed to create apoteker. User with same username or email already exist.");
             model.addAttribute("validasi", "User dengan username atau email yang sama telah terdapat pada sistem. Mohon input kembali.");
-            return formAddApoteker;
+            return "form-add-apoteker";
         }
         else {
             log.warn("Failed to Create Apoteker. Wrong Password Format");
             model.addAttribute("validasi", "Password harus mengandung angka, huruf besar, huruf kecil, dan simbol, serta minimal memiliki 8 karakter. Mohon input kembali.");
-            return formAddApoteker;
+            return "form-add-apoteker";
         }
     }
     

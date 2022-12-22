@@ -48,7 +48,7 @@ public class PasienRestServiceImpl implements PasienRestService {
             return pasienDb.save(pasien);
         }
         else {
-            var pasienExist = new PasienModel();
+            PasienModel pasienExist = new PasienModel();
             pasienExist.setUsername("exist");
             return pasienExist;
         }
@@ -56,7 +56,8 @@ public class PasienRestServiceImpl implements PasienRestService {
 
     @Override
     public String encrypt(String password) {
-        var passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(password);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+        return hashedPassword;
     }
 }

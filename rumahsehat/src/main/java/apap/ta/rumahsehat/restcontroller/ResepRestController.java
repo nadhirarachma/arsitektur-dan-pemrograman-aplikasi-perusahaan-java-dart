@@ -25,7 +25,7 @@ public class ResepRestController {
 
     //    Retrieve Detail Resep
     @GetMapping("/resep/view/{id}")
-    public ResepModel retrieveResep(@PathVariable("id") Long id){
+    private ResepModel retrieveResep(@PathVariable("id") Long id){
         try {
             return resepService.getResepById(id);
         } catch (NoSuchElementException e){
@@ -36,12 +36,12 @@ public class ResepRestController {
     }
 
     @GetMapping(value = "/resep")
-    public List<ResepModel> retrieveListResep() {
+    private List<ResepModel> retrieveListResep() {
         return resepService.getListResep();
     }
 
     @GetMapping(value = "/resep/jumlah/{id}")
-    public Map<String, JumlahDTO> retrieveListJumlah(@PathVariable("id") Long id) {
+    private Map<String, JumlahDTO> retrieveListJumlah(@PathVariable("id") Long id) {
         return resepService.getListJumlah(id);
     }
 
