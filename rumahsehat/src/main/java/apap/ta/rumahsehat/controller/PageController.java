@@ -6,25 +6,22 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import apap.ta.rumahsehat.model.UserModel;
-import apap.ta.rumahsehat.security.xml.Attributes;
 import apap.ta.rumahsehat.security.xml.ServiceResponse;
 import apap.ta.rumahsehat.service.UserService;
 import apap.ta.rumahsehat.setting.Setting;
@@ -40,12 +37,12 @@ public class PageController {
 
     private WebClient webClient = WebClient.builder().build();
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String home() {
         return "home";
     }
 
-    @RequestMapping("/login")
+    @PostMapping("/login")
     public String login() {
        return "login";
     }
@@ -56,7 +53,7 @@ public class PageController {
         HttpServletRequest request,
         RedirectAttributes redirectAttrs)
     {
-        ServiceResponse serviceResponse = this.webClient.get().uri(
+        var serviceResponse = this.webClient.get().uri(
                 String.format(
                         Setting.SERVER_VALIDATE_TICKET,
                         ticket,
@@ -64,39 +61,44 @@ public class PageController {
                 )
         ).retrieve().bodyToMono(ServiceResponse.class).block();
 
-        Attributes attributes = serviceResponse.getAuthenticationSuccess().getAttributes();
-        String username = serviceResponse.getAuthenticationSuccess().getUser();
+        if (serviceResponse != null) {
+            var attributes = serviceResponse.getAuthenticationSuccess().getAttributes();
+            String username = serviceResponse.getAuthenticationSuccess().getUser();
 
-        UserModel user = userService.getUserByUsername(username);
+            UserModel user = userService.getUserByUsername(username);
 
-        List<String> whitelist = new ArrayList<>();
-        Collections.addAll(whitelist, "al.ghifari01", "azhar.rahmatilah", "alviona.retno", "helga.syahda", "nadhira.rachma");
-
-        if (whitelist.contains(username)) {
-            if (user == null) {
-                user = new UserModel();
-                user.setEmail(username + "@ui.ac.id");
-                user.setNama(attributes.getNama());
-                user.setPassword("rumahsehat");
-                user.setUsername(username);
-                user.setRole("Admin");
-                userService.addUser(user);
+            List<String> whitelist = new ArrayList<>();
+            Collections.addAll(whitelist, "al.ghifari01", "azhar.rahmatilah", "alviona.retno", "helga.syahda", "nadhira.rachma");
+    
+            if (whitelist.contains(username)) {
+                if (user == null) {
+                    user = new UserModel();
+                    user.setEmail(username + "@ui.ac.id");
+                    user.setNama(attributes.getNama());
+                    user.setPassword("rumahsehat");
+                    user.setUsername(username);
+                    user.setRole("Admin");
+                    userService.addUser(user);
+                }
             }
+            else {
+                redirectAttrs.addFlashAttribute("error", "Mohon maaf, Anda tidak memiliki akses sebagai Admin.");
+                return new ModelAndView("redirect:/login");
+            }
+    
+            Authentication authentication = new UsernamePasswordAuthenticationToken(username, "rumahsehat");
+            
+            var securityContext = SecurityContextHolder.getContext();
+            securityContext.setAuthentication(authentication);
+    
+            var httpSession = request.getSession(true);
+            httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext); 
+            
+            return new ModelAndView("redirect:/");
         }
         else {
-            redirectAttrs.addFlashAttribute("error", "Mohon maaf, Anda tidak memiliki akses sebagai Admin.");
             return new ModelAndView("redirect:/login");
         }
-
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, "rumahsehat");
-        
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        securityContext.setAuthentication(authentication);
-
-        HttpSession httpSession = request.getSession(true);
-        httpSession.setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY, securityContext);
-        
-        return new ModelAndView("redirect:/");
     }
 
     @GetMapping(value = "/login-sso")

@@ -1,7 +1,6 @@
 package apap.ta.rumahsehat.controller;
 
 import apap.ta.rumahsehat.model.ObatModel;
-import apap.ta.rumahsehat.repository.ObatDb;
 import apap.ta.rumahsehat.service.ObatService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ public class ObatController {
     @Qualifier("obatServiceImpl")
     @Autowired
     private ObatService obatService;
-
-    @Autowired
-    private ObatDb obatDb;
 
     @GetMapping("/obat")
     public String listObat(Model model){
