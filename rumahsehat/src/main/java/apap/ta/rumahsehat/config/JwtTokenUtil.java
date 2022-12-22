@@ -15,7 +15,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Component
 public class JwtTokenUtil implements Serializable {
 
@@ -49,15 +51,15 @@ public class JwtTokenUtil implements Serializable {
 				.parseClaimsJws(token);
 			return true;
 		}catch(UnsupportedJwtException exp) {
-			System.out.println("claimsJws argument does not represent Claims JWS" + exp.getMessage());
+			log.error(String.format("claimsJws argument does not represent Claims JWS %s", exp.getMessage()));
 		}catch(MalformedJwtException exp) {
-			System.out.println("claimsJws string is not a valid JWS" + exp.getMessage());
+			log.error(String.format("claimsJws string is not a valid JWS %s", exp.getMessage()));
 		}catch(SignatureException exp) {
-			System.out.println("claimsJws JWS signature validation failed" + exp.getMessage());
+			log.error(String.format("claimsJws JWS signature validation failed %s", exp.getMessage()));
 		}catch(ExpiredJwtException exp) {
-			System.out.println("Claims has an expiration time before the method is invoked" + exp.getMessage());
+			log.error(String.format("Claims has an expiration time before the method is invoked %s", exp.getMessage()));
 		}catch(IllegalArgumentException exp) {
-			System.out.println("claimsJws string is null or empty or only whitespace" + exp.getMessage());
+			log.error(String.format("claimsJws string is null or empty or only whitespace %s", exp.getMessage()));
 		}
 		return false;
 	}

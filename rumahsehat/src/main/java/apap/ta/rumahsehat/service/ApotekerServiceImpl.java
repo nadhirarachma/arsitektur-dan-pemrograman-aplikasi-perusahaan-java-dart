@@ -57,14 +57,12 @@ public class ApotekerServiceImpl implements ApotekerService {
     @Override
     public String encrypt(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(password);
-        return hashedPassword;
+        return passwordEncoder.encode(password);
     }
 
     @Override
     public ApotekerModel getApotekerByUsername(String username){
-        ApotekerModel apoteker = apotekerDb.findByUsername(username);
-        return apoteker;
+        return apotekerDb.findByUsername(username);
     }
 
     @Override
@@ -74,7 +72,6 @@ public class ApotekerServiceImpl implements ApotekerService {
 
     @Override
     public ApotekerModel getApotekerById(String uuid){
-        ApotekerModel apoteker = apotekerDb.findByUuid(uuid);
-        return apoteker;
+        return apotekerDb.findByUuid(uuid);
     }
 }

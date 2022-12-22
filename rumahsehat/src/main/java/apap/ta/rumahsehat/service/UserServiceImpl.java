@@ -28,13 +28,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public String encrypt(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(password);
-        return hashedPassword;
+        return passwordEncoder.encode(password);
     }
 
     @Override
     public UserModel getUserByUsername(String username){
-        UserModel user = userDb.findByUsername(username);
-        return user;
+        return userDb.findByUsername(username);
     }
 }
