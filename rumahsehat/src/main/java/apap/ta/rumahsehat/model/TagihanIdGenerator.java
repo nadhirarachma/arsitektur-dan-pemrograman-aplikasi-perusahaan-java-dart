@@ -6,32 +6,30 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 
 import java.io.Serializable;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class TagihanIdGenerator implements IdentifierGenerator {
 
     @Override
     public Serializable generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
 
-        String awalan = "BILL-";
-        String akhir = "";
-        Connection connection = session.connection();
+        var awalan = "BILL-";
+        var akhir = "";
+        var connection = session.connection();
 
-        try {
-            Statement statement = connection.createStatement();
+        try (var statement = connection.createStatement()) {
             ResultSet rs = statement.executeQuery("SELECT COUNT(KODE) AS ID FROM TAGIHAN");
             if(rs.next()) {
                 Integer id = rs.getInt(1)+1;
                 akhir = id.toString();
-                String generatedId = awalan + akhir;
-                return generatedId;
+                return awalan + akhir;
             }
         }
         catch (SQLException e){
-            e.printStackTrace();
+            log.error(e.getMessage());
         }
         return null;
     }
