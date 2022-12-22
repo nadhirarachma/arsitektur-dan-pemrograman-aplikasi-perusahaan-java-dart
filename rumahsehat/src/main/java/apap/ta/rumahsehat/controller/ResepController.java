@@ -29,7 +29,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import java.util.List;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class ResepController {
     @Qualifier("resepServiceImpl")
@@ -57,6 +59,10 @@ public class ResepController {
 
     private AppointmentModel appointment;
 
+    String formAddResep = "form-add-resep";
+    String resepAttr = "resep";
+    String listObatExisting = "listObatExisting";
+
     @GetMapping("/resep")
     public String listResep(Model model){
         List<ResepModel> listResep = resepService.getListResep();
@@ -67,26 +73,26 @@ public class ResepController {
     @GetMapping("/resep/add/{kode}")
     public String addResepFormPage(@PathVariable String kode, Model model) {
         appointment = appointmentService.getAppointmentByCode(kode);
-        ResepModel resep = new ResepModel();
+        var resep = new ResepModel();
         
         List<ObatModel> listObat = obatService.getSortedListObat();
-        System.out.println(listObat.get(0).getNamaObat());
+        log.info(listObat.get(0).getNamaObat());
         List<JumlahModel> listJumlahNew = new ArrayList<>();
 
         resep.setJumlah(listJumlahNew);
         resep.getJumlah().add(new JumlahModel());
 
-        model.addAttribute("resep", resep);
-        model.addAttribute("listObatExisting", listObat);
+        model.addAttribute(resepAttr, resep);
+        model.addAttribute(listObatExisting, listObat);
         model.addAttribute("appointment", appointment);
         model.addAttribute("kode", kode);
-        return "form-add-resep";
+        return formAddResep;
     }
 
     @PostMapping(value="/resep/add/{kode}", params = {"save"})
     public String addResepSubmitPage(@PathVariable String kode, @ModelAttribute ResepModel resep, @ModelAttribute JumlahModel jumlah, Model model) {
         appointment = appointmentService.getAppointmentByCode(kode);
-        System.out.println(appointment.getKode());
+        log.info(appointment.getKode());
         if (resep.getJumlah() == null) {
             resep.setJumlah(new ArrayList<>());
         }
@@ -105,56 +111,55 @@ public class ResepController {
     }
 
     @PostMapping(value="/resep/add/{kode}", params = {"addRow"})
-    private String addRowResepMultiple(@PathVariable String kode,
+    public String addRowResepMultiple(@PathVariable String kode,
             @ModelAttribute ResepModel resep,
             Model model
     ){
         appointment = appointmentService.getAppointmentByCode(kode);
-        if (resep.getJumlah() == null || resep.getJumlah().size()==0){
+        if (resep.getJumlah() == null || resep.getJumlah().isEmpty()){
             resep.setJumlah(new ArrayList<>());
         }
 
         resep.getJumlah().add(new JumlahModel());
         List<ObatModel> listObat = obatService.getSortedListObat();
 
-        model.addAttribute("resep", resep);
-        model.addAttribute("listObatExisting", listObat);
+        model.addAttribute(resepAttr, resep);
+        model.addAttribute(listObatExisting, listObat);
         model.addAttribute("kode", kode);
-        return "form-add-resep";
+        return formAddResep;
     }
 
     @PostMapping(value="/resep/add/{kode}", params = {"deleteRow"})
-    private String deleteRowResepMultiple(@PathVariable String kode,
+    public String deleteRowResepMultiple(@PathVariable String kode,
             @ModelAttribute ResepModel resep,
             @RequestParam("deleteRow") Integer row,
             Model model
     ){
         appointment = appointmentService.getAppointmentByCode(kode);
-        final Integer rowId = Integer.valueOf(row);
-        resep.getJumlah().remove(rowId.intValue());
+        resep.getJumlah().remove(row.intValue());
 
         List<ObatModel> listObat = obatService.getSortedListObat();
 
-        model.addAttribute("resep", resep);
-        model.addAttribute("listObatExisting", listObat);
+        model.addAttribute(resepAttr, resep);
+        model.addAttribute(listObatExisting, listObat);
         model.addAttribute("kode", kode);
-        return "form-add-resep";
+        return formAddResep;
     }
 
     @GetMapping("/resep/view/{id}")
     public String viewDetailResep(@PathVariable Long id, Model model) {
         ResepModel resep = resepService.getResepById(id);
 
-        String namaApoteker= "";
+        var namaApoteker= "";
         if (resep.getApotek() == null) {
             namaApoteker = "Belum ada";
         } else  {namaApoteker = resep.getApotek().getNama();}
 
         String namaDokter= resep.getAppointment().getDokter().getNama();
         String namaPasien= resep.getAppointment().getPasien().getNama();
-        System.out.println(namaDokter);
+        log.info(namaDokter);
 
-        model.addAttribute("resep", resep);
+        model.addAttribute(resepAttr, resep);
         model.addAttribute("namaApoteker", namaApoteker);
         model.addAttribute("namaDokter", namaDokter);
         model.addAttribute("namaPasien", namaPasien);
@@ -170,7 +175,7 @@ public class ResepController {
             return "error-konfirmasi-resep";
         }
 
-        TagihanModel tagihan = new TagihanModel();
+        var tagihan = new TagihanModel();
         int banyakTagihan = kalkulasiTagihan(resep.getJumlah(), resep.getAppointment().getDokter());
         tagihan.setTanggalTerbuat(LocalDateTime.now());
         tagihan.setIsPaid(false);
@@ -186,7 +191,7 @@ public class ResepController {
         resep.getAppointment().setTagihan(tagihan);
         resepService.addResep(resep);
 
-        model.addAttribute("resep", resep);
+        model.addAttribute(resepAttr, resep);
         model.addAttribute("apoteker", apoteker);
 
         return "konfirmasi-resep";
@@ -194,7 +199,7 @@ public class ResepController {
 
     private Integer kalkulasiTagihan(List<JumlahModel> listObat, DokterModel dokter) {
         int tarifDokter = dokter.getTarif();
-        int hargaObat = 0;
+        var hargaObat = 0;
 
         for (JumlahModel resep: listObat) {
             hargaObat += (resep.getKuantitas() * resep.getObat().getHarga());}
