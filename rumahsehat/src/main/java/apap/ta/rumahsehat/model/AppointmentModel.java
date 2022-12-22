@@ -1,6 +1,7 @@
 package apap.ta.rumahsehat.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,6 +24,9 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "appointment")
 public class AppointmentModel implements Serializable{
+
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // private Long id;
 
 	@Id
     @NotNull

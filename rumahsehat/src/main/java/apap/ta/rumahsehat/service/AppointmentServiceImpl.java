@@ -1,6 +1,7 @@
 package apap.ta.rumahsehat.service;
 
 import apap.ta.rumahsehat.model.AppointmentModel;
+import apap.ta.rumahsehat.model.PasienModel;
 import apap.ta.rumahsehat.payload.AppointmentDTO;
 import apap.ta.rumahsehat.repository.AppointmentDb;
 import apap.ta.rumahsehat.repository.DokterDb;
@@ -15,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +51,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public String generateCode() {
-        var awal = "APT-";
+        String awal = "APT-";
         List<AppointmentModel> appointmentModelList = appointmentDb.findAll();
-        var nomorAppointment = Integer.toString(appointmentModelList.size() + 1);
+        String nomorAppointment = Integer.toString(appointmentModelList.size() + 1);
         awal += nomorAppointment;
         return awal;
     }
@@ -70,13 +72,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public ResponseEntity<?> createAppointment(AppointmentDTO appointmentDTO, Authentication authentication) {
         try{
-            var appointmentModel = new AppointmentModel();
+            AppointmentModel appointmentModel = new AppointmentModel();
             if(checkAppointment(appointmentDTO.getUsername(),appointmentDTO.getTanggal())){
                 appointmentModel.setKode(generateCode());
                 appointmentModel.setIsDone(false);
                 appointmentModel.setWaktuAwal(appointmentDTO.getTanggal());
                 appointmentModel.setDokter(dokterDb.findByUsername(appointmentDTO.getUsername()));
                 appointmentModel.setPasien(pasienDb.findByUsername(authentication.getName()));
+//                appointmentModel.setPasien(null);
                 appointmentDb.save(appointmentModel);
                 return ResponseEntity.ok().body("Appointment berhasil ditambahkan");
             }
@@ -94,8 +97,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     public boolean checkAppointment(String username, LocalDateTime waktuAwal){
         List<AppointmentModel> listAppointment = appointmentDb.findAllByDokter(dokterDb.findByUsername(username));
-        for (var i = 0; i < listAppointment.size() ; i++) {
-            var duration = Duration.between(listAppointment.get(i).getWaktuAwal(), waktuAwal);
+        for (int i = 0; i < listAppointment.size() ; i++) {
+            Duration duration = Duration.between(listAppointment.get(i).getWaktuAwal(), waktuAwal);
             if((listAppointment.get(i).getWaktuAwal().equals(waktuAwal)) || (duration.toDays() == 0 && duration.toHours() == 0)){
                 return false;
             }
@@ -105,11 +108,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentModel getAppointmentByCode(String kode){
-        Optional<AppointmentModel> appointment = appointmentDb.findById(kode);
-        if (appointment.isPresent()) {
-            return appointment.get();
-        }
-        return null;
+        return appointmentDb.findById(kode).get();
     }
 
     @Override
@@ -124,10 +123,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     public AppointmentModel findById(String kode) {
-        Optional<AppointmentModel> appointment = appointmentDb.findById(kode);
-        if (appointment.isPresent()) {
-            return appointment.get();
-        }
-        return null;
+        return appointmentDb.findById(kode).get();
     }
+
+
 }

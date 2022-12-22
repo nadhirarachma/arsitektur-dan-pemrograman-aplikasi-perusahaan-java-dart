@@ -22,17 +22,15 @@ public class DokterController {
     @Autowired
     private DokterService dokterService;
 
-    String formAddDokter = "form-add-dokter";
-
     @GetMapping(value = "/add")
-    public String addDokterFormPage(Model model) {
-        var dokter = new DokterModel();
+    private String addDokterFormPage(Model model) {
+        DokterModel dokter = new DokterModel();
         model.addAttribute("dokter", dokter);
-        return formAddDokter;
+        return "form-add-dokter";
     }
 
     @PostMapping(value = "/add") 
-    public String addDokterSubmit(@ModelAttribute DokterModel dokter, Model model) {
+    private String addDokterSubmit(@ModelAttribute DokterModel dokter, Model model) {
     
         DokterModel newDokter = dokterService.addDokter(dokter);
 
@@ -43,12 +41,12 @@ public class DokterController {
         else if (newDokter.getUsername().equals("exist")) {
             log.warn("Failed to create dokter. User with same username or email already exist.");
             model.addAttribute("validasi", "User dengan username atau email yang sama telah terdapat pada sistem. Mohon input kembali.");
-            return formAddDokter;
+            return "form-add-dokter";
         }
         else {
             log.warn("Failed to Create Dokter. Wrong Password Format");
             model.addAttribute("validasi", "Password harus mengandung angka, huruf besar, huruf kecil, dan simbol, serta minimal memiliki 8 karakter. Mohon input kembali.");
-            return formAddDokter;
+            return "form-add-dokter";
         }
     }
     
