@@ -1,7 +1,6 @@
 package apap.ta.rumahsehat.service;
 
 import apap.ta.rumahsehat.payload.AppointmentDTO;
-import apap.ta.rumahsehat.repository.AppointmentDb;
 import apap.ta.rumahsehat.payload.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,15 +28,12 @@ public class AppointmentRestServiceImpl implements AppointmentRestService{
     private AppointmentService appointmentService;
 
     public AppointmentRestServiceImpl(WebClient.Builder webClientBuilder){
-        this.webClient = webClientBuilder.baseUrl(Setting.appointmentUrl).build();
+        this.webClient = webClientBuilder.baseUrl(Setting.APPOINTMENT_URL).build();
     }
-
-    @Autowired
-    private AppointmentDb appointmentDb;
 
     @Override
     public List<?> getAllDokter(){
-        if(dokterService.getListDokter().size()==0){
+        if(dokterService.getListDokter().isEmpty()){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tidak Ada Dokter Tersedia");
         }else {
             return dokterService.getListDokter();
@@ -54,6 +50,5 @@ public class AppointmentRestServiceImpl implements AppointmentRestService{
                     HttpStatus.BAD_REQUEST,"Appoinment Tidak Berhasil Dibuat"
             );
         }
-//        return null;
     }
 }

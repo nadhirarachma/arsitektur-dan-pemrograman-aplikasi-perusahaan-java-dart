@@ -34,7 +34,7 @@ public class ApotekerServiceImpl implements ApotekerService {
         String email = apoteker.getEmail();
         if (apotekerDb.findByUsername(uname) == null && dokterDb.findByUsername(uname) == null && pasienDb.findByUsername(uname) == null && userDb.findByUsername(uname) == null
         && apotekerDb.findByEmail(email) == null && dokterDb.findByEmail(email) == null && pasienDb.findByEmail(email) == null && userDb.findByEmail(email) == null) {
-            if (apoteker.getPassword().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
+            if (apoteker.getPassword().matches("^([^A-Z]*+)([^a-z]*+)([^0-9]*+)([^#?!@$%^&*-]*+).{8,}$")) {
                 String pass = encrypt(apoteker.getPassword());
     
                 apoteker.setPassword(pass);
@@ -42,13 +42,13 @@ public class ApotekerServiceImpl implements ApotekerService {
                 return apotekerDb.save(apoteker);
             }
             else {
-                ApotekerModel apotekerPassUnmatched = new ApotekerModel();
+                var apotekerPassUnmatched = new ApotekerModel();
                 apotekerPassUnmatched.setUsername("unmatched");
                 return apotekerPassUnmatched;
             }
         }
         else {
-            ApotekerModel apotekerExist = new ApotekerModel();
+            var apotekerExist = new ApotekerModel();
             apotekerExist.setUsername("exist");
             return apotekerExist;
         }
@@ -56,15 +56,13 @@ public class ApotekerServiceImpl implements ApotekerService {
 
     @Override
     public String encrypt(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(password);
-        return hashedPassword;
+        var passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password);
     }
 
     @Override
     public ApotekerModel getApotekerByUsername(String username){
-        ApotekerModel apoteker = apotekerDb.findByUsername(username);
-        return apoteker;
+        return apotekerDb.findByUsername(username);
     }
 
     @Override
@@ -74,7 +72,6 @@ public class ApotekerServiceImpl implements ApotekerService {
 
     @Override
     public ApotekerModel getApotekerById(String uuid){
-        ApotekerModel apoteker = apotekerDb.findByUuid(uuid);
-        return apoteker;
+        return apotekerDb.findByUuid(uuid);
     }
 }

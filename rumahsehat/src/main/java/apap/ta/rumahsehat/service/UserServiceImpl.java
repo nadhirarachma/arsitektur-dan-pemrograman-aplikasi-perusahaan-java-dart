@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserModel addUser(UserModel user) {
 
-        if (user.getPassword().equals("rumahsehat") || user.getPassword().matches("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$")) {
+        if (user.getPassword().equals("rumahsehat") || user.getPassword().matches("^([^A-Z]*+)([^a-z]*+)([^0-9]*+)([^#?!@$%^&*-]*+).{8,}$")) {
             String pass = encrypt(user.getPassword());
 
             user.setPassword(pass);
@@ -27,14 +27,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String encrypt(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String hashedPassword = passwordEncoder.encode(password);
-        return hashedPassword;
+        var passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password);
     }
 
     @Override
     public UserModel getUserByUsername(String username){
-        UserModel user = userDb.findByUsername(username);
-        return user;
+        return userDb.findByUsername(username);
     }
 }
