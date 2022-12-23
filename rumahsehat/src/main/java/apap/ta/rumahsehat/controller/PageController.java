@@ -15,7 +15,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+<<<<<<< rumahsehat/src/main/java/apap/ta/rumahsehat/controller/PageController.java
+=======
 import org.springframework.web.bind.annotation.PostMapping;
+>>>>>>> rumahsehat/src/main/java/apap/ta/rumahsehat/controller/PageController.java
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,7 +45,11 @@ public class PageController {
         return "home";
     }
 
+<<<<<<< rumahsehat/src/main/java/apap/ta/rumahsehat/controller/PageController.java
+    @GetMapping("/login")
+=======
     @PostMapping("/login")
+>>>>>>> rumahsehat/src/main/java/apap/ta/rumahsehat/controller/PageController.java
     public String login() {
        return "login";
     }
