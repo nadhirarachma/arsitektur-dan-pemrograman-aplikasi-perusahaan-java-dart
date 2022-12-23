@@ -34,7 +34,7 @@ public class ApotekerServiceImpl implements ApotekerService {
         String email = apoteker.getEmail();
         if (apotekerDb.findByUsername(uname) == null && dokterDb.findByUsername(uname) == null && pasienDb.findByUsername(uname) == null && userDb.findByUsername(uname) == null
         && apotekerDb.findByEmail(email) == null && dokterDb.findByEmail(email) == null && pasienDb.findByEmail(email) == null && userDb.findByEmail(email) == null) {
-            if (apoteker.getPassword().matches("^([^A-Z]*+)([^a-z]*+)([^0-9]*+)([^#?!@$%^&*-]*+).{8,}$")) {
+            if (apoteker.getPassword().matches("^([^A-Z]*)([^a-z]*)([^0-9]*)([^#?!@$%^&*-]*).{8,}$")) {
                 String pass = encrypt(apoteker.getPassword());
     
                 apoteker.setPassword(pass);
