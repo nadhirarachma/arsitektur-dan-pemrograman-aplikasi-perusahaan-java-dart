@@ -24,7 +24,7 @@ public class RumahsehatApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
+                registry.addMapping("/**").allowedOrigins("https://apap-087.cs.ui.ac.id");
             }
         };
     }
