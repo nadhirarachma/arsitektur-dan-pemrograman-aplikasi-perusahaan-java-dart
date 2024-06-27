@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>i-RIS</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar('Mahasiswa')"></nav>
+        <br>
+        <div class="container">
+            <div class="justify-content-center">
+                <h2 class="text-center font-weight-bold mt-5">List Mahasiswa</h2>
+                <br>
+                <div class="text-center">
+                    <a th:href="@{/mahasiswa/create-mahasiswa}" class="mx-2 btn btn-info font-weight-bold text-center">+Tambah Mahasiswa</a>
+                    <a th:href="@{/mahasiswa/delete}" class="mx-2 btn btn-danger font-weight-bold text-center">Delete Mahasiswa</a>
+                </div>
+                <br>
+                <div th:if="*{listMahasiswa.size() != 0}">
+                    <table class = "table table-striped mb-5">
+                        <thead class="bg-warning">
+                            <tr class="text-center">
+                                <th>No</th>
+                                <th>NPM</th>
+                                <th>Nama Mahasiswa</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each = "mahasiswa, iterationStatus : ${listMahasiswa}"
+                                class="text-center">
+                                <td th:text = "${iterationStatus.count}"></td>
+                                <td th:text = "${mahasiswa.npm}"></td>
+                                <td th:text = "${mahasiswa.namaDepan} + ' ' + ${mahasiswa.namaBelakang}"></td>
+                                <td th:if = "${mahasiswa.statusMahasiswa == 0}">Non-Aktif</td>
+                                <td th:if = "${mahasiswa.statusMahasiswa == 1}">Aktif</td>
+                                <td class="text-center">
+                                    <a class="btn btn-info font-weight-bold" th:href="@{/mahasiswa/} + ${mahasiswa.npm}">Detail</a>
+                                    <a class="btn btn-warning text-white font-weight-bold" th:href = "@{/mahasiswa/} + ${mahasiswa.npm} + @{/update}">Edit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>     
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

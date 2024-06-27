@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>i-RIS</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar('Mahasiswa')"></nav>
+        <br>
+        <div class="container">
+            <div class="justify-content-center mt-3">
+                <a href="/mahasiswa" class="text-left text-info font-weight-bold mt-5">&larr; <u>List Mahasiswa</u></a>
+                <h2 class="text-center font-weight-bold mt-5">Hapus Mahasiswa</h2>
+                <br>
+                <div th:if="*{listMahasiswa.size() != 0}">
+                    <form th:action="@{/mahasiswa/delete}" th:object="${mahasiswa}" method="POST">
+                        <table class = "table table-striped mb-5">
+                            <thead class="bg-warning">
+                                <tr class="text-center">
+                                    <th>No</th>
+                                    <th>NPM</th>
+                                    <th>Nama Mahasiswa</th>
+                                    <th>Status</th>
+                                    <th>Pilih</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each = "mhs, iterationStatus : ${listMahasiswa}"
+                                    class="text-center">
+                                    <td class="text-center" th:text = "${iterationStatus.count}"></td>
+                                    <td class="text-center" th:text = "${mhs.npm}"></td>
+                                    <td class="text-center" th:text = "${mhs.namaDepan} + ' ' + ${mhs.namaBelakang}"></td>
+                                    <td class="text-center" th:if = "${mhs.statusMahasiswa == 0}">Non-Aktif</td>
+                                    <td class="text-center" th:if = "${mhs.statusMahasiswa == 1}">Aktif</td>
+                                    <td class="text-center">
+                                        <input class="form-check-input" type="checkbox"
+                                                th:field="*{listMahasiswa}"
+                                                th:value="${mhs.uuid}"
+                                                id="flexCheckDefault">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>  
+                        <br>
+                        <div class="text-center mb-5">
+                            <button class="mx-2 btn btn-danger font-weight-bold text-center" type="submit" name="save">Delete Mahasiswa</button>
+                        </div>   
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

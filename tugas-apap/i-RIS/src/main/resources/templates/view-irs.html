@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>i-RIS</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar('Mahasiswa')"></nav>
+        <br>
+        <div class="container">
+            <div class="justify-content-center mt-2">
+                <br>
+                <a th:href="@{/mahasiswa/} + ${npm}" class="text-left text-info font-weight-bold">&larr; <u>Detail Mahasiswa</u></a>
+                <h2 class="text-center font-weight-bold mt-3">Detail IRS</h2>
+                <br>
+                <div class="card mx-auto shadow p-3 mb-5 bg-white rounded" style="max-width: 35rem;">
+                    <div class="card-body">
+                        <div class = "row ml-4">
+                            <div class="col">
+                                <p class="text-info font-weight-bold">ID</p>
+                                <p th:text="${irs.idIRS}"></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Status</p>
+                                <p th:if = "${irs.status == 'Belum Disetujui'}">Belum Disetujui</p>
+                                <p th:unless = "${irs.status == 'Belum Disetujui'}">Disetujui</p>
+                            </div>
+                        </div>
+
+                        <div class = "row ml-4">
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Semester</p>
+                                <p th:text="${irs.semester}"></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Total SKS</p>
+                                <p th:text="${irs.jumlahSks}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h4 class="font-weight-bold">List Mata Kuliah</h4>
+                </div>
+                <br>
+                <div th:if="*{listMataKuliah.size() != 0}">
+                    <table class = "table table-striped mb-5">
+                        <thead class="bg-warning">
+                            <tr class="text-center">
+                                <th>No</th>
+                                <th>Code</th>
+                                <th>Nama Mata Kuliah</th>
+                                <th>Sem.</th>
+                                <th>SKS</th>
+                                <th>Hari</th>
+                                <th>Waktu</th>
+                                <th>Kapasitas</th>
+                                <th>Total Mahasiswa</th>
+                                <th>Ruang</th>
+                                <th>Pengajar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each = "mataKuliah, iterationStatus : ${listMataKuliah}"
+                                class="text-center">
+                                <td th:text = "${iterationStatus.count}"></td>
+                                <td th:text = "${mataKuliah.code}"></td>
+                                <td th:text = "${mataKuliah.namaMatkul}"></td>
+                                <td th:if = "${mataKuliah.semester == 'Ganjil'}">Ganjil</td>
+                                <td th:unless = "${mataKuliah.semester == 'Ganjil'}">Genap</td>
+                                <td th:text = "${mataKuliah.sks} + ' SKS'"></td>
+                                <td th:text = "${mataKuliah.hari}"></td>
+                                <td th:text = "${mataKuliah.waktuMulai} + ' - ' + ${mataKuliah.waktuSelesai}"></td>
+                                <td th:text = "${mataKuliah.kapasitasKelas}"></td>
+                                <td th:text = "${mataKuliah.totalMahasiswa}"></td>
+                                <td>
+                                    <div th:each="dosenRuang, iterationStatus3 : ${listRuangan}">
+                                        <div th:each="dosenRuangan, iterationStatus4 : ${dosenRuang}">
+                                            <span th:if = "${iterationStatus3.count == iterationStatus.count}">
+                                                <span th:if = "${dosenRuang.size > 1}">
+                                                    <span th:if = "${iterationStatus4.count == dosenRuang.size}">
+                                                        <span th:text = "${dosenRuangan.ruangKelas}"></span>
+                                                    </span>
+                                                    <span th:unless = "${iterationStatus4.count == dosenRuang.size}">
+                                                        <span th:text = "${dosenRuangan.ruangKelas} + ',' "></span>
+                                                    </span>
+                                                </span>
+                                                <span th:unless = "${dosenRuang.size > 1}">
+                                                    <span th:text = "${dosenRuangan.ruangKelas}"></span>
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div th:each="dosenMatkul, iterationStatus2 : ${mataKuliah.dosenMataKuliah}">
+                                        <span th:if = "${mataKuliah.dosenMataKuliah.size > 1}">
+                                            <span th:if = "${iterationStatus2.count == mataKuliah.dosenMataKuliah.size}">
+                                                <span th:text = "${dosenMatkul.dosen.namaDepan} + ' ' + ${dosenMatkul.dosen.namaBelakang}"></span>
+                                            </span>
+                                            <span th:unless = "${iterationStatus2.count == mataKuliah.dosenMataKuliah.size}">
+                                                <span th:text = "${dosenMatkul.dosen.namaDepan} + ' ' + ${dosenMatkul.dosen.namaBelakang} + ',' "></span>
+                                            </span>
+                                        </span>
+                                        <span th:unless = "${mataKuliah.dosenMataKuliah.size > 1}">
+                                            <span th:text = "${dosenMatkul.dosen.namaDepan} + ' ' + ${dosenMatkul.dosen.namaBelakang}"></span>
+                                        </span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>     
+                </div>
+                <div th:unless="*{listMataKuliah.size() != 0}">
+                    <div class="row">
+                        <h4>Tidak ada Mata Kuliah yang diambil</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

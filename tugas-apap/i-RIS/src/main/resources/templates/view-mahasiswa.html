@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>i-RIS</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar('Mahasiswa')"></nav>
+        <br>
+        <div class="container">
+            <div class="justify-content-center">
+                <br>
+                <a href="/mahasiswa" class="text-left text-info font-weight-bold mt-5">&larr; <u>List Mahasiswa</u></a>
+                <h2 class="text-center font-weight-bold mt-5">Detail Mahasiswa</h2>
+                <br>
+                <div class="card mx-auto shadow p-3 mb-5 bg-white rounded" style="max-width: 35rem;">
+                    <div class="card-body">
+                        <div class = "row ml-4">
+                            <div class="col">
+                                <p class="text-info font-weight-bold">NPM</p>
+                                <p th:text="${mahasiswa.npm}"></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Email</p>
+                                <p th:text="${mahasiswa.email}"></p>
+                            </div>
+                        </div>
+
+                        <div class = "row ml-4">
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Nama Mahasiswa</p>
+                                <p th:text="${mahasiswa.namaDepan} + ' ' + ${mahasiswa.namaBelakang}"></p>
+                            </div>
+                            <div class="col">
+                                <p class="text-info font-weight-bold">Status</p>
+                                <p th:if = "${mahasiswa.statusMahasiswa == 0}">Non-Aktif</p>
+                                <p th:if = "${mahasiswa.statusMahasiswa == 1}">Aktif</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <h4 class="font-weight-bold">List IRS</h4>
+                    <br>
+                    <div class="float-end">
+                        <a th:href="@{/mahasiswa/} + ${mahasiswa.npm} + @{/create-irs}" class="mx-2 ml-5 btn btn-info font-weight-bold">+Tambah IRS</a>
+                    </div>
+                </div>
+                <br>
+                <div th:if="*{listIRS.size() != 0}">
+                    <table class = "table table-striped mb-5">
+                        <thead class="bg-warning">
+                            <tr class="text-center">
+                                <th>ID</th>
+                                <th>Semester</th>
+                                <th>Total SKS</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each = "irs, iterationStatus : ${listIRS}"
+                                class="text-center">
+                                <td th:text = "${irs.idIRS}"></td>
+                                <td th:text = "${irs.semester}"></td>
+                                <td th:text = "${irs.jumlahSks} + ' SKS'"></td>
+                                <td th:if = "${irs.status == 'Belum Disetujui'}">Belum Disetujui</td>
+                                <td th:unless = "${irs.status == 'Belum Disetujui'}">Disetujui</td>
+                                <td class="text-center">
+                                    <a class="btn btn-info font-weight-bold" th:href="@{/mahasiswa/} + ${mahasiswa.npm} + '/' + ${irs.idIRS}">Detail</a>
+                                    <a class="btn btn-warning text-white font-weight-bold" th:href = "@{/mahasiswa/} + ${mahasiswa.npm} + '/' + ${irs.idIRS} + @{/update}">Edit</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>     
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

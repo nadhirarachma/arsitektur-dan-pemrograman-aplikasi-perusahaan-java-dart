@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>i-RIS</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar('Mata Kuliah')"></nav>
+        <div class="container">
+            <br>
+            <h2 class="text-center font-weight-bold mt-5">Tambah Mata Kuliah Baru</h2>
+            <br>
+            <div class="card mx-auto shadow p-3 mb-5 bg-white rounded" style="max-width: 40rem;">
+                <div class="card-body">
+                    <div class="justify-content-center align-self-center">
+                        <form th:action="@{/mata-kuliah/create-matakuliah}" th:object="${mataKuliah}" method="POST">
+                            <a class="font-weight-bold text-dark">Nama Mata Kuliah</a>
+                            <input class="form-control" type="text" placeholder="Nama mata kuliah..." th:field="*{namaMatkul}"/>
+                            <br>
+                            <div class = "form-row">
+                                <div class="col">
+                                    <a class="font-weight-bold text-dark">Hari</a>
+                                    <input class="form-control" type="text" placeholder="Hari kelas mata kuliah..." th:field="*{hari}"/>
+                                </div>
+                                <div class="col">
+                                    <a class="font-weight-bold text-dark">SKS</a>
+                                    <input class="form-control" type="number" min="1" th:field="*{sks}"/>
+                                </div>
+                            </div>
+                            <br>
+                            <div class = "form-row">
+                                <div class="col">
+                                    <a class="font-weight-bold text-dark">Waktu Mulai</a>
+                                    <input class="form-control" type="time" th:field="*{waktuMulai}"/>
+                                </div>
+                                <div class="col">
+                                    <a class="font-weight-bold text-dark">Kapasitas</a>
+                                    <input class="form-control" type="number" th:field="*{kapasitasKelas}"/>
+                                </div>
+                            </div>
+                            <br>
+                            <div class = "form-row">
+                                <div class="col">
+                                    <a class="font-weight-bold text-dark">Semester</a> <br>
+                                    <select name="semester" class="form-control">
+                                        <option value="Ganjil">Ganjil</option>
+                                        <option value="Genap">Genap</option>
+                                    </select>
+                                </div>
+                                <div class="col"></div>
+                            </div>
+                            <br><br>
+                            <table class="table">
+                                <thead>
+                                    <th>Pengajar</th>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="dosenMatkul, iterationStatus : *{dosenMataKuliah}">
+                                        <td>
+                                            <select name="nip" th:field="*{dosenMataKuliah[__${iterationStatus.index}__].dosen.nip}"
+                                                class="form-control">
+                                                <div th:each="pengajar, iterationStatus2 : ${listPengajarExisting}">
+                                                    <option th:value="${pengajar.nip}" th:text="${pengajar.namaDepan} + ' ' + ${pengajar.namaBelakang}"></option>
+                                                </div>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <input name="ruangKelas" th:field="*{dosenMataKuliah[__${iterationStatus.index}__].ruangKelas}"
+                                                placeholder="Ex: A.310" class="form-control" />
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button th:value="${iterationStatus.index}" class="btn btn-danger font-weight-bold" type="submit"
+                                                    name="deleteRowPengajar">Delete</button>
+                                        </td>
+                                    </tr>
+                                    <th>
+                                        <button class="btn btn-warning font-weight-bold" type="submit" name="addRowPengajar">Tambah Pengajar</button>
+                                    </th>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <a class="btn btn-outline-dark text-center font-weight-bold" href="/mata-kuliah">Kembali</a>
+                                <button class="btn btn-info text-center font-weight-bold" type="submit" name="save">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

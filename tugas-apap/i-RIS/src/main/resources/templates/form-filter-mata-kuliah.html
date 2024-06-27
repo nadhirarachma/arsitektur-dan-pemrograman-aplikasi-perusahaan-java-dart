@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>i-RIS</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar('Filter')"></nav>
+        <div class="container">
+            <br>
+            <h2 class="text-center font-weight-bold mt-5">Filter Mata Kuliah</h2>
+            <br>
+            <div class="justify-content-center align-self-center">
+                <form th:action="@{/filter/mata-kuliah?dosen=} + ${dosen} + '&semester=' + ${semester}" th:object="${mataKuliah}" method="GET">
+                    <div class="col">
+                        <a class="font-weight-bold text-dark">Nama Dosen</a>
+                        <select name="nip" class="form-control">
+                            <div th:each="pengajar, iterationStatus : ${dosenMataKuliah}">
+                                <option th:value="${pengajar.nip}" th:text="${pengajar.namaDepan} + ' ' + ${pengajar.namaBelakang}"></option>
+                            </div>
+                        </select>
+                    </div>
+                    <br>
+                    <div class="col">
+                        <a class="font-weight-bold text-dark">Semester</a>
+                        <input class="form-control" type="text" name="semester" th:field="*{semester}"/>
+                    </div>
+                    <br><br>
+
+                    <div class="text-center">
+                        <button class="btn btn-info text-center font-weight-bold" type="submit" name="save">Search</button>
+                        <a class="btn btn-outline-dark text-center font-weight-bold" href="/">Kembali</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

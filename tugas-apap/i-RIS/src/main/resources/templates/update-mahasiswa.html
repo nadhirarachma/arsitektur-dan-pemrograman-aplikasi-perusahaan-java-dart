@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>i-RIS</title>
+        <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+        <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+    </head>
+    <body>
+        <nav th:replace="fragments/fragment :: navbar('Mahasiswa')"></nav>
+        <div class="container">
+            <div class="justify-content-center mt-5">
+                <div class="d-inline h2 text-dark">Data Mahasiswa dengan NPM</div>
+                <div class="d-inline h2 font-weight-bold text-info" th:text="${npm}"></div>
+                <div class="d-inline h2 text-dark">telah berhasil diubah.</div>
+                <br>
+                <div class="text-center mt-5">
+                    <a class="btn btn-outline-dark text-center font-weight-bold" href="/mahasiswa">Kembali</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
