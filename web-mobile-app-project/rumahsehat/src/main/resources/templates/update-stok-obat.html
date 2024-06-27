@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Success Update Stok Obat</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body style="background: #eff8fd">
+<nav th:replace="fragments/fragment :: navbar ('Obat')"></nav>
+<div class="container">
+  <div class="card m-4 p-4">
+    <div class="card-body">
+      <div class="justify-content-center">
+        <h2 th:text="'Obat ' + ${nama} + ' berhasil di-update.'"></h2>
+        <br>
+        <a class="btn btn-primary" href="/">Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<footer th:replace="fragments/fragment :: footer"></footer>
+
+</html>

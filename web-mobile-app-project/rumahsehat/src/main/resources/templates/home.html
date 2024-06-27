@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<style>
+.container23 {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+<!--  background-color: black;-->
+  color: white;
+  padding-left: 20px;
+  opacity: 90%;
+  padding-right: 20px;
+  border-radius: 25px;
+}
+
+
+</style>
+<nav th:replace="fragments/fragment :: navbar ('Home')"></nav>
+<div>
+    <div class="container23">
+        <img src="https://s3.cosmopolitan.co.id/images/CSMWJvQl3_Terungkap!_Ini_Dia_Rumah_Sakit_Tempat_Syuting_'Hospital_Playlist'!_2.jpg"
+             alt="Snow" style="width: 100%;height: 100%;">
+        <div class="centered">
+            <h1 class="main-heading">
+                Welcome to <span>Rumah Sehat.</span>
+                <br/>
+                Menjadi sehat bersama kami.
+            </h1>
+            <p class="info-text">
+                Make appointment, get prescription, and buy medicine easier.
+            </p>
+            <br>
+            <div class="row d-flex justify-content-center">
+                <a class="mx-2 btn btn-outline-light" th:href="@{/chart}"
+                   th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}"
+                   style="background:#81cdf3;border-radius: 20px;padding-inline:10%; width: 270px;height:40px;">Chart</a>
+                <br>
+                <br>
+                <a class="mx-2 btn btn-outline-light" th:href="@{/dokter/viewall}"
+                   th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}"
+                   style="background:#81cdf3;border-radius: 20px;padding-inline:10%; width: 270px;height:40px;">Daftar Dokter</a>
+                <a class="mx-2 btn btn-outline-light" th:href="@{/apoteker/viewall}"
+                   th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}"
+                   style="background:#81cdf3;border-radius: 20px;padding-inline:10%; width: 270px;height:40px;">Daftar Apoteker</a>
+                <br>
+                <br>
+                <a class="mx-2 btn btn-outline-light" th:href="@{/pasien/viewall}"
+                   th:if="${#authorization.expression('hasAnyAuthority(''Admin'')')}"
+                   style="background:#81cdf3;border-radius: 20px;padding-inline:10%; width: 270px;height:40px;">Daftar Pasien</a>
+                <a class="mx-2 btn btn-outline-light" th:href="@{/obat}"
+                   th:if="${#authorization.expression('hasAnyAuthority(''Apoteker'',''Admin'')')}"
+                   style="background:#81cdf3;border-radius: 20px;padding-inline:10%; width: 270px;height:40px;">Daftar Obat</a>
+                <br>
+                <br>
+                <a class="mx-2 btn btn-outline-light" th:href="@{/resep}"
+                   th:if="${#authorization.expression('hasAnyAuthority(''Apoteker'',''Admin'')')}"
+                   style="background:#81cdf3;border-radius: 20px;padding-inline:10%; width: 270px;height:40px;">Daftar Resep</a>
+                <a class="mx-2 btn btn-outline-light" th:href="@{/appointment}"
+                   th:if="${#authorization.expression('hasAnyAuthority(''Dokter'',''Admin'')')}"
+                   style="background:#81cdf3;border-radius: 20px;padding-inline:10%; width: 270px; height:40px;">Jadwal Appointment</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<footer th:replace="fragments/fragment :: footer"></footer>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+	<head>
+		<title>Rumah Sehat | Detail Resep</title>
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+			crossorigin="anonymous"
+		/>
+		<object th:include="fragments/fragment :: css" th:remove="tag"></object>
+		<object th:include="fragments/fragment :: js" th:remove="tag"></object>
+	</head>
+	<body>
+		<nav th:replace="fragments/fragment :: navbar('Mahasiswa')"></nav>
+		<div class="container">
+			<div class="card m-4 p-4">
+				<div class="card-body">
+					<div class="justify-content-center">
+						<a href="/resep">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								class="bi bi-arrow-left"
+								viewBox="0 0 16 16"
+							>
+								<path
+									fill-rule="evenodd"
+									d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+								/>
+							</svg>
+							Daftar Resep
+						</a>
+
+						<h2 style="text-align:center">Detail Resep</h2>
+						<br />
+
+						<div class="shadow-lg p-3 mb-5 bg-white rounded-3" style="margin-top: 30px; background-color:rgb(161, 204, 189); padding-top:30px;padding-bottom:50px; height: auto;
+                        border-radius: 50%; text-align: justify;"
+                        >
+							<div class="row row-cols-2">
+								<div class="col">
+									<b>ID</b>
+									<p th:text="${resep.id}"></p>
+								</div>
+								<div class="col">
+									<b>Dokter</b>
+									<p th:text="${namaDokter}"></p>
+								</div>
+								<div class="col">
+									<b>Pasien</b>
+									<p th:text="${namaPasien}"></p>
+								</div>
+								<div class="col">
+									<b>Total Obat</b>
+									<p th:text="${resep.jumlah.size()}"></p>
+								</div>
+								<div class="col">
+									<b>Apoteker</b>
+									<p th:text="${namaApoteker}"></p>
+								</div>
+								<div class="col">
+									<b>Status</b>
+                                    <p>
+                                    <td th:if="${resep.isDone == false}" th:text="'Belum Dikonfirmasi'"></td>
+                                    <td th:if="${resep.isDone == true}" th:text="'Terkonfirmasi'"></td>
+                                    </p>
+								</div>
+							</div>
+						</div>
+
+						<br />
+
+						<div class="d-flex justify-content-between mb-4">
+							<h4>Daftar Obat</h4>
+						</div>
+
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">No</th>
+									<th scope="col">Nama Obat</th>
+									<th scope="col">Jumlah</th>
+						
+								</tr>
+							</thead>
+							<tbody th:each="resepobat, iterationStatus : ${resep.jumlah}">
+								<tr>
+									<th scope="row" th:text="${iterationStatus.count}"></th>
+									<td th:text="${resep.jumlah[__${iterationStatus.index}__].obat.namaObat}"></td>
+									<td th:text="${resep.jumlah[__${iterationStatus.index}__].kuantitas}"></td>
+		
+								</tr>
+							</tbody>
+						</table>
+						<div>
+							<a th:href="@{/}" class="btn btn-primary">Beranda</a>
+							<a th:href="@{/resep}" class="btn btn-outline-primary" sec:authorize="hasAnyAuthority('Admin','Apoteker')">Daftar Resep</a>
+							<a th:if="${resep.isDone == false}" th:href="@{/resep/konfirmasi/} +  ${resep.id}" class="btn btn-outline-warning" sec:authorize="hasAnyAuthority('Admin','Apoteker')">Konfirmasi Resep</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<footer th:replace="fragments/fragment :: footer"></footer>
+
+</html>

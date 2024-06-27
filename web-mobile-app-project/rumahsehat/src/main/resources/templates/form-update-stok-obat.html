@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Update Stok Obat</title>
+  <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+  <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+
+<body style="background: #eff8fd">
+<nav th:replace="fragments/fragment :: navbar ('Obat')"></nav>
+<br>
+<h2 class="text-center">Update Stok Obat</h2>
+<div class="container">
+  <div class="card m-4 p-4">
+    <div class="card-body">
+      <div class="justify-content-center">
+        <br>
+        <form th:action="@{/obat/} + ${idObat} + @{/update_stok}" th:object="${obat}" method="POST">
+          <input type="hidden" th:field="*{idObat}" />
+          <input type="hidden" th:field="*{namaObat}" />
+          <input type="hidden" th:field="*{harga}" />
+
+
+          <div class="container">
+            <div class="row">
+              <div class="col">
+                Stok Obat : <br>
+                <input class="form-control" type="text" name="stok" th:value="*{stok}"/>
+                <br><br>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <div class="d-flex justify-content-center">
+              <a class="mx-2 btn btn-outline-secondary" th:href="@{/obat}" style="height: 50px; border-radius: 10px;">Kembali</a>
+              <button class="mx-2 btn" type="submit" name="save" style="color: white;background:#488a99; height: 50px; border-radius: 10px;">Simpan</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+<footer th:replace="fragments/fragment :: footer"></footer>
+
+</html>
